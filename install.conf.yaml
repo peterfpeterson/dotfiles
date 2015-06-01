@@ -1,0 +1,6 @@
+- clean: ['~', '~/.config']
+
+- link:
+    ~/bin/git-wtf:
+      path: bin/git-wtf
+      create: true
