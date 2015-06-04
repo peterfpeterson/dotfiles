@@ -4,3 +4,4 @@
     ~/bin/git-wtf:
       path: bin/git-wtf
       create: true
+    ~/.dir_colors: dircolors-solarized/dircolors.ansi-universal
