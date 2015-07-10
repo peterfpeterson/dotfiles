@@ -4,5 +4,6 @@
     ~/bin/git-wtf:
       path: bin/git-wtf
       create: true
+    ~/bin/blink2-tool: blink1-toys/blink2-tool
     ~/.dir_colors: dircolors-solarized/dircolors.ansi-universal
     ~/.rpmmacros: rpmmacros
