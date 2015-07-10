@@ -10,3 +10,6 @@
 [submodule "blink1-toys"]
 	path = blink1-toys
 	url = git@github.com:peterfpeterson/blink1-toys.git
+[submodule "purge"]
+	path = purge
+	url = git@github.com:peterfpeterson/purge.git
