@@ -7,3 +7,6 @@
 [submodule "dircolors-solarized"]
 	path = dircolors-solarized
 	url = https://github.com/seebi/dircolors-solarized.git
+[submodule "blink1-toys"]
+	path = blink1-toys
+	url = git@github.com:peterfpeterson/blink1-toys.git
