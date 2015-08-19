@@ -5,6 +5,7 @@
       path: bin/git-wtf
       create: true
     ~/bin/blink2-tool: blink1-toys/blink2-tool
+    ~/bin/fixwhitespace: 39b4abe7706cfe83f735/fixwhitespace
     ~/bin/sns_beam: blink1-toys/sns_beam
     ~/bin/todo.sh: todo.txt-cli/todo.sh
     ~/bin/purge: purge/purge

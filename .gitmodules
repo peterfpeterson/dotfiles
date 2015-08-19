@@ -16,3 +16,6 @@
 [submodule "todo.txt-cli"]
 	path = todo.txt-cli
 	url = https://github.com/ginatrapani/todo.txt-cli.git
+[submodule "39b4abe7706cfe83f735"]
+	path = 39b4abe7706cfe83f735
+	url = https://gist.github.com/39b4abe7706cfe83f735.git
