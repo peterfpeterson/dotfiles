@@ -12,5 +12,8 @@
     ~/.bash_completion.d/todo_completion:
       path: todo.txt-cli/todo_completion
       create: true
+    ~/.todo.actions.d:
+      path: todo.actions.d
+      create: true
     ~/.dir_colors: dircolors-solarized/dircolors.ansi-universal
     ~/.rpmmacros: rpmmacros

@@ -19,3 +19,6 @@
 [submodule "39b4abe7706cfe83f735"]
 	path = 39b4abe7706cfe83f735
 	url = https://gist.github.com/39b4abe7706cfe83f735.git
+[submodule "todo.actions.d"]
+	path = todo.actions.d
+	url = https://github.com/peterfpeterson/todo.actions.d.git
