@@ -13,3 +13,6 @@
 [submodule "purge"]
 	path = purge
 	url = git@github.com:peterfpeterson/purge.git
+[submodule "todo.txt-cli"]
+	path = todo.txt-cli
+	url = https://github.com/ginatrapani/todo.txt-cli.git
