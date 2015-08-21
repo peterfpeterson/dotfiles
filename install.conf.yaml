@@ -1,19 +1,26 @@
-- clean: ['~', '~/.config']
+- clean: ['~', '~/.config', '~/.bash_completion.d', '~/.todo.actions.d']
+
+- shell:
+    - [mkdir -p ~/bin]
+    - [mkdir -p ~/.bash_completion.d]
+    - [mkdir -p ~/.todo.actions.d]
 
 - link:
-    ~/bin/git-wtf:
-      path: bin/git-wtf
-      create: true
+    ~/bin/git-wtf: bin/git-wtf
     ~/bin/blink2-tool: blink1-toys/blink2-tool
     ~/bin/fixwhitespace: 39b4abe7706cfe83f735/fixwhitespace
     ~/bin/sns_beam: blink1-toys/sns_beam
-    ~/bin/todo.sh: todo.txt-cli/todo.sh
     ~/bin/purge: purge/purge
-    ~/.bash_completion.d/todo_completion:
-      path: todo.txt-cli/todo_completion
-      create: true
-    ~/.todo.actions.d:
-      path: todo.actions.d
-      create: true
     ~/.dir_colors: dircolors-solarized/dircolors.ansi-universal
     ~/.rpmmacros: rpmmacros
+
+- link:
+    ~/bin/todo.sh: todo.txt-cli/todo.sh
+    ~/.bash_completion.d/todo_completion: todo.txt-cli/todo_completion
+    ~/.todo.actions.d/again: todo.actions.d/again
+    ~/.todo.actions.d/edit: todo.actions.d/edit
+    ~/.todo.actions.d/futureTasks: todo.actions.d/futureTasks
+    ~/.todo.actions.d/pri: todo.actions.d/pri
+    ~/.todo.actions.d/repeat: todo.actions.d/repeat
+    ~/.todo.actions.d/repeat.py: todo.actions.d/repeat.py
+    ~/.todo.actions.d/sortCommand: todo.actions.d/sortCommand
