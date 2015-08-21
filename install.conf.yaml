@@ -17,7 +17,7 @@
 - link:
     ~/bin/todo.sh: todo.txt-cli/todo.sh
     ~/.bash_completion.d/todo_completion: todo.txt-cli/todo_completion
-    ~/.todo.actions.d/again: todo.actions.d/again
+    ~/.todo.actions.d/again: todo.actions.d/todo.txt-cli-again-addon/again
     ~/.todo.actions.d/edit: todo.actions.d/edit
     ~/.todo.actions.d/futureTasks: todo.actions.d/futureTasks
     ~/.todo.actions.d/pri: todo.actions.d/pri
