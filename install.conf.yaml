@@ -13,6 +13,7 @@
     ~/bin/purge: purge/purge
     ~/.dir_colors: dircolors-solarized/dircolors.ansi-universal
     ~/.rpmmacros: rpmmacros
+    ~/.topydo: topydo.conf
 
 - link:
     ~/bin/todo.sh: todo.txt-cli/todo.sh
