@@ -9,10 +9,10 @@
 	url = https://github.com/seebi/dircolors-solarized.git
 [submodule "blink1-toys"]
 	path = blink1-toys
-	url = git@github.com:peterfpeterson/blink1-toys.git
+	url = https://github.com/peterfpeterson/blink1-toys.git
 [submodule "purge"]
 	path = purge
-	url = git@github.com:peterfpeterson/purge.git
+	url = https://github.com/peterfpeterson/purge.git
 [submodule "todo.txt-cli"]
 	path = todo.txt-cli
 	url = https://github.com/ginatrapani/todo.txt-cli.git
