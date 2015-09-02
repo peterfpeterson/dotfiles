@@ -1,0 +1,116 @@
+# .bashrc
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+	. /etc/bashrc
+fi
+
+# Git prompt stuff
+if [ -f ${HOME}/.gitprompt/gitprompt.sh ]; then
+  . ${HOME}/.gitprompt/gitprompt.sh
+fi
+
+# https://github.com/github/hub/
+if [ $(command -v hub) ]; then
+  eval "$(hub alias -s)"
+fi
+
+# https://github.com/defunkt/gist
+if [ $(command -v gist) ]; then
+  alias gist="gist -c"
+fi
+
+# Custom bash completion
+if [ -d ${HOME}/.bash_completion.d ]; then
+    for f in ${HOME}/.bash_completion.d/*
+    do
+	. $f
+    done
+fi
+if [ -f /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash ]; then
+    . /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash /Applications/Xcode.app/Contents/Developer/usr/share/git-core/git-completion.bash
+elif [ -f /Applications/Xcode.app/Contents/Developer/usr/share/git-core/git-completion.bash ]; then
+    . /Applications/Xcode.app/Contents/Developer/usr/share/git-core/git-completion.bash
+fi
+
+# things for homebrew
+if [ $(command -v brew) ]; then
+  if [ -f $(brew --prefix)/etc/bash_completion ]; then
+    . $(brew --prefix)/etc/bash_completion
+  fi
+fi
+
+# things for rhc
+if [ $(command -v rhc) ]; then
+  if [ -f /usr/local/share/gems/gems/rhc-1.31.5/autocomplete/rhc_bash ]; then
+    . /usr/local/share/gems/gems/rhc-1.31.5/autocomplete/rhc_bash
+  fi
+fi
+
+
+alias grep="grep --color=auto"
+
+# Setup for tcmalloc
+if [ -e /usr/lib64/libtcmalloc.so ]; then
+#  export LD_PRELOAD=`readlink -f /usr/lib64/libtcmalloc.so`
+  export TCMALLOC_RELEASE_RATE="10000"
+fi
+
+# do this in the ~/.ipython/ipythonrc file
+#alias ipython="ipython --colors LightBG"
+
+if [ -n "$SSH_CONNECTION" ]; then
+  unset SSH_ASKPASS
+fi
+
+# Simple calculator - from https://github.com/mathiasbynens/dotfiles/blob/master/.functions
+function calc() {
+local result=""
+result="$(printf "scale=10;$*\n" | bc --mathlib | tr -d '\\\n')"
+# └─ default (when `--mathlib` is used) is 20
+#
+if [[ "$result" == *.* ]]; then
+# improve the output for decimal numbers
+printf "$result" |
+sed -e 's/^\./0./' `# add "0" for cases like ".5"` \
+-e 's/^-\./-0./' `# add "0" for cases like "-.5"`\
+-e 's/0*$//;s/\.$//' # remove trailing zeros
+else
+printf "$result"
+fi
+printf "\n"
+}
+
+if [ -f /System/Library/Frameworks/JavaScriptCore.framework/Versions/A/Resources/jsc ]; then
+  alias jsc="/System/Library/Frameworks/JavaScriptCore.framework/Versions/A/Resources/jsc"
+fi
+
+if [ $(command -v ninja-build) ]; then
+  alias ninja=ninja-build
+fi
+
+PATH=$HOME/bin:/usr/local/bin:$PATH
+
+# todo.txt
+if [ $(command -v todo.sh) ]; then
+#  alias todo="todo.sh -d ${HOME}/Dropbox/todo/todo.cfg -n"
+  export TODOTXT_DEFAULT_ACTION=ls
+fi
+
+if [ -d ${HOME}/.rvm ]; then
+  # automatically switch to ruby 2.1.1
+  source $(${HOME}/.rvm/bin/rvm 2.1.1 do rvm env --path)
+  # Load RVM into a shell session *as a function*
+  if [ -s ${HOME}/.rvm/scripts/rvm ]; then
+    . ${HOME}/.rvm/scripts/rvm
+  fi
+  # add RVM bash completion
+  if [ -f $HOME/.rvm/scripts/completion ]; then
+    . $HOME/.rvm/scripts/completion
+  fi
+fi
+
+# gem install bundler_bash_completion
+if [ $(command -v complete_bundle_bash_command) ]; then
+  eval `complete_bundle_bash_command init`
+fi
