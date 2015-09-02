@@ -18,6 +18,7 @@
     ~/bin/purge: purge/purge
     ~/.conkyrc: conkyrc
     ~/.dir_colors: dircolors-solarized/dircolors.ansi-universal
+    ~/.emacs: emacs
     ~/.gitprompt: bash-git-prompt
     ~/.git-prompt-colors.sh: git-prompt-colors.sh
     ~/.rpmmacros: rpmmacros
