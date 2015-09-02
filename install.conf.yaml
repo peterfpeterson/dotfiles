@@ -13,9 +13,16 @@
     ~/.bashrc: bashrc
     ~/bin/git-wtf: bin/git-wtf
     ~/bin/blink2-tool: blink1-toys/blink2-tool
+    ~/bin/dropbox: bin/dropbox.py
     ~/bin/fixwhitespace: 39b4abe7706cfe83f735/fixwhitespace
-    ~/bin/sns_beam: blink1-toys/sns_beam
+    ~/bin/git-clang-format: bin/git-clang-format
+    ~/bin/iwyu_tool.py: bin/iwyu_tool.py
+    ~/bin/jenkins_mantid_to_blink1.sh: bin/jenkins_mantid_to_blink1.sh
+    ~/bin/load-to-blink1.sh: bin/load-to-blink1.sh
     ~/bin/purge: purge/purge
+    ~/bin/sns_beam: blink1-toys/sns_beam
+    ~/bin/stats: bin/stats
+    ~/bin/travisci-to-blink1.sh: bin/travisci-to-blink1.sh
     ~/.conkyrc: conkyrc
     ~/.dir_colors: dircolors-solarized/dircolors.ansi-universal
     ~/.emacs: emacs
