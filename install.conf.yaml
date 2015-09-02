@@ -4,6 +4,7 @@
     - [mkdir -p ~/bin]
     - [mkdir -p ~/.bash_completion.d]
     - [mkdir -p ~/.todo.actions.d]
+    - [mkdir -p ~/.todo]
 
 - link:
     ~/bin/git-wtf: bin/git-wtf
@@ -14,6 +15,7 @@
     ~/.dir_colors: dircolors-solarized/dircolors.ansi-universal
     ~/.rpmmacros: rpmmacros
     ~/.topydo: topydo.conf
+    ~/.todo/config: todo.config
 
 - link:
     ~/bin/todo.sh: todo.txt-cli/todo.sh
