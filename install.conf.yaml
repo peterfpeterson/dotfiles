@@ -14,6 +14,7 @@
     ~/bin/fixwhitespace: 39b4abe7706cfe83f735/fixwhitespace
     ~/bin/sns_beam: blink1-toys/sns_beam
     ~/bin/purge: purge/purge
+    ~/.conkyrc: conkyrc
     ~/.dir_colors: dircolors-solarized/dircolors.ansi-universal
     ~/.rpmmacros: rpmmacros
     ~/.topydo: topydo.conf
