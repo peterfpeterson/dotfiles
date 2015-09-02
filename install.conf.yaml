@@ -5,6 +5,8 @@
     - [mkdir -p ~/.bash_completion.d]
     - [mkdir -p ~/.todo.actions.d]
     - [mkdir -p ~/.todo]
+    - [mkdir -p ~/.mantid]
+    - [cp Mantid.user.properties ~/.mantid/Mantid.user.properties]
 
 - link:
     ~/.bash_profile: bash_profile
