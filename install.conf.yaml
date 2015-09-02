@@ -1,4 +1,4 @@
-- clean: ['~', '~/.config', '~/.bash_completion.d', '~/.todo.actions.d']
+- clean: ['~', '~/.config', '~/.bash_completion.d', '~/.todo.actions.d', '~/.todo']
 
 - shell:
     - [mkdir -p ~/bin]
@@ -16,6 +16,8 @@
     ~/bin/purge: purge/purge
     ~/.conkyrc: conkyrc
     ~/.dir_colors: dircolors-solarized/dircolors.ansi-universal
+    ~/.gitprompt: bash-git-prompt
+    ~/.git-prompt-colors.sh: git-prompt-colors.sh
     ~/.rpmmacros: rpmmacros
     ~/.topydo: topydo.conf
     ~/.todo/config: todo.config

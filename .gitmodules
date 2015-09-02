@@ -22,3 +22,6 @@
 [submodule "todo.actions.d"]
 	path = todo.actions.d
 	url = https://github.com/peterfpeterson/todo.actions.d.git
+[submodule "bash-git-prompt"]
+	path = bash-git-prompt
+	url = https://github.com/magicmonty/bash-git-prompt.git
