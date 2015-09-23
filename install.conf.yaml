@@ -19,6 +19,8 @@
     ~/bin/iwyu_tool.py: bin/iwyu_tool.py
     ~/bin/jenkins_mantid_to_blink1.sh: bin/jenkins_mantid_to_blink1.sh
     ~/bin/load-to-blink1.sh: bin/load-to-blink1.sh
+    ~/bin/mantidpythonfromconfig: mantid-tools/mantidpythonfromconfig
+    ~/bin/mantidpythonfromtemplate: mantid-tools/mantidpythonfromtemplate
     ~/bin/purge: purge/purge
     ~/bin/sns_beam: blink1-toys/sns_beam
     ~/bin/stats: bin/stats
