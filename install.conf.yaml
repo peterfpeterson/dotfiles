@@ -17,7 +17,7 @@
     ~/bin/fixwhitespace: 39b4abe7706cfe83f735/fixwhitespace
     ~/bin/git-clang-format: bin/git-clang-format
     ~/bin/iwyu_tool.py: bin/iwyu_tool.py
-    ~/bin/jenkins_mantid_to_blink1.sh: bin/jenkins_mantid_to_blink1.sh
+    ~/bin/jenkins_mantid_to_blink1.sh: blink1-toys/jenkins_mantid_to_blink1.sh
     ~/bin/load-to-blink1.sh: bin/load-to-blink1.sh
     ~/bin/mantidpythonfromconfig: mantid-tools/mantidpythonfromconfig
     ~/bin/mantidpythonfromtemplate: mantid-tools/mantidpythonfromtemplate
