@@ -1,0 +1,24 @@
+# This script taken from https://forums.dropbox.com/topic.php?id=9644
+_dropbox()
+{
+  local cur prev opts
+  COMPREPLY=()
+  cur="${COMP_WORDS[COMP_CWORD]}"
+  prev="${COMP_WORDS[COMP_CWORD-1]}"
+  opts="status help puburl stop running start filestatus ls autostart exclude lansync"
+
+  case "$prev" in
+    puburl|filestatus|ls)
+      _filedir
+      ;;
+    ${COMP_WORDS[0]})
+      COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
+      ;;
+    *)
+      COMPREPLY=()
+      ;;
+  esac
+
+  return 0
+}
+complete -o filenames -F _dropbox dropbox.py
