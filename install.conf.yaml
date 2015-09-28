@@ -33,6 +33,7 @@
     ~/.rpmmacros: rpmmacros
     ~/.topydo: topydo.conf
     ~/.todo/config: todo.config
+    ~/.vimrc: vimrc
 
 - link:
     ~/bin/todo.sh: todo.txt-cli/todo.sh
