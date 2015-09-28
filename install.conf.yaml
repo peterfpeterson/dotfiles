@@ -28,6 +28,7 @@
     ~/.conkyrc: conkyrc
     ~/.dir_colors: dircolors-solarized/dircolors.ansi-universal
     ~/.emacs: emacs
+    ~/.gitexcludes: gitexcludes
     ~/.gitprompt: bash-git-prompt
     ~/.git-prompt-colors.sh: git-prompt-colors.sh
     ~/.rpmmacros: rpmmacros

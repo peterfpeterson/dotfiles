@@ -1,0 +1,14 @@
+*~
+*.bak
+*.o
+*.py[cod]
+cmake_install.cmake
+CMakeCache.txt
+CMakeFiles
+CMakeLists.txt.user
+CPackConfig.cmake
+CPackSourceConfig.cmake
+.DS_Store
+DS_Store
+Makefile
+build
