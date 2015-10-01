@@ -71,7 +71,7 @@ do
       case "$ITEM" in
           google-chrome)
               echo "Get the google-chrome rpm from https://www.google.com/chrome/browser/desktop/index.html"
-              exit
+              exit 1
               ;;
 
 	epel)
