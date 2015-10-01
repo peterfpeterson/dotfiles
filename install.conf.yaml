@@ -30,6 +30,7 @@
     ~/.conkyrc: conkyrc
     ~/.dir_colors: dircolors-solarized/dircolors.ansi-universal
     ~/.emacs: emacs
+    ~/.gitconfig: gitconfig
     ~/.gitexcludes: gitexcludes
     ~/.gitprompt: bash-git-prompt
     ~/.git-prompt-colors.sh: git-prompt-colors.sh
