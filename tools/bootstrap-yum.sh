@@ -1,59 +1,106 @@
 #!/bin/bash
 
+REPO_DIR="/etc/yum.repos.d/"
+if [ ! -d $REPO_DIR ]; then
+    echo "yum/dnf are not detected"
+    exit
+fi
+
+# find the command for installing
+DNF=`which yum`
+if [ $(command -v dnf) ]; then
+    DNF=`which dnf`
+fi
+echo "Installing using '${DNF}'"
+
+# determine what the operating system is
+RELEASE=""
+if [ -f /etc/redhat-release ]; then
+    RELEASE=`cat /etc/redhat-release`
+elif [ $(command -v lsb_release) ]; then
+    RELEASE=`lsb_release -d`
+else
+    echo "Failed to determine release description"
+    exit 1
+fi
+
 # default list of repositories to install
 REPOS=""
 
 # repositories depend on os
-if [ $(command -v lsb_release) ]; then
-  LINUX_CODENAME=$(lsb_release -c | sed 's/[ \t]*Codename:[ \t]*//')
-  case "$LINUX_CODENAME" in
-    Santiago)
-      REPOS="epel rpmfusion virtualbox"
-      ;;
-    *)
-      echo "Do not know codename\"$LINUX_CODENAME\""
-      exit 1
-  esac
+if [[ $RELEASE == *Fedora* ]]; then
+    echo "Found fedora"
+    REPOS="rpmfusion-free rpmfusion-nonfree fedora-nvidia google-chrome"
+elif [[ $RELEASE == *"Red Hat Enterprise Linux"* ]]; then
+    echo "Assuming RHEL"
+    REPOS="epel rpmfusion"
 else
-  echo "Must have lsb_release to run this script"
-  exit
+    echo "Do not know codename '$RELEASE'"
+    exit 1
 fi
 
-# do the right thing for rpms
-if [ $(command -v yum) ]; then
-  REPO_DIR="/etc/yum.repos.d/"
+function installUrl
+{
+    URL=${1}
+    echo "sudo ${DNF} install --nogpgcheck ${URL}"
+    sudo ${DNF} install --nogpgcheck ${URL}
+}
 
-  for ITEM in $REPOS
-  do
+function addRepo
+{
+    URL=${1}
+    if [[ $DNF == *dnf ]]; then
+        CMD="${DNF} config-manager"
+    elif [[ $DNF == *yum ]]; then
+        CMD="yum-config-manager"
+    else
+        echo "Something went wrong"
+        exit 1
+    fi
+    echo "sudo ${CMD} --add-repo=${URL}"
+    sudo ${CMD} --add-repo=${URL}
+}
+
+FEDORA=`rpm -E %fedora`
+# do the right thing for rpms
+echo "Setting up repositories: $REPOS"
+for ITEM in $REPOS
+do
     if [ ! -f "$REPO_DIR/$ITEM.repo" ]; then
       FILE=""
       case "$ITEM" in
+          google-chrome)
+              echo "Get the google-chrome rpm from https://www.google.com/chrome/browser/desktop/index.html"
+              exit
+              ;;
+
 	epel)
           echo "$ITEM is not installed"
-	  FILE=http://download.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
-          sudo yum localinstall --nogpgcheck $FILE
+	  FILE=http://download.fedoraproject.org/pub/epel/$(rpm -E %rhel)/x86_64/epel-release-$(rpm -E %rhel)-8.noarch.rpm
+          installUrl $FILE
 	  ;;
-	virtualbox)
-          echo "$ITEM is not installed"
-	  FILE=virtualbox.repo
-	  wget http://download.virtualbox.org/virtualbox/rpm/el/$FILE
-	  sudo cp $FILE $REPO_DIR
-	  ;;
-	rpmfusion)
-	  if [ ! -f "$REPO_DIR/rpmfusion-free-updates.repo" ]; then
-            echo "$ITEM-free is not installed"
-            FILE=http://download1.rpmfusion.org/free/el/updates/6/x86_64/rpmfusion-free-release-6-1.noarch.rpm
-            sudo yum localinstall --nogpgcheck $FILE
-	  fi
-	  if [ ! -f "$REPO_DIR/rpmfusion-nonfree-updates.repo" ]; then
-            echo "$ITEM-nonfree is not installed"
-            FILE=http://download1.rpmfusion.org/nonfree/el/updates/6/x86_64/rpmfusion-nonfree-release-6-1.noarch.rpm
-            sudo yum localinstall --nogpgcheck $FILE
-	  fi
+
+        rpmfusion-free)
+            installUrl http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+            ;;
+
+        rpmfusion-nonfree)
+            installUrl http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+            ;;
+
+        fedora-nvidia)
+            if [ ! $(rpm -E %fedora) == "%fedora" ]; then
+                addRepo http://negativo17.org/repos/fedora-nvidia.repo
+            elif [ ! $(rpm -E %rhel) == "%rhel" ]; then
+                addRepo http://negativo17.org/repos/epel-nvidia.repo
+            else
+                echo "Do not have url for fedora-nvidia"
+                exit 1
+            fi
+            ;;
+        *)
+            echo "Do not no how to install '$ITEM.repo'"
+            exit
       esac
     fi
-  done
-else
-  echo "don't have yumm"
-  exit 1
-fi
+done
