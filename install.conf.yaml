@@ -6,6 +6,8 @@
     - [mkdir -p ~/.todo.actions.d]
     - [mkdir -p ~/.todo]
     - [mkdir -p ~/.mantid]
+    - [cp 39b4abe7706cfe83f735/fixwhitespace ~/bin]
+    - [chmod 755 ~/bin/fixwhitespace]
     - [cp Mantid.user.properties ~/.mantid/Mantid.user.properties]
     - [tools/bootstrap-rpm.sh]
 
@@ -15,7 +17,6 @@
     ~/bin/git-wtf: bin/git-wtf
     ~/bin/blink2-tool: blink1-toys/blink2-tool
     ~/bin/dropbox: bin/dropbox.py
-    ~/bin/fixwhitespace: 39b4abe7706cfe83f735/fixwhitespace
     ~/bin/git-clang-format: bin/git-clang-format
     ~/bin/iwyu_tool.py: bin/iwyu_tool.py
     ~/bin/jenkins_mantid_to_blink1.sh: blink1-toys/jenkins_mantid_to_blink1.sh
