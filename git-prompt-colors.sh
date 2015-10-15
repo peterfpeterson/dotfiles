@@ -30,7 +30,7 @@ fi
 ######################################################################
 # customization for git-prompt
 ######################################################################
-# These are the defaults from the "Default" theme 
+# These are the defaults from the "Default" theme
 # You just need to override what you want to have changed
 override_git_prompt_colors() {
   GIT_PROMPT_THEME_NAME="Custom"
@@ -53,7 +53,7 @@ override_git_prompt_colors() {
   # GIT_PROMPT_STASHED="${BoldBlue}⚑ "    # the number of stashed files/dir
   # GIT_PROMPT_CLEAN="${BoldGreen}✔"      # a colored flag indicating a "clean" repo
 
-  ## For the command indicator, the placeholder _LAST_COMMAND_STATE_ 
+  ## For the command indicator, the placeholder _LAST_COMMAND_STATE_
   ## will be replaced with the exit code of the last command
   ## e.g.
   ## GIT_PROMPT_COMMAND_OK="${Green}✔-_LAST_COMMAND_STATE_ "    # indicator if the last command returned with an exit code of 0
@@ -63,10 +63,10 @@ override_git_prompt_colors() {
   # GIT_PROMPT_COMMAND_FAIL="${Red}✘-_LAST_COMMAND_STATE_"    # indicator if the last command returned with an exit code of other than 0
 
   ## template for displaying the current virtual environment
-  ## use the placeholder _VIRTUALENV_ will be replaced with 
+  ## use the placeholder _VIRTUALENV_ will be replaced with
   ## the name of the current virtual environment (currently CONDA and VIRTUAL_ENV)
   # GIT_PROMPT_VIRTUALENV="(${Blue}_VIRTUALENV_${ResetColor}) "
-  
+
   ## _LAST_COMMAND_INDICATOR_ will be replaced by the appropriate GIT_PROMPT_COMMAND_OK OR GIT_PROMPT_COMMAND_FAIL
   GIT_PROMPT_START_USER="$ResetColor[${LP_USER}\h:$Yellow\W$ResetColor"
   #GIT_PROMPT_START_ROOT="_LAST_COMMAND_INDICATOR_ ${GIT_PROMPT_START_USER}"
@@ -77,8 +77,7 @@ override_git_prompt_colors() {
   # GIT_PROMPT_SYMBOLS_AHEAD="↑·"             # The symbol for "n versions ahead of origin"
   # GIT_PROMPT_SYMBOLS_BEHIND="↓·"            # The symbol for "n versions behind of origin"
   # GIT_PROMPT_SYMBOLS_PREHASH=":"            # Written before hash of commit, if no name could be found
-  # GIT_PROMPT_SYMBOLS_NO_REMOTE_TRACKING="L" # This symbol is written after the branch, if the branch is not tracked 
+  # GIT_PROMPT_SYMBOLS_NO_REMOTE_TRACKING="L" # This symbol is written after the branch, if the branch is not tracked
 }
 
 reload_git_prompt_colors "Custom"
-
