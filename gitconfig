@@ -40,3 +40,5 @@
 	insteadOf = git://vtk.org
 [branch]
 	autosetupmerge = true
+[log]
+	follow = true
