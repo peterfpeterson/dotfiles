@@ -42,3 +42,5 @@
 	autosetupmerge = true
 [log]
 	follow = true
+[user]
+	name = Pete Peterson
