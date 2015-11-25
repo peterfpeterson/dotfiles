@@ -1,4 +1,4 @@
-# .bashrc
+# This is executed by interactive shells (and sourced in .bash_profile)
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then
