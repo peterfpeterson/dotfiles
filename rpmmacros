@@ -11,3 +11,5 @@
     else \\\
         echo "-j`nproc`"; \\\
     fi )
+
+%packager Peter F. Peterson
