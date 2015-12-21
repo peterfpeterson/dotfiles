@@ -31,3 +31,6 @@
 [submodule "ctest-completion"]
 	path = ctest-completion
 	url = https://gist.github.com/7929954.git
+[submodule "font-FiraCode"]
+	path = font-FiraCode
+	url = https://github.com/tonsky/FiraCode.git

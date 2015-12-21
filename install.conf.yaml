@@ -6,6 +6,7 @@
     - [mkdir -p ~/.todo.actions.d]
     - [mkdir -p ~/.todo]
     - [mkdir -p ~/.mantid]
+    - [mkdir -p ~/.fonts]
     - [cp 39b4abe7706cfe83f735/fixwhitespace ~/bin]
     - [chmod 755 ~/bin/fixwhitespace]
     - [cp Mantid.user.properties ~/.mantid/Mantid.user.properties]
@@ -32,6 +33,11 @@
     ~/.conkyrc: conkyrc
     ~/.dir_colors: dircolors-solarized/dircolors.ansi-universal
     ~/.emacs: emacs
+    ~/.fonts/FiraCode.glyphs: font-FiraCode/FiraCode.glyphs
+    ~/.fonts/FiraCode-Bold.otf: font-FiraCode/FiraCode-Bold.otf
+    ~/.fonts/FiraCode-Regular.otf: font-FiraCode/FiraCode-Regular.otf
+    ~/.fonts/FiraCode-Retina.otf: font-FiraCode/FiraCode-Retina.otf
+    ~/.fonts/FiraCode-Medium.otf: font-FiraCode/FiraCode-Medium.otf
     ~/.gitconfig: gitconfig
     ~/.gitexcludes: gitexcludes
     ~/.gitprompt: bash-git-prompt
