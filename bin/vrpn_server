@@ -1,0 +1,19 @@
+#!/bin/sh
+
+VRPN_PREFIX="/usr/local/"
+VRPN_SERVER="${VRPN_PREFIX}bin/vrpn_server"
+
+if [ ! -f ${VRPN_SERVER} ]; then
+    echo "Failed to find vrpn_server"
+    exit -1
+fi
+
+VRPN_CFG="${VRPN_PREFIX}etc/vrpn.cfg"
+if [ -f ${VRPN_CFG} ]; then
+    ARGS="-v -f ${VRPN_CFG}"
+else
+    ARGS="-v"
+fi
+
+echo "sudo ${VRPN_SERVER} ${ARGS}"
+sudo ${VRPN_SERVER} ${ARGS}
