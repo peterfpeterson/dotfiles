@@ -42,8 +42,10 @@ fi
 
 # things for rhc
 if [ $(command -v rhc) ]; then
-  if [ -f /usr/local/share/gems/gems/rhc-1.31.5/autocomplete/rhc_bash ]; then
-    . /usr/local/share/gems/gems/rhc-1.31.5/autocomplete/rhc_bash
+  if [ -f ${HOME}/.gem/ruby/gems/rhc-*/autocomplete/rhc_bash ]; then
+    . ${HOME}/.gem/ruby/gems/rhc-*/autocomplete/rhc_bash
+  elif [ -f /usr/local/share/gems/gems/rhc-*/autocomplete/rhc_bash ]; then
+    . /usr/local/share/gems/gems/rhc-*/autocomplete/rhc_bash
   fi
 fi
 
