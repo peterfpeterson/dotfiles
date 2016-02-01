@@ -1,0 +1,12 @@
+<VRPluginState>
+  <VRConnectionManager>
+    <VRPNConnection name="vrconn" address="device0@localhost">
+      <Analog id="0" name="channels"/>
+    </VRPNConnection>
+  </VRConnectionManager>
+  <VRInteractorStyles>
+    <Style class="vtkVRSpaceNavigatorGrabWorldStyle" proxyName="RenderView1" proxy="1934" property="OrientationAxesInteractivity">
+      <Analog role="Move" name="vrconn.channels"/>
+    </Style>
+  </VRInteractorStyles>
+</VRPluginState>
