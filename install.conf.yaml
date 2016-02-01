@@ -1,6 +1,7 @@
 - clean: ['~', '~/.config', '~/.bash_completion.d', '~/.todo.actions.d', '~/.todo']
 
 - shell:
+    - [./wari-install.sh]
     - [mkdir -p ~/bin]
     - [mkdir -p ~/.bash_completion.d]
     - [mkdir -p ~/.todo.actions.d]
@@ -10,7 +11,6 @@
     - [cp 39b4abe7706cfe83f735/fixwhitespace ~/bin]
     - [chmod 755 ~/bin/fixwhitespace]
     - [cp Mantid.user.properties ~/.mantid/Mantid.user.properties]
-    - [tools/bootstrap-rpm.sh]
 
 - link:
     ~/.bash_profile: bash_profile

@@ -34,3 +34,6 @@
 [submodule "font-FiraCode"]
 	path = font-FiraCode
 	url = https://github.com/tonsky/FiraCode.git
+[submodule "wari"]
+	path = wari
+	url = https://github.com/stuartcampbell/wari.git
