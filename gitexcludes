@@ -12,3 +12,4 @@ CPackSourceConfig.cmake
 DS_Store
 Makefile
 build
+worktree
