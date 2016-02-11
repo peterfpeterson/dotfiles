@@ -37,3 +37,6 @@
 [submodule "wari"]
 	path = wari
 	url = https://github.com/stuartcampbell/wari.git
+[submodule "tmux-bash-completion"]
+	path = tmux-bash-completion
+	url = https://github.com/przepompownia/tmux-bash-completion.git

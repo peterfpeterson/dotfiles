@@ -31,6 +31,7 @@
     ~/bin/vrpn_server: bin/vrpn_server
     ~/.bash_completion.d/ctest: ctest-completion/ctest
     ~/.bash_completion.d/dropbox_bash_completion: bash_completions.d/dropbox_bash_completion
+    ~/.bash_completion.d/tmux_completion: tmux-bash-completion/completions/tmux
     ~/.conkyrc: conkyrc
     ~/.dir_colors: dircolors-solarized/dircolors.ansi-universal
     ~/.emacs: emacs
