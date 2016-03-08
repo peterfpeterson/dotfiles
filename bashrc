@@ -112,6 +112,11 @@ if [ -d ${HOME}/.rvm ]; then
   fi
 fi
 
+# whatidid
+WHATIDIDDIR=${HOME}/Dropbox/whatidid
+alias whatidid="${EDITOR} ${WHATIDIDDIR}/$(date '+%Y-week%V.md')"
+alias whatidid_addday="echo $(date '+%F') >> ${WHATIDIDDIR}/$(date '+%Y-week%V.md')"
+
 # gem install bundler_bash_completion
 if [ $(command -v complete_bundle_bash_command) ]; then
   eval `complete_bundle_bash_command init`
