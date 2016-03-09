@@ -15,6 +15,10 @@ if [ $(command -v hub) ]; then
   eval "$(hub alias -s)"
 fi
 
+if [ $(command -v vim) ]; then
+  alias vi=vim
+fi
+
 # https://github.com/defunkt/gist
 if [ $(command -v gist) ]; then
   alias gist="gist -c"
