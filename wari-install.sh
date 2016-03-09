@@ -19,6 +19,7 @@ echo "Adding packages for distribution"
 add_packages_from_distro_file
 
 echo "Adding individual packages"
+add_package autofs
 add_package ninja-build
 add_package cmake-gui
 add_package rpm-build
@@ -26,5 +27,8 @@ add_package mantid-developer
 add_package morebin
 add_package the_silver_searcher
 add_package qt-creator
+add_package vim-enhanced
+add_package emacs
+add_package pithos
 
 echo "Done"
