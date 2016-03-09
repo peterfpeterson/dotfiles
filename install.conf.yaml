@@ -9,6 +9,7 @@
     - [mkdir -p ~/.todo]
     - [mkdir -p ~/.mantid]
     - [mkdir -p ~/.fonts]
+    - [mkdir -p ~/tmp]
     - [cp 39b4abe7706cfe83f735/fixwhitespace ~/bin]
     - [chmod 755 ~/bin/fixwhitespace]
     - [cp Mantid.user.properties ~/.mantid/Mantid.user.properties]
