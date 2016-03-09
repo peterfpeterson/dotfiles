@@ -1,0 +1,91 @@
+out_to_x no
+own_window no
+out_to_console yes
+background no
+max_text_width 0
+
+# Update interval in seconds
+update_interval 2.0
+
+# This is the number of times Conky will update before quitting.
+# Set to zero to run forever.
+total_run_times 0
+
+# Shortens units to a single character (kiB->k, GiB->G, etc.). Default is off.
+short_units yes
+
+# How strict should if_up be when testing an interface for being up?
+# The value is one of up, link or address, to check for the interface
+# being solely up, being up and having link or being up, having link
+# and an assigned IP address.
+if_up_strictness address
+
+# Add spaces to keep things from moving about?  This only affects certain objects.
+# use_spacer should have an argument of left, right, or none
+use_spacer left
+
+# Force UTF8? note that UTF8 support required XFT
+override_utf8_locale no
+
+# number of cpu samples to average
+# set to 1 to disable averaging
+cpu_avg_samples 2
+
+# Stuff after 'TEXT' will be formatted on screen
+TEXT
+
+# JSON for i3bar
+
+[
+  { "full_text" : "CPU" },
+  { "full_text" : "${cpu cpu1}%", "min_width": "350", "color" :
+    ${if_match ${cpu cpu1}<75}"\#ffffff"${else}"\#00ff00"${endif} },
+  { "full_text" : "${cpu cpu2}%", "min_width": "350", "color" :
+    ${if_match ${cpu cpu2}<75}"\#ffffff"${else}"\#00ff00"${endif} },
+  { "full_text" : "${cpu cpu3}%", "min_width": "350", "color" :
+    ${if_match ${cpu cpu3}<75}"\#ffffff"${else}"\#00ff00"${endif} },
+  { "full_text" : "${cpu cpu4}%", "min_width": "350", "color" :
+    ${if_match ${cpu cpu4}<75}"\#ffffff"${else}"\#00ff00"${endif} },
+  { "full_text" : "${cpu cpu5}%", "min_width": "350", "color" :
+    ${if_match ${cpu cpu5}<75}"\#ffffff"${else}"\#00ff00"${endif} },
+  { "full_text" : "${cpu cpu6}%", "min_width": "350", "color" :
+    ${if_match ${cpu cpu6}<75}"\#ffffff"${else}"\#00ff00"${endif} },
+  { "full_text" : "${cpu cpu7}%", "min_width": "350", "color" :
+    ${if_match ${cpu cpu7}<75}"\#ffffff"${else}"\#00ff00"${endif} },
+  { "full_text" : "${cpu cpu8}%", "min_width": "350", "color" :
+    ${if_match ${cpu cpu8}<75}"\#ffffff"${else}"\#00ff00"${endif} },
+  { "full_text" : "${cpu cpu9}%", "min_width": "350", "color" :
+    ${if_match ${cpu cpu9}<75}"\#ffffff"${else}"\#00ff00"${endif} },
+  { "full_text" : "${cpu cpu10}%", "min_width": "350", "color" :
+    ${if_match ${cpu cpu10}<75}"\#ffffff"${else}"\#00ff00"${endif} },
+  { "full_text" : "${cpu cpu11}%", "min_width": "350", "color" :
+    ${if_match ${cpu cpu11}<75}"\#ffffff"${else}"\#00ff00"${endif} },
+  { "full_text" : "${cpu cpu12}%", "min_width": "350", "color" :
+    ${if_match ${cpu cpu12}<75}"\#ffffff"${else}"\#00ff00"${endif} },
+  { "full_text" : "${cpu cpu13}%", "min_width": "350", "color" :
+    ${if_match ${cpu cpu13}<75}"\#ffffff"${else}"\#00ff00"${endif} },
+  { "full_text" : "${cpu cpu14}%", "min_width": "350", "color" :
+    ${if_match ${cpu cpu14}<75}"\#ffffff"${else}"\#00ff00"${endif} },
+  { "full_text" : "${cpu cpu15}%", "min_width": "350", "color" :
+    ${if_match ${cpu cpu15}<75}"\#ffffff"${else}"\#00ff00"${endif} },
+  { "full_text" : "${cpu cpu16}%", "min_width": "350", "color" :
+    ${if_match ${cpu cpu16}<75}"\#ffffff"${else}"\#00ff00"${endif} },
+  { "full_text" : "${cpu cpu17}%", "min_width": "350", "color" :
+    ${if_match ${cpu cpu17}<75}"\#ffffff"${else}"\#00ff00"${endif} },
+  { "full_text" : "${cpu cpu18}%", "min_width": "350", "color" :
+    ${if_match ${cpu cpu18}<75}"\#ffffff"${else}"\#00ff00"${endif} },
+  { "full_text" : "${cpu cpu19}%", "min_width": "350", "color" :
+    ${if_match ${cpu cpu19}<75}"\#ffffff"${else}"\#00ff00"${endif} },
+  { "full_text" : "${cpu cpu20}%", "min_width": "350", "color" :
+    ${if_match ${cpu cpu20}<75}"\#ffffff"${else}"\#00ff00"${endif} },
+  { "full_text" : "${cpu cpu21}%", "min_width": "350", "color" :
+    ${if_match ${cpu cpu21}<75}"\#ffffff"${else}"\#00ff00"${endif} },
+  { "full_text" : "${cpu cpu22}%", "min_width": "350", "color" :
+    ${if_match ${cpu cpu22}<75}"\#ffffff"${else}"\#00ff00"${endif} },
+  { "full_text" : "${cpu cpu23}%", "min_width": "350", "color" :
+    ${if_match ${cpu cpu23}<75}"\#ffffff"${else}"\#00ff00"${endif} },
+  { "full_text" : "${cpu cpu24}%", "min_width": "350", "color" :
+    ${if_match ${cpu cpu24}<75}"\#ffffff"${else}"\#00ff00"${endif} },
+  { "full_text" : "RAM ${mem}/${memmax} = ${memperc}%" , "color" :
+    ${if_match ${memperc}<90}"\#ffffff"${else}"\#ff0000"${endif} }
+],
