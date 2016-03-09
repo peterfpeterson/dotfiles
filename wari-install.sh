@@ -30,5 +30,7 @@ add_package qt-creator
 add_package vim-enhanced
 add_package emacs
 add_package pithos
+add_package mock
+add_package ncdu
 
 echo "Done"
