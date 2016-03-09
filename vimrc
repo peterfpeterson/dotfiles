@@ -1,2 +1,2 @@
 colorscheme delek
- 
+syntax on
