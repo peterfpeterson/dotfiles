@@ -4,6 +4,7 @@
     - [./wari-install.sh]
     - [mkdir -p ~/bin]
     - [mkdir -p ~/.bash_completion.d]
+    - [mkdir -p ~/.config/awesome]
     - [mkdir -p ~/.config/i3]
     - [mkdir -p ~/.todo.actions.d]
     - [mkdir -p ~/.todo]
@@ -35,6 +36,7 @@
     ~/.bash_completion.d/ctest: ctest-completion/ctest
     ~/.bash_completion.d/dropbox_bash_completion: bash_completions.d/dropbox_bash_completion
     ~/.bash_completion.d/tmux_completion: tmux-bash-completion/completions/tmux
+    ~/.config/awesome/rc.lua: awesomerc.lua
     ~/.config/i3/config: i3config
     ~/.conkyrc: conkyrc
     ~/.conkyrc-i3: conkyrc-i3
