@@ -41,7 +41,7 @@ end
 beautiful.init("/usr/share/awesome/themes/default/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "xterm"
+terminal = "terminology"
 editor = os.getenv("EDITOR") or "vi"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -248,6 +248,14 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
     awful.key({ modkey, "Control" }, "r", awesome.restart),
     awful.key({ modkey, "Shift"   }, "q", awesome.quit),
+    awful.key({ modkey            }, "Escape", function () awful.util.spawn("slock") end),
+
+    -- Pulse Audio controls - use "pactl list sinks" to find the right number
+    awful.key({}, "XF86AudioRaiseVolume", function () awful.util.spawn("pactl set-sink-volume 1 +5%") end),
+    awful.key({}, "XF86AudioLowerVolume", function () awful.util.spawn("pactl set-sink-volume 1 -5%") end),
+    awful.key({}, "XF86AudioMute", function () awful.util.spawn("pactl set-sink-mute 1 toggle") end),
+
+
 
     awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05)    end),
     awful.key({ modkey,           }, "h",     function () awful.tag.incmwfact(-0.05)    end),
