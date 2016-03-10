@@ -32,5 +32,7 @@ add_package emacs
 add_package pithos
 add_package mock
 add_package ncdu
+add_package slock
+add_package terminology
 
 echo "Done"
