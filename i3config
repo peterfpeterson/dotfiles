@@ -158,7 +158,6 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 1 toggle # mute s
 # finds out, if available)
 bar {
         output DP-1
-        tray_output primary
         status_command i3status
 }
 
