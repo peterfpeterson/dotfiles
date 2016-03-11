@@ -37,9 +37,9 @@ draw_shades yes
 use_xft yes
 xftfont DejaVu Sans Mono:size=10
 gap_x 2200
-gap_y 25
+gap_y 0
 maximum_width 350
-minimum_size 350 5
+minimum_size 350 1000
 net_avg_samples 2
 no_buffers yes
 out_to_console no
@@ -49,6 +49,7 @@ own_window yes
 own_window_class Conky
 own_window_transparent true
 own_window_type normal
+# comment out next line to adjust overall height
 own_window_hints undecorated,below,skip_taskbar,sticky
 own_window_argb_visual yes
 stippled_borders 0
@@ -86,10 +87,10 @@ ${color lightgrey} ${top name 5} ${alignr}$color${top cpu 5}
 ${color red}${font DejaVu Sans Mono:bold:size=10}Memory ${hr 3}
 ${font}${color grey}RAM Usage:$color $mem/$memmax $memperc%
 ${membar 15}
-
+${voffset -8}
 ${color grey}Swap $color $swap/$swapmax $swapperc%
 ${swapbar 15}
-
+${voffset -8}
 ${color grey}Top ${alignr}RES    VSIZE
 ${color red} ${top_mem name 1} ${alignr}$color${top_mem mem_res 1} ${top_mem mem_vsize 1}
 ${color lightgrey} ${top_mem name 2} ${alignr}$color ${top_mem mem_res 2} ${top_mem mem_vsize 2}
@@ -101,3 +102,5 @@ ${color red}${font DejaVu Sans Mono:bold:size=10}File systems ${hr 2}$color
 ${font}${color lightgrey}Read  $color${diskio_read} $alignr${diskiograph_read 17,200}
 ${color lightgrey}Write $color${diskio_write} $alignr${diskiograph_write 17,200}
 ${color grey}Network: Up:$color ${upspeed eth0} ${color grey}${alignc}-${alignr}Down:$color ${downspeed eth0}
+${color red}${font DejaVu Sans Mono:bold:size=10}Pull requests${hr 2}$color${font}
+${exec cat ~/.git-open-pr}

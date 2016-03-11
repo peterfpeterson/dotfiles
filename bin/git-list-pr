@@ -71,12 +71,10 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     url = "%s%s/" % (BASE_URL, args.repo)
-    print url
     pullRequests = getPullRequests(url)
 
-    user = args.username
     pullRequests = [simplify(request) for request in pullRequests]
-    pullRequests = [changeNames(request, user) for request in pullRequests]
+    pullRequests = [changeNames(request, args.username) for request in pullRequests]
 
     total = len(pullRequests)
 
@@ -85,6 +83,9 @@ if __name__ == "__main__":
         if pullRequest['creator'] == 'me' or pullRequest['assignee'] == 'me':
             finalSet.append(resolveStatus(pullRequest, url))
 
-            print "%d open, %d involve me" % (total, len(finalSet))
-            for item in finalSet:
-                print "%s %s for %s (by %s)" % (item['number'], item['state'], item['assignee'], item['creator'])
+    import os
+    filename = os.path.expanduser('~/.git-open-pr')
+    with open(filename, 'w') as handle:
+        for item in finalSet:
+            handle.write("%s %s for %s (by %s)\n" % (item['number'], item['state'], item['assignee'], item['creator']))
+            handle.write("%d open, %d involve me\n" % (total, len(finalSet)))
