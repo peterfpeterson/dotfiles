@@ -22,3 +22,4 @@ _dropbox()
   return 0
 }
 complete -o filenames -F _dropbox dropbox.py
+complete -o filenames -F _dropbox dropbox
