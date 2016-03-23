@@ -101,9 +101,9 @@ if [ $(command -v ninja-build) ]; then
 fi
 
 PATH=$HOME/bin:/usr/local/bin:$PATH
-if [ -d $HOME/miniconda2 ]; then
-   PATH=$HOME/miniconda2/bin:$PATH
-fi
+#if [ -d $HOME/miniconda2 ]; then
+#   PATH=$HOME/miniconda2/bin:$PATH
+#fi
 
 # todo.txt
 if [ $(command -v todo.sh) ]; then
