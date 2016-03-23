@@ -24,6 +24,11 @@ if [ $(command -v gist) ]; then
   alias gist="gist -c"
 fi
 
+# bash completion for ninja
+if [ -f /usr/share/bash-completion/completions/ninja-bash-completion ]; then
+  . /usr/share/bash-completion/completions/ninja-bash-completion
+fi
+
 # Custom bash completion
 if [ -d ${HOME}/.bash_completion.d ]; then
     for f in ${HOME}/.bash_completion.d/*
