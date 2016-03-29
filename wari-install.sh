@@ -34,5 +34,6 @@ add_package mock
 add_package ncdu
 add_package slock
 add_package terminology
+add_package hidapi-devel
 
 echo "Done"
