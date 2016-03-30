@@ -5,7 +5,6 @@ import sys
 
 BASE_URL="https://api.github.com/repos/"
 
-
 def getPullRequests(base_url):
     url = base_url + "pulls"
     req = requests.get(url)
@@ -41,7 +40,7 @@ def changeNames(pullRequest, user):
     if pullRequest['creator'] == user:
         pullRequest['creator'] = 'me'
     if pullRequest['assignee'] == user:
-        pullRequest['assigne'] = 'me'
+        pullRequest['assignee'] = 'me'
     return pullRequest
 
 def resolveStatus(pullRequest, base_url):
@@ -68,6 +67,10 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('repo')
     parser.add_argument('username')
+    OUT_DEFAULT = '~/.git-open-pr'
+    parser.add_argument('-o', '--output', default=OUT_DEFAULT,
+                        help='location to write output (default=\'%s\')' % OUT_DEFAULT)
+    parser.add_argument('--dryrun', action='store_true', help='print results to stdout rather than file')
     args = parser.parse_args()
 
     url = "%s%s/" % (BASE_URL, args.repo)
@@ -83,9 +86,15 @@ if __name__ == "__main__":
         if pullRequest['creator'] == 'me' or pullRequest['assignee'] == 'me':
             finalSet.append(resolveStatus(pullRequest, url))
 
-    import os
-    filename = os.path.expanduser('~/.git-open-pr')
-    with open(filename, 'w') as handle:
+    # print the results
+    if args.dryrun:
         for item in finalSet:
-            handle.write("%s %s for %s (by %s)\n" % (item['number'], item['state'], item['assignee'], item['creator']))
+            print "%s %s for %s (by %s)" % (item['number'], item['state'], item['assignee'], item['creator'])
+        print "%d open, %d involve me" % (total, len(finalSet))
+    else:
+        import os
+        filename = os.path.expanduser(args.output)
+        with open(filename, 'w') as handle:
+            for item in finalSet:
+                handle.write("%s %s for %s (by %s)\n" % (item['number'], item['state'], item['assignee'], item['creator']))
             handle.write("%d open, %d involve me\n" % (total, len(finalSet)))
