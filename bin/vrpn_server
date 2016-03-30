@@ -8,8 +8,13 @@ if [ ! -f ${VRPN_SERVER} ]; then
     exit -1
 fi
 
-VRPN_CFG="${VRPN_PREFIX}etc/vrpn.cfg"
-if [ -f ${VRPN_CFG} ]; then
+if [ -f ${HOME}/etc/vrpn.cfg ]; then
+    VRPN_CFG="${HOME}/etc/vrpn.cfg"
+elif [-f ${VRPN_CFG} ]; then
+    VRPN_CFG="${VRPN_PREFIX}etc/vrpn.cfg"
+fi
+
+if [ -n ${VRPN_CFG} ]; then
     ARGS="-v -f ${VRPN_CFG}"
 else
     ARGS="-v"

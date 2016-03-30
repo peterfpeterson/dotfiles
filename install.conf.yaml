@@ -6,11 +6,12 @@
     - [mkdir -p ~/.bash_completion.d]
     - [mkdir -p ~/.config/awesome]
     - [mkdir -p ~/.config/i3]
+    - [mkdir -p ~/etc]
+    - [mkdir -p ~/.fonts]
+    - [mkdir -p ~/.mantid]
+    - [mkdir -p ~/tmp]
     - [mkdir -p ~/.todo.actions.d]
     - [mkdir -p ~/.todo]
-    - [mkdir -p ~/.mantid]
-    - [mkdir -p ~/.fonts]
-    - [mkdir -p ~/tmp]
     - [cp 39b4abe7706cfe83f735/fixwhitespace ~/bin]
     - [chmod 755 ~/bin/fixwhitespace]
     - [cp Mantid.user.properties ~/.mantid/Mantid.user.properties]
@@ -43,6 +44,7 @@
     ~/.conkyrc-i3: conkyrc-i3
     ~/.dir_colors: dircolors-solarized/dircolors.ansi-universal
     ~/.emacs: emacs
+    ~/etc/vrpn.cfg: etc/vrpn.cfg
     ~/.fonts/FiraCode.glyphs: font-FiraCode/FiraCode.glyphs
     ~/.fonts/FiraCode-Bold.otf: font-FiraCode/FiraCode-Bold.otf
     ~/.fonts/FiraCode-Regular.otf: font-FiraCode/FiraCode-Regular.otf
