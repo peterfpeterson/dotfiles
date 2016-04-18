@@ -21,6 +21,7 @@ add_packages_from_distro_file
 echo "Adding individual packages"
 add_package autofs
 add_package ninja-build
+add_package python-argcomplete
 add_package cmake-gui
 add_package rpm-build
 add_package mantid-developer
