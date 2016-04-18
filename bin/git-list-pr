@@ -75,7 +75,7 @@ if __name__ == "__main__":
     parser.add_argument('username')
     OUT_DEFAULT = '~/.git-open-pr'
     parser.add_argument('-o', '--output', default=OUT_DEFAULT,
-                        help='location to write output (default=\'%s\')' % OUT_DEFAULT)
+                        help='location to write output (default=\'%(default)s\')')
     parser.add_argument('--dryrun', action='store_true', help='print results to stdout rather than file')
     args = parser.parse_args()
 
