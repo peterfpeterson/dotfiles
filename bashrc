@@ -124,6 +124,12 @@ if [ -d ${HOME}/.rvm ]; then
   fi
 fi
 
+# source-highlighting with less
+if [ $(command -v src-hilite-lesspipe.sh) ]; then
+  export LESSOPEN="| $(command -v src-hilite-lesspipe.sh) %s"
+  export LESS=' -R '
+fi
+
 # whatidid
 WHATIDIDDIR=${HOME}/Dropbox/whatidid
 alias whatidid="${EDITOR} ${WHATIDIDDIR}/$(date '+%Y-week%V.md')"
