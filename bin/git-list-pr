@@ -6,9 +6,9 @@ import sys
 
 BASE_URL="https://api.github.com/repos/"
 
-def getPullRequests(base_url):
+def getPullRequests(base_url, per_page=100):
     url = base_url + "pulls"
-    req = requests.get(url)
+    req = requests.get(url, params={'per_page':per_page})
 
     status_code = req.status_code
     if status_code == 403:
@@ -77,13 +77,17 @@ if __name__ == "__main__":
     parser.add_argument('-o', '--output', default=OUT_DEFAULT,
                         help='location to write output (default=\'%(default)s\')')
     parser.add_argument('--dryrun', action='store_true', help='print results to stdout rather than file')
+    parser.add_argument('--perpage', default=100,
+                        help='number of pull requests to fetch (default=%(default)s)')
     args = parser.parse_args()
 
     url = "%s%s/" % (BASE_URL, args.repo)
-    pullRequests = getPullRequests(url)
+    pullRequests = getPullRequests(url, args.perpage)
 
     pullRequests = [simplify(request) for request in pullRequests]
     pullRequests = [changeNames(request, args.username) for request in pullRequests]
+
+    # TODO ignore in progress pull requests
 
     total = len(pullRequests)
 
