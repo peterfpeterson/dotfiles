@@ -6,9 +6,25 @@ import sys
 
 BASE_URL="https://api.github.com/repos/"
 
+def getGithubOauthToken():
+    tokenfile = '~/.ssh/github_oauth'
+    tokenfile = os.path.expanduser(tokenfile)
+
+    if not os.path.exists(tokenfile):
+        return None
+
+    with file(tokenfile, 'r') as handle:
+        content = handle.readlines()
+    return content[0].strip()
+
+GITHUB_TOKEN = getGithubOauthToken()
+
 def getPullRequests(base_url, per_page=100):
     url = base_url + "pulls"
-    req = requests.get(url, params={'per_page':per_page})
+    params = {'per_page':per_page}
+    if GITHUB_TOKEN is not None:
+        params['access_token'] = GITHUB_TOKEN
+    req = requests.get(url, params=params)
 
     status_code = req.status_code
     if status_code == 403:
@@ -46,7 +62,10 @@ def changeNames(pullRequest, user):
 
 def resolveStatus(pullRequest, base_url):
     url = "%scommits/%s/status" % (base_url, pullRequest['sha'])
-    req = requests.get(url)
+    params = {}
+    if GITHUB_TOKEN is not None:
+        params['access_token'] = GITHUB_TOKEN
+    req = requests.get(url, params=params)
     status_code = req.status_code
     if status_code == 403:
         print "status:", status_code
