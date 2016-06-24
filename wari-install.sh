@@ -36,5 +36,9 @@ add_package ncdu
 add_package slock
 add_package terminology
 add_package hidapi-devel
+# smart card reader
+add_package opensc
+add_package pcsc-tools
+add_package pcsc-lite-ccid
 
 echo "Done"
