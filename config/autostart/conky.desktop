@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Conky
+Comment=System monitor
+TryExec=conky
+Exec=conky -d
+Terminal=false
+Type=Application
+StartupNotify=false

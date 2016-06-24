@@ -4,6 +4,7 @@
     - [./wari-install.sh]
     - [mkdir -p ~/bin]
     - [mkdir -p ~/.bash_completion.d]
+    - [mkdir -p ~/.config/autostart]
     - [mkdir -p ~/.config/awesome]
     - [mkdir -p ~/.config/i3]
     - [mkdir -p ~/etc]
@@ -38,6 +39,8 @@
     ~/.bash_completion.d/ctest: ctest-completion/ctest
     ~/.bash_completion.d/dropbox_bash_completion: bash_completions.d/dropbox_bash_completion
     ~/.bash_completion.d/tmux_completion: tmux-bash-completion/completions/tmux
+    ~/.config/autostart/chrome.desktop: config/autostart/chrome.desktop
+    ~/.config/autostart/conky.desktop: config/autostart/conky.desktop
     ~/.config/awesome/rc.lua: awesomerc.lua
     ~/.config/i3/config: i3config
     ~/.conkyrc: conkyrc
