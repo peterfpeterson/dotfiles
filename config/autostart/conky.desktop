@@ -2,7 +2,7 @@
 Name=Conky
 Comment=System monitor
 TryExec=conky
-Exec=conky -d
+Exec=sleep 5s && conky -d
 Terminal=false
 Type=Application
 StartupNotify=false
