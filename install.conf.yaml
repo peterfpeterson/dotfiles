@@ -1,7 +1,6 @@
 - clean: ['~', '~/.config', '~/.bash_completion.d', '~/.todo.actions.d', '~/.todo']
 
 - shell:
-    - [./wari-install.sh]
     - [mkdir -p ~/bin]
     - [mkdir -p ~/.bash_completion.d]
     - [mkdir -p ~/.config/autostart]
