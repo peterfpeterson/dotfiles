@@ -57,7 +57,7 @@ if __name__ == "__main__":
             data.append(float(value))
         except ValueError:
             value = value.split(",")
-            value = [float(a) for a in value]
+            value = [float(a) for a in value if len(a) > 0]
             data.extend(value)
     print "data =", data
 
