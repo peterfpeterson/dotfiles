@@ -11,23 +11,11 @@ def get_stats(data):
         "q75":pylab.percentile(data,75),
         "stddev":pylab.std(data),
     }
+
     # min/max
     data.sort()
     info["min"] = data[0]
     info["max"] = data[-1]
-
-    if info["stddev"] > 10.:
-        info["stddev"] = int(info["stddev"]/10)*10
-        info["mean"] = int(info["mean"]/10)*10
-    elif info["stddev"] > 1.:
-        info["stddev"] = int(info["stddev"])
-        info["mean"] = int(info["mean"])
-    elif info["stddev"] > .1:
-        info["stddev"] = int(10.*info["stddev"])*.1
-        info["mean"] = int(10.*info["mean"])*.1
-    elif info["stddev"] > .01:
-        info["stddev"] = int(100.*info["stddev"])*.01
-        info["mean"] = int(100.*info["mean"])*.01
 
     # convert values to strings
     for key in info.keys():
