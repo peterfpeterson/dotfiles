@@ -30,6 +30,7 @@
     ~/bin/load-to-blink1.sh: bin/load-to-blink1.sh
     ~/bin/mantidpythonfromconfig: mantid-tools/mantidpythonfromconfig
     ~/bin/mantidpythonfromtemplate: mantid-tools/mantidpythonfromtemplate
+    ~/bin/mantidreductionlogs: mantid-tools/mantidreductionlogs
     ~/bin/purge: purge/purge
     ~/bin/sns_beam: blink1-toys/sns_beam
     ~/bin/stats: bin/stats
@@ -48,10 +49,10 @@
     ~/.emacs: emacs
     ~/etc/vrpn.cfg: etc/vrpn.cfg
     ~/.fonts/FiraCode.glyphs: font-FiraCode/FiraCode.glyphs
-    ~/.fonts/FiraCode-Bold.otf: font-FiraCode/FiraCode-Bold.otf
-    ~/.fonts/FiraCode-Regular.otf: font-FiraCode/FiraCode-Regular.otf
-    ~/.fonts/FiraCode-Retina.otf: font-FiraCode/FiraCode-Retina.otf
-    ~/.fonts/FiraCode-Medium.otf: font-FiraCode/FiraCode-Medium.otf
+    ~/.fonts/FiraCode-Bold.otf: font-FiraCode/distr/otf/FiraCode-Bold.otf
+    ~/.fonts/FiraCode-Regular.otf: font-FiraCode/distr/otf/FiraCode-Regular.otf
+    ~/.fonts/FiraCode-Retina.otf: font-FiraCode/distr/otf/FiraCode-Retina.otf
+    ~/.fonts/FiraCode-Medium.otf: font-FiraCode/distr/otf/FiraCode-Medium.otf
     ~/.gitconfig: gitconfig
     ~/.gitexcludes: gitexcludes
     ~/.gitprompt: bash-git-prompt
