@@ -47,7 +47,8 @@
     ~/.conkyrc-i3: conkyrc-i3
     ~/.dir_colors: dircolors-solarized/dircolors.ansi-universal
     ~/.emacs: emacs
-    ~/etc/vrpn.cfg: etc/vrpn.cfg
+    ~/etc/vrpn.cfg: vrpn-config/vrpn.cfg
+    ~/etc/spacenave_vr_state.pvvr: vrpn-config/spacenave_vr_state.pvvr
     ~/.fonts/FiraCode.glyphs: font-FiraCode/FiraCode.glyphs
     ~/.fonts/FiraCode-Bold.otf: font-FiraCode/distr/otf/FiraCode-Bold.otf
     ~/.fonts/FiraCode-Regular.otf: font-FiraCode/distr/otf/FiraCode-Regular.otf
