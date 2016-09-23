@@ -130,6 +130,11 @@ if [ $(command -v src-hilite-lesspipe.sh) ]; then
   export LESS=' -R '
 fi
 
+# colorized diffs from colordiff
+if [ $(command -v colordiff) ]; then
+  alias diff=colordiff
+fi
+
 # whatidid
 WHATIDIDDIR=${HOME}/Dropbox/whatidid
 alias whatidid="${EDITOR} ${WHATIDIDDIR}/$(date '+%Y-week%V.md')"
