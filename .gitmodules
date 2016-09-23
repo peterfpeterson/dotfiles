@@ -40,3 +40,6 @@
 [submodule "tmux-bash-completion"]
 	path = tmux-bash-completion
 	url = https://github.com/przepompownia/tmux-bash-completion.git
+[submodule "font-xkcd"]
+	path = font-xkcd
+	url = https://github.com/ipython/xkcd-font.git

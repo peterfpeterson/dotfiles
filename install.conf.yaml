@@ -53,6 +53,7 @@
     ~/.fonts/FiraCode-Regular.otf: font-FiraCode/distr/otf/FiraCode-Regular.otf
     ~/.fonts/FiraCode-Retina.otf: font-FiraCode/distr/otf/FiraCode-Retina.otf
     ~/.fonts/FiraCode-Medium.otf: font-FiraCode/distr/otf/FiraCode-Medium.otf
+    ~/.fonts/xkcd.otf: font-xkcd/build/xkcd.otf
     ~/.gitconfig: gitconfig
     ~/.gitexcludes: gitexcludes
     ~/.gitprompt: bash-git-prompt
