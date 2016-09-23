@@ -1,7 +1,10 @@
 #!/bin/sh
 
-VRPN_PREFIX="/usr/local/"
-VRPN_SERVER="${VRPN_PREFIX}bin/vrpn_server"
+if [ -f /usr/local/bin/vrpn_server ]; then
+    VRPN_SERVER="/usr/local/bin/vrpn_server"
+elif [ -f /usr/bin/vrpn_server ]; then
+    VRPN_SERVER="/usr/bin/vrpn_server"
+fi
 
 if [ ! -f ${VRPN_SERVER} ]; then
     echo "Failed to find vrpn_server"
