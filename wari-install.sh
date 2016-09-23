@@ -20,6 +20,7 @@ add_packages_from_distro_file
 
 echo "Adding individual packages"
 add_package autofs
+add_package colordiff
 add_package conky
 add_package ninja-build
 add_package python2-argcomplete
@@ -37,6 +38,7 @@ add_package ncdu
 add_package slock
 add_package terminology
 add_package hidapi-devel
+add_package source-highlight
 # smart card reader
 add_package opensc
 add_package pcsc-tools
