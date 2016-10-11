@@ -23,7 +23,6 @@
     ~/bin/blink2-tool: blink1-toys/blink2-tool
     ~/bin/conky-i3bar: conky-i3bar
     ~/bin/dropbox: bin/dropbox.py
-    ~/bin/git-autopep8: bin/git-autopep8
     ~/bin/git-clang-format: bin/git-clang-format
     ~/bin/git-list-pr: bin/git-list-pr
     ~/bin/iwyu_tool.py: bin/iwyu_tool.py
