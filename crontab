@@ -1,1 +1,2 @@
 */5 7,8,9,10,11,12,13,14,15,16,17,18 * * 1,2,3,4,5 ~/bin/git-list-pr mantidproject/mantid peterfpeterson
+3 4 * * * ~/bin/build-list.py ~/.build-list.config
