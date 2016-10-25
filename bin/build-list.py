@@ -20,12 +20,32 @@ COLORS = {
     'yellow':'yellow',
     'red':'red',
     'disabled': 'grey',
-    'aborted': 'grey'
+    'aborted': 'grey',
+    '': 'black',
+
+    'SUCCESS':  'black',
+    'FAILURE':  'red',
+    'UNSTABLE': 'yellow',
+    'ABORTED':  'grey',
+    'DISABLED': 'grey'
 }
 
 class BuildJob:
-    def __init__(self, url):
+    def __init__(self, url, prev):
         params={}
+
+        # convert known status to something more usable
+        known_status = {}
+        for key in prev.keys():
+            known_status[int(key)] = prev[key]
+        keys = list(known_status.keys())
+        keys.sort()
+        if len(keys) > 0:
+            self.numberLast = keys[-1]
+            self.resultLast = known_status[self.numberLast]
+        else:
+            self.numberLast = ''
+            self.resultLast = ''
 
         if not url.startswith(JOB_URL):
             url = os.path.join(JOB_URL, url)
@@ -45,36 +65,62 @@ class BuildJob:
 
         self.urlBuild = lastCompletedBuild['url']
         url =  self.urlBuild + '/api/json'
-        req = requests.get(url, params=params)
-        if req.status_code != 200:
-            raise RuntimeError('failed to get information from %s' % url)
-        self.result = req.json()['result']
-        self.timestamp = req.json()['timestamp'] # TODO convert to object
+
+        if self.number in known_status.keys():
+            self.result = known_status[self.number]
+        else:
+            req = requests.get(url, params=params)
+            if req.status_code != 200:
+                raise RuntimeError('failed to get information from %s' % url)
+            self.result = req.json()['result']
+            self.timestamp = req.json()['timestamp'] # TODO convert to object
+
+    def show(self):
+        if self.result == 'SUCCESS' and \
+           self.result == self.resultLast:
+            return False
+
+        return True
 
     def __str__(self):
-        return '%35s %6d %s' % (self.name, self.number, self.result)
+        return '%35s %6s %8s %6d %8s' % (self.name,
+                                         str(self.numberLast), self.resultLast,
+                                         self.number, self.result)
+
+    def __statusToHtml(url, number, result):
+        number = '<a href=\'%s\'>%d</a>' % (url, number)
+        result = '<font color=\'%s\'>%s</font>' % (COLORS[result], result)
+
+        return '<td>%s</td><td>%s</td>' % (number, result)
 
     def toHtml(self, bgcolor=None):
-        name = '<a href=\'%s\'>%s</a>' % (self.urlJob, self.name)
-        number = '<a href=\'%s\'>%d</a>' % (self.urlBuild, self.number)
+        name = '<td><a href=\'%s\'>%s</a></td>' % (self.urlJob, self.name)
 
-        result = self.result
-        color = self.color.replace('_anime', '')
-        result = '<font color=\'%s\'>%s</font>' % (COLORS[color], result)
+        if len(self.resultLast) > 0 and self.number != self.numberLast:
+            jobUrl = self.urlBuild.replace(str(self.number),
+                                           str(self.numberLast))
+            previous = BuildJob.__statusToHtml(jobUrl, self.numberLast,
+                                               self.resultLast)
+        else:
+            previous = '<td COLSPAN=\'2\'>&nbsp;</td>'
 
-        cells = [name, number, result]
-        cells = ['  <td>%s</td>\n' % cell for cell in cells]
+
+        current = BuildJob.__statusToHtml(self.urlBuild, self.number,
+                                          self.result)
+
+        cells = [name, previous, current]
 
         result = '<tr'
         if bgcolor is not None:
             result += ' bgcolor=\'%s\'' % bgcolor
-        result += '>%s</tr>\n' % ' '.join(cells)
+        result += '>%s</tr>\n' % '\n'.join(cells)
 
         return result
 
 class JobsList:
-    def __init__(self, name, jobs=None):
+    def __init__(self, name, prev={}, jobs=None):
         self.name = name
+        self.prev = prev.get(name, {})
 
         if jobs is not None:
             self.jobs = jobs
@@ -96,11 +142,12 @@ class JobsList:
         self.jobs = [job['name'] for job in req.json()['jobs']]
         self.jobs.sort()
 
-    def __getJob(name):
+    def __getJob(self, name):
         if name in jobsAll:
             job = jobsAll[name]
         else:
-            job = BuildJob(name)
+            prev = self.prev.get(name, {})
+            job = BuildJob(name, prev)
             jobsAll[job.name] = job
         return job
 
@@ -108,26 +155,42 @@ class JobsList:
         text = self.name + '\n'
         text += '-' * len(self.name) +'\n'
         for name in self.jobs:
-            job = __class__.__getJob(name)
-            text += str(job) + '\n'
+            job = self.__getJob(name)
+            if job.show():
+                text += str(job) + '\n'
         return text
 
     def toHtml(self):
-        text = '<tr><th bgcolor=\'#424242\' COLSPAN=\'3\'><b><font color=\'#EEEEEE\'>%s</font></b></th></tr>\n' % self.name
-        for i, name in enumerate(self.jobs):
-            job = __class__.__getJob(name)
-            if i % 2:
-                text += job.toHtml('#E6E6E6')
-            else:
-                text += job.toHtml()
+        text = '<tr><th bgcolor=\'#424242\' COLSPAN=\'5\'><b><font color=\'#EEEEEE\'>%s</font></b></th></tr>\n' % self.name
+        i = 0
+        for name in self.jobs:
+            job = self.__getJob(name)
+            if job.show():
+                if i % 2:
+                    text += job.toHtml('#E6E6E6')
+                else:
+                    text += job.toHtml()
+                i += 1
         return text
 
+    def toDict(self):
+        result = {}
+        for name in self.jobs:
+            job = self.__getJob(name)
+            result[name] = {job.number: job.result}
+        return result
+
 #################### read in the configuration
-if len(sys.argv) != 2:
-    print('Must supply a configuration file')
+configfile = os.path.expanduser('~/.build-list.config')
+if len(sys.argv) == 2:
+    configfile = sys.argv[1]
+if not os.path.exists(configfile):
+    print('Did not find configuration file \'%s\'' % s)
+    print('Either supply one as an argument or create default one')
     sys.exit(-1)
-print('Loading configuration from \'%s\'' % sys.argv[1])
-with open(sys.argv[1], 'r') as handle:
+
+print('Loading configuration from \'%s\'' % configfile)
+with open(configfile, 'r') as handle:
     lines = handle.readlines()
     lines = [line.strip() for line in lines]
     (BASE_URL,
@@ -143,35 +206,56 @@ print('  smtp     =', email_smtp)
 VIEW_URL = os.path.join(BASE_URL, 'view')
 JOB_URL  = os.path.join(BASE_URL, 'job')
 
+#################### load the last round of information
+last_file = os.path.expanduser('~/.build-list.json')
+if os.path.exists(last_file):
+    print('Loading last known states from \'%s\'' % last_file)
+    with open(last_file, 'r') as handle:
+        last_dict = json.load(handle)
+else:
+    last_dict = {}
+
 #################### generate the report
 print('Collecting information about jobs')
+msg_dict = {}
 msg_text = ''
 msg_html = '<html><head></head><body>\n'
 msg_html += '<table>\n'
 
-jobsList = JobsList('Critical Jobs')
+jobsList = JobsList('Critical Jobs', last_dict)
 msg_text += str(jobsList)
 msg_html += jobsList.toHtml()
+msg_dict[jobsList.name] = jobsList.toDict()
 
-jobsList = JobsList('Master Pipeline')
+jobsList = JobsList('Master Pipeline', last_dict)
 msg_text += str(jobsList)
 msg_html += jobsList.toHtml()
+msg_dict[jobsList.name] = jobsList.toDict()
 
-jobsList = JobsList('Static Analysis')
+jobsList = JobsList('Static Analysis', last_dict)
 msg_text += str(jobsList)
 msg_html += jobsList.toHtml()
+msg_dict[jobsList.name] = jobsList.toDict()
 
 jobs = ['master_clean-archlinux',
         'master_clean-archlinux-clang',
-        'master_clean-fedora23',
         'master_clean-fedora24',
+        'master_clean-fedora25',
 ]
-jobsList = JobsList('Builds of Interest', jobs)
+jobsList = JobsList('Builds of Interest', last_dict, jobs)
 msg_text += str(jobsList)
 msg_html += jobsList.toHtml()
+msg_dict[jobsList.name] = jobsList.toDict()
 
 msg_html += '</table>\n'
+msg_html += '<p>Jobs that succeeded the last two times they were ' \
+            'run are not displayed</p>\n'
 msg_html += '</body></html>'
+
+#################### save the last round of information
+print('Saving last known states to \'%s\'' % last_file)
+with open(last_file, 'w') as handle:
+    json.dump(msg_dict, handle)
 
 #################### debug print message
 print('********************')
