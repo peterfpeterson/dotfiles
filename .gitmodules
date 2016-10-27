@@ -43,3 +43,6 @@
 [submodule "font-xkcd"]
 	path = font-xkcd
 	url = https://github.com/ipython/xkcd-font.git
+[submodule "vrpn-config"]
+	path = vrpn-config
+	url = https://gist.github.com/aec736a8e205b45d0bf3.git
