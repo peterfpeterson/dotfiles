@@ -2,6 +2,8 @@
 *.bak
 *.o
 *.py[cod]
+*.coatidb
+*.coatiproject
 cmake_install.cmake
 CMakeCache.txt
 CMakeFiles
@@ -13,3 +15,4 @@ DS_Store
 Makefile
 build
 worktree
+fontconfig
