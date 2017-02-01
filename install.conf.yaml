@@ -34,6 +34,7 @@
     ~/bin/mantidpythonfromtemplate: mantid-tools/mantidpythonfromtemplate
     ~/bin/mantidreductionlogs: mantid-tools/mantidreductionlogs
     ~/bin/purge: purge/purge
+    ~/bin/queue-list.py: bin/queue-list.py
     ~/bin/sns_beam: blink1-toys/sns_beam
     ~/bin/stats: bin/stats
     ~/bin/travisci-to-blink1.sh: bin/travisci-to-blink1.sh
