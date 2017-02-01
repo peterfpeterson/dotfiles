@@ -106,5 +106,11 @@ print(fmt.format('job', 'PR', 'why'), 'jobid')
 for item in queue:
     print(fmt.format(item.name, str(item.PR), item.why), item.id, item.url)#inQueueSince)
 
+######################################################################
+# An example of deleting the (queued) jobs is found in
+# https://github.com/docker/leeroy/blob/master/jenkins/jenkins.go#L197
+# https://github.com/docker/leeroy/blob/master/jenkins/jenkins.go#L238-L242
+######################################################################
+
 
 #doc['items'][2]['actions'][0]['parameters'].keys()
