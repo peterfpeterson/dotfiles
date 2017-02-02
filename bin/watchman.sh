@@ -33,6 +33,9 @@ else
     CONFIGFILE=watchman.json
 fi
 
+DIR=$(jq -r -M .[1] ${CONFIGFILE})
+cd ${DIR}
+
 case "$1" in
     help)
         help
@@ -40,23 +43,26 @@ case "$1" in
         ;;
     start)
         # startup watchman
-        echo "start watching"
-        watchman -o `pwd`/watchman.log -j < ${CONFIGFILE}
+        echo "start watching ${DIR}"
+        watchman -o ${DIR}/watchman.log -j < ${CONFIGFILE}
         ;;
     stop)
         # delete the trigger and shutdown watchman
-        echo "stop watching"
-        watchman trigger-del `pwd` `jq -r -M .[2].name ${CONFIGFILE}`
+        echo "stop watching ${DIR}"
+        watchman trigger-del ${DIR} `jq -r -M .[2].name ${CONFIGFILE}`
         watchman shutdown-server
         ;;
     status)
         # list all of the wacky triggers
-        watchman trigger-list `pwd`
+        watchman trigger-list ${DIR}
         ;;
     *)
         echo "unknown command \"$1\""
+        cd -
         exit -1
         ;;
 esac
+
+cd -
 
 exit
