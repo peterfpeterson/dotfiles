@@ -1,0 +1,26 @@
+_watchman_sh()
+{
+  COMPREPLY=()
+
+  local cur prev prog
+  prog="${COMP_WORDS[0]}"
+  cur="${COMP_WORDS[COMP_CWORD]}"
+  prev="${COMP_WORDS[COMP_CWORD-1]}"
+
+
+  # only one word means that we should show everything
+  if [[ ${COMP_CWORD} == 1 ]] ; then
+    COMPREPLY=( $( compgen -W 'start status stop' -- $cur ) )
+    return 0
+  fi
+
+  if [[ ${COMP_CWORD} == 2 ]] ; then
+    COMPREPLY=( $( compgen -f -X '!*.json' -- $cur ) )
+    #COMPREPLY=( $( compgen -f -- $cur ) )
+    return 0
+  fi
+
+  return 0
+}
+
+complete -d -X '.[^./]*' -F _watchman_sh watchman.sh
