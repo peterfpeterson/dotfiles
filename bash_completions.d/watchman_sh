@@ -7,20 +7,21 @@ _watchman_sh()
   cur="${COMP_WORDS[COMP_CWORD]}"
   prev="${COMP_WORDS[COMP_CWORD-1]}"
 
+  opts='help start status stop'
+
 
   # only one word means that we should show everything
-  if [[ ${COMP_CWORD} == 1 ]] ; then
-    COMPREPLY=( $( compgen -W 'start status stop' -- $cur ) )
+  if [[ ${COMP_CWORD} == 0 ]] ; then
+    COMPREPLY=( $( compgen -W "${opts}" ) )
     return 0
-  fi
-
-  if [[ ${COMP_CWORD} == 2 ]] ; then
+  elif [[ ${COMP_CWORD} == 1 ]] ; then
+    COMPREPLY=( $( compgen -W "${opts}" -- $cur ) )
+    return 0
+  elif [[ ${COMP_CWORD} == 2 ]] ; then
     COMPREPLY=( $( compgen -f -X '!*.json' -- $cur ) )
-    #COMPREPLY=( $( compgen -f -- $cur ) )
     return 0
   fi
-
   return 0
 }
 
-complete -d -X '.[^./]*' -F _watchman_sh watchman.sh
+complete -F _watchman_sh watchman.sh
