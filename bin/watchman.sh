@@ -56,6 +56,11 @@ if [ ! -f ${CONFIGFILE} ]; then
     echo "error: Could not open file ${CONFIGFILE}: No such file or directory"
     exit -1
 fi
+jq -e . ${CONFIGFILE} &> /dev/null
+if [ $? -ne 0 ]; then
+    jq -e . ${CONFIGFILE}
+    exit -1
+fi
 
 ########## switch to the specified directory
 DIR=$(jq -r -M .[1] ${CONFIGFILE})
