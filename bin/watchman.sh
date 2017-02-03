@@ -26,6 +26,21 @@ help () {
 
 }
 
+triggername () {
+    CONFIGFILE=${1}
+    echo $(jq -r -M .[2].name ${CONFIGFILE})
+}
+
+triggerrunning() {
+    triggers=$(watchman trigger-list `pwd` | jq -r -M .triggers[].name)
+    echo $triggers
+    if [ "${1/triggers}" = "${1}" ]; then
+        return 0
+    else
+        return 1
+    fi
+}
+
 ########## check for dependencies
 if [ ! $(command -v watchman) ]; then
     echo "failed to find watchman https://facebook.github.io/watchman/"
@@ -72,18 +87,27 @@ cd ${DIR}
 DIR=$(pwd)
 
 ########## do the actual work
+trigger=$(triggername ${CONFIGFILE})
 case "$1" in
     # "help" is dealt with above
     start)
         # startup watchman
-        echo "start watching ${DIR}"
-        watchman -o ${DIR}/watchman.log -j < ${CONFIGFILE}
+        if [ $(triggerrunning ${trigger}) ]; then
+            echo "\"${trigger}\" already running"
+        else
+            echo "start watching ${DIR}"
+            watchman -o ${DIR}/watchman.log -j < ${CONFIGFILE}
+        fi
         ;;
     stop)
         # delete the trigger and shutdown watchman
-        echo "stop watching ${DIR}"
-        watchman trigger-del ${DIR} `jq -r -M .[2].name ${CONFIGFILE}`
-        watchman shutdown-server
+        if [ $(triggerrunning ${trigger}) ]; then
+            echo "stop watching ${DIR}"
+            watchman trigger-del ${DIR} ${trigger}
+            watchman shutdown-server
+        else
+            echo "\"${trigger}\" not running"
+        fi
         ;;
     status)
         # list all of the wacky triggers
