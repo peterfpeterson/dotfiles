@@ -1,65 +1,41 @@
-# Conky, a system monitor, based on torsmo
-#
-# Any original torsmo code is licensed under the BSD license
-#
-# All code written since the fork of torsmo is licensed under the GPL
-#
-# Please see COPYING for details
-#
-# Copyright (c) 2004, Hannu Saransaari and Lauri Hakkarainen
-# Copyright (c) 2005-2010 Brenden Matthews, Philip Kovacs, et. al. (see AUTHORS)
-# All rights reserved.
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-alignment top_left
-background no
-border_width 1
-cpu_avg_samples 2
-default_color white
-default_outline_color red
-default_shade_color darkred
-double_buffer true
-draw_borders no
-draw_graph_borders yes
-draw_outline no
-draw_shades yes
-use_xft yes
-xftfont DejaVu Sans Mono:size=10
-gap_x 2200
-gap_y 0
-maximum_width 350
-minimum_size 350 1000
-net_avg_samples 2
-no_buffers yes
-out_to_console no
-out_to_stderr no
-extra_newline no
-own_window yes
-own_window_class Conky
-own_window_transparent true
-own_window_type normal
-# comment out next line to adjust overall height
-own_window_hints undecorated,below,skip_taskbar,sticky
-own_window_argb_visual yes
-stippled_borders 0
-update_interval 1.0
-uppercase no
-use_spacer none
-show_graph_scale no
-show_graph_range no
+conky.config = {
+  alignment = 'top_left',
+  background = false,
+  border_width = 1,
+  cpu_avg_samples = 2,
+  default_color = white,
+  default_outline_color = red,
+  default_shade_color = darkred,
+  double_buffer = true,
+  draw_borders = false,
+  draw_graph_borders = true,
+  draw_outline = false,
+  draw_shades = true,
+  use_xft = true,
+  font = 'DejaVu Sans Mono:size=10',
+  gap_x = 2200,
+  gap_y = 0,
+  maximum_width = 350,
+  net_avg_samples = 2,
+  no_buffers = true,
+  out_to_console = false,
+  out_to_stderr = false,
+  extra_newline = false,
+  own_window = true,
+  own_window_class = 'Conky',
+  own_window_transparent = true,
+  own_window_type = 'normal',
+  own_window_hints = 'undecorated,below,skip_taskbar,sticky',
+  own_window_argb_visual = true,
+  stippled_borders = 0,
+  update_interval = 1.0,
+  uppercase = false,
+  use_spacer = 'none',
+  show_graph_scale = false,
+  show_graph_range = false,
+}
 
-TEXT
+conky.text= [[
 ${color grey}Kernel:$color$alignr$kernel
 ${color grey}Uptime:$color$alignr$uptime
 #${color grey}Users: $color$alignr${exec uniqueusers.py}
@@ -102,5 +78,6 @@ ${color red}${font DejaVu Sans Mono:bold:size=10}File systems ${hr 2}$color
 ${font}${color lightgrey}Read  $color${diskio_read} $alignr${diskiograph_read 17,200}
 ${color lightgrey}Write $color${diskio_write} $alignr${diskiograph_write 17,200}
 ${color grey}Network: Up:$color ${upspeed eth0} ${color grey}${alignc}-${alignr}Down:$color ${downspeed eth0}
-${color red}${font DejaVu Sans Mono:bold:size=10}Pull requests${hr 2}$color${font}
+${color red}${font DejaVu Sans Mono:bold:size=10}Pull requests ${hr 2}$color${font}
 ${exec cat ~/.git-open-pr}
+]]
