@@ -9,7 +9,13 @@ ALLOWED_FACILITY = ['HFIR', 'SNS']
 EXP_POWER = {'SNS':1400,
              'HFIR':85}
 
-def getPower(facility, forConkyBar=False):
+def toConkyInt(facility, value):
+    '''conky expects a value between 0 and 100'''
+    value = float(value.split(' ')[0])
+    value = 100. * value /float(EXP_POWER[facility])
+    return int(value+.5)
+
+def getPower(facility, percentage):
     facility = facility.upper()
     if facility not in ALLOWED_FACILITY:
         raise ValueError('Facility \'%s\' is not an allowed value' % facility)
@@ -33,24 +39,36 @@ def getPower(facility, forConkyBar=False):
             start = line.find(CLASS_ON) + len(CLASS_ON) + 2
             stop = line.find('span', start) - 2
             line = line[start:stop].strip()
-            if forConkyBar:
-                value = float(line.split(' ')[0])
-                value = 100. * value /float(EXP_POWER[facility])
-                return int(value+.5)
+            if percentage:
+                return toConkyInt(facility, line)
             else:
                 return line
         elif CLASS_OFF in str(line):
-            if forConkyBar:
+            if percentage:
                 return 0
             else:
-                return 'off'
+                return line
     return 'ERROR'
 
 if __name__ == '__main__':
-    if len(sys.argv) < 2:
-        print('usage:', sys.argv[0], '<facility>', '[forConkyBar=False]')
-        print('must supply facility',
-              ' or '.join(ALLOWED_FACILITY))
-        sys.exit(-1)
+    import argparse
+    parser = argparse.ArgumentParser(description='Get the beam power')
 
-    print(getPower(sys.argv[1], len(sys.argv) > 2))
+    facilities = ALLOWED_FACILITY[:]
+    facilities.extend([facility.lower() for facility in ALLOWED_FACILITY])
+    parser.add_argument('facility', choices=facilities)
+
+    parser.add_argument('-p', '--percentage', action='store_true',
+                        help='Convert value to an integer percentage (0-100)')
+
+    parser.add_argument('-w', '--width', type=int, nargs='?',
+                        help='number of characters to output')
+
+    options = parser.parse_args()
+
+    result = getPower(options.facility, options.percentage)
+    if options.width is not None:
+        while len(result) < options.width:
+            result = ' ' + result
+
+    print(result)
