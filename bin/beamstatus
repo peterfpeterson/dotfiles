@@ -1,0 +1,45 @@
+#!/usr/bin/env python3
+import requests # python-requests
+import sys
+
+URL = 'http://status.sns.ornl.gov/getRoundBox.jsp'
+CLASS_ON  = 'beam_status_on'
+CLASS_OFF = 'beam_status_off'
+ALLOWED_FACILITY = ['HFIR', 'SNS']
+
+
+def getPower(facility):
+    facility = facility.upper()
+    if facility not in ALLOWED_FACILITY:
+        raise ValueError('Facility \'%s\' is not an allowed value' % facility)
+
+    params = {'which':facility+'Status'}
+    req = requests.get(URL, params=params)
+
+    status_code = req.status_code
+    if status_code != 200:
+        print('for', URL)
+        print('status:', status_code)
+        return 'ERROR'
+
+    for line in req.text.split('\n'):
+        line = line.strip()
+        if len(line) <= 0:
+            continue
+
+        if CLASS_ON in str(line):
+            # magic numbers are awesome
+            start = line.find(CLASS_ON) + len(CLASS_ON) + 3
+            stop = line.find('span', start) - 2
+            return line[start:stop]
+        elif CLASS_OFF in str(line):
+            return 'off'
+    return 'ERROR'
+
+if __name__ == '__main__':
+    if len(sys.argv) < 2:
+        print('must supply facility',
+              ' or '.join(ALLOWED_FACILITY))
+        sys.exit(-1)
+
+    print(getPower(sys.argv[1]))
