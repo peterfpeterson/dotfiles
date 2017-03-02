@@ -78,6 +78,9 @@ ${color red}${font DejaVu Sans Mono:bold:size=10}File systems ${hr 2}$color
 ${font}${color lightgrey}Read  $color${diskio_read} $alignr${diskiograph_read 17,200}
 ${color lightgrey}Write $color${diskio_write} $alignr${diskiograph_write 17,200}
 ${color grey}Network: Up:$color ${upspeed eth0} ${color grey}${alignc}-${alignr}Down:$color ${downspeed eth0}
+${color red}${font DejaVu Sans Mono:bold:size=10}Beam power ${hr 2}$color${font}
+${color grey}SNS:$color ${execi 15 ~/bin/beamstatus sns} ${execibar 15 ~/bin/beamstatus sns frac}
+${color grey}HFIR:$color ${execi 60 ~/bin/beamstatus hfir} ${execibar 60 ~/bin/beamstatus hfir frac}
 ${color red}${font DejaVu Sans Mono:bold:size=10}Pull requests ${hr 2}$color${font}
 ${exec cat ~/.git-open-pr}
 ]]
