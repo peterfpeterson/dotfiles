@@ -6,7 +6,7 @@ URL = 'http://status.sns.ornl.gov/getRoundBox.jsp'
 CLASS_ON  = 'beam_status_on'
 CLASS_OFF = 'beam_status_off'
 ALLOWED_FACILITY = ['HFIR', 'SNS']
-EXP_POWER = {'SNS':1400,
+EXP_POWER = {'SNS':1500,
              'HFIR':85}
 
 def toConkyInt(facility, value):
