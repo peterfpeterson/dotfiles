@@ -68,7 +68,7 @@ if __name__ == '__main__':
 
     result = getPower(options.facility, options.percentage)
     if options.width is not None:
-        while len(result) < options.width:
-            result = ' ' + result
+        fmt = '{0: >' + str(options.width) + '}'
+        result = fmt.format(result)
 
     print(result)
