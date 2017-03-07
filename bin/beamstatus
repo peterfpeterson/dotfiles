@@ -47,7 +47,7 @@ def getPower(facility, percentage):
             if percentage:
                 return 0
             else:
-                return line
+                return 'off'
     return 'ERROR'
 
 if __name__ == '__main__':
