@@ -5,6 +5,7 @@
     - [mkdir -p ~/.bash_completion.d]
     - [mkdir -p ~/.config/autostart]
     - [mkdir -p ~/.config/awesome]
+    - [mkdir -p ~/.config/Code/User]
     - [mkdir -p ~/.config/i3]
     - [mkdir -p ~/etc]
     - [mkdir -p ~/.fonts]
@@ -48,6 +49,7 @@
     ~/.config/autostart/chrome.desktop: config/autostart/chrome.desktop
     ~/.config/autostart/conky.desktop: config/autostart/conky.desktop
     ~/.config/awesome/rc.lua: awesomerc.lua
+    ~/.config/Code/User/settings.json: ms-code-settings.json
     ~/.config/i3/config: i3config
     ~/.conkyrc: conkyrc
     ~/.conkyrc-i3: conkyrc-i3
