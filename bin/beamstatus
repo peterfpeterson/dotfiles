@@ -17,10 +17,9 @@ def toConkyInt(facility, value):
 
 def toValue(value):
     value,units = value.split(' ')
-    value = float(value)
-    if value > 1000. and units == 'kW':
+    if units == 'kW' and float(value) > 1000.:
         units = 'MW'
-        value /= 1000.
+        value = float(value)/1000.
         value = '%.1f' % value
     return str(value) + ' ' + str(units)
 
