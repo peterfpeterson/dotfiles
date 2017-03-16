@@ -29,7 +29,13 @@ def getPower(facility, percentage):
         raise ValueError('Facility \'%s\' is not an allowed value' % facility)
 
     params = {'which':facility+'Status'}
-    req = requests.get(URL, params=params)
+    try:
+        req = requests.get(URL, params=params)
+    except:
+        if percentage:
+            return 0
+        else:
+            return "error"
 
     status_code = req.status_code
     if status_code != 200:
