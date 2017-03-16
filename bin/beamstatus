@@ -30,7 +30,7 @@ def getPower(facility, percentage):
 
     params = {'which':facility+'Status'}
     try:
-        req = requests.get(URL, params=params)
+        req = requests.get(URL, params=params, timeout=1) # seconds
     except:
         if percentage:
             return 0
