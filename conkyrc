@@ -85,7 +85,7 @@ ${color red}${font DejaVu Sans Mono:bold:size=10}Deadlines ${hr 2}$color${font}
 ${execi 21600 daysuntil 2017-07-12} days until mantid dev
 ${execi 21600 daysuntil 2017-07-12} days until mantid 3.10 release
 ${color red}${font DejaVu Sans Mono:bold:size=10}Running ${hr 2}$color${font}
-321/1200 miles ${execibar 21600 echo 27}
+326/1200 miles ${execibar 43200 echo 27}
 in year        ${execibar 21600 echo $((`date +%-j`*100/365))}
 ${execi 21600 daysuntil 2017-04-02} days until CHKM ${alignr}${execi 21600 daysuntil 2017-04-20} days until Atlanta
 ${execi 21600 daysuntil 2017-09-17} days until BRR
