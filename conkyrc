@@ -82,18 +82,18 @@ ${color red}${font DejaVu Sans Mono:bold:size=10}Beam power ${hr 2}$color${font}
 ${color grey}SNS: $color ${execi 15 ~/bin/beamstatus sns -w 7} ${execibar 15 ~/bin/beamstatus sns -p}
 ${color grey}HFIR:$color ${execi 60 ~/bin/beamstatus hfir -w 7} ${execibar 60 ~/bin/beamstatus hfir -p}
 ${color red}${font DejaVu Sans Mono:bold:size=10}Deadlines ${hr 2}$color${font}
-${execi 21600 daysuntil 2017-05-05} days until dPDF meeting
-${execi 21600 daysuntil 2017-05-08} days until total scattering school
-${execi 21600 daysuntil 2017-05-20} days until beer, bbq, bourbon
-${execi 21600 daysuntil 2017-07-12} days until mantid dev
-${execi 21600 daysuntil 2017-07-12} days until mantid 3.10 release
-${execi 21600 daysuntil 2017-07-17} days until brewfest
-${execi 21600 daysuntil 2017-12-18} days until CSNS review
+ ${execi 21600 daysuntil 2017-05-05} days til dPDF meeting
+ ${execi 21600 daysuntil 2017-05-08} days til total scattering school
+ ${execi 21600 daysuntil 2017-05-20} days til beer, bbq, bourbon
+${execi 21600 daysuntil 2017-07-12} days til mantid dev
+${execi 21600 daysuntil 2017-07-12} days til mantid 3.10 release
+${execi 21600 daysuntil 2017-07-17} days til brewfest
+${execi 21600 daysuntil 2017-12-18} days til CSNS review
 ${color red}${font DejaVu Sans Mono:bold:size=10}Running ${hr 2}$color${font}
-365/1200 miles ${execibar 43200 echo 30}
+400/1200 miles ${execibar 43200 echo 33}
 in year        ${execibar 21600 echo $((`date +%-j`*100/365))}
-${execi 21600 daysuntil 2017-04-02} days until CHKM ${alignr}${execi 21600 daysuntil 2017-04-21} days until Atlanta
-${execi 21600 daysuntil 2017-09-17} days until BRR
+  ${execi 21600 daysuntil 2017-04-08} days til Saw Works ${alignr}${execi 21600 daysuntil 2017-04-21} days til Atlanta
+${execi 21600 daysuntil 2017-09-17} days til BRR
 ${color red}${font DejaVu Sans Mono:bold:size=10}Pull requests ${hr 2}$color${font}
 ${exec cat ~/.git-open-pr}
 ]]
