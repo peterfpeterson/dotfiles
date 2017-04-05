@@ -41,6 +41,7 @@
     ~/bin/sns_beam: blink1-toys/sns_beam
     ~/bin/stats: bin/stats
     ~/bin/travisci-to-blink1.sh: bin/travisci-to-blink1.sh
+    ~/bin/update_countdown.sh: bin/update_countdown.sh
     ~/bin/vrpn_server: bin/vrpn_server
     ~/bin/watchman.sh: bin/watchman.sh
     ~/.bash_completion.d/ctest: ctest-completion/ctest
