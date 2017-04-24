@@ -1,6 +1,5 @@
 #!/bin/sh
-echo "  $(~/bin/daysuntil 2017-04-21) days - Atlanta Ragnar" > ~/.daysuntil.deadlines
-echo " $(~/bin/daysuntil 2017-05-05) days - dPDF meeting" >> ~/.daysuntil.deadlines
+echo " $(~/bin/daysuntil 2017-05-05) days - dPDF meeting" > ~/.daysuntil.deadlines
 echo " $(~/bin/daysuntil 2017-05-08) days - total scattering school" >> ~/.daysuntil.deadlines
 echo " $(~/bin/daysuntil 2017-05-20) days - beer, bbq, bourbon" >> ~/.daysuntil.deadlines
 echo " $(~/bin/daysuntil 2017-07-12) days - mantid dev" >> ~/.daysuntil.deadlines
