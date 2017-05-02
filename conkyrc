@@ -1,11 +1,12 @@
 conky.config = {
-  alignment = 'top_left',
+  alignment = 'top_right',
   background = false,
   border_width = 1,
   cpu_avg_samples = 2,
-  default_color = white,
-  default_outline_color = red,
-  default_shade_color = darkred,
+  default_color = 'white',
+  default_outline_color = 'red',
+  default_shade_color = 'darkred',
+  -- requires -DBUILD_XDBE=On
   double_buffer = true,
   draw_borders = false,
   draw_graph_borders = true,
@@ -13,8 +14,6 @@ conky.config = {
   draw_shades = true,
   use_xft = true,
   font = 'DejaVu Sans Mono:size=10',
-  gap_x = 2200,
-  gap_y = 0,
   maximum_width = 350,
   net_avg_samples = 2,
   no_buffers = true,
@@ -24,7 +23,7 @@ conky.config = {
   own_window = true,
   own_window_class = 'Conky',
   own_window_transparent = true,
-  own_window_type = 'normal',
+  own_window_type = 'desktop',
   own_window_hints = 'undecorated,below,skip_taskbar,sticky',
   own_window_argb_visual = true,
   stippled_borders = 0,
@@ -33,13 +32,16 @@ conky.config = {
   use_spacer = 'none',
   show_graph_scale = false,
   show_graph_range = false,
+  temperature_unit = 'fahrenheit'
 }
 
-conky.text= [[
+conky.text = [[
 ${color grey}Kernel:$color$alignr$kernel
 ${color grey}Uptime:$color$alignr$uptime
+#${color grey}Weather:$color$alignr${weather http://tgftp.nws.noaa.gov/data/observations/metar/stations/ FOOT temperature}F
 #${color grey}Users: $color$alignr${exec uniqueusers.py}
 ${color red}${font DejaVu Sans Mono:bold:size=10}CPU ${hr 3}
+${color grey}Frequency (in GHz):$alignr$color $freq_g
 ${font}${color grey}Total  $color $cpu%$alignr${cpugraph 17,250 E42217 F88017 -t}
 ${color grey}Processes:$color $processes  ${color grey}${alignr}Running:$color $running_processes${color darkred}${font DejaVu Sans Mono:size=4}
 ${cpubar cpu1 8,175}${cpubar cpu2 8,175}
