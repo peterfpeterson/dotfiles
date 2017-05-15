@@ -1,5 +1,5 @@
 #!/bin/sh
-echo " $(~/bin/daysuntil 2017-05-20) days - beer, bbq, bourbon" > ~/.daysuntil.deadlines
+echo "  $(~/bin/daysuntil 2017-05-20) days - beer, bbq, bourbon" > ~/.daysuntil.deadlines
 echo " $(~/bin/daysuntil 2017-07-12) days - mantid dev" >> ~/.daysuntil.deadlines
 echo " $(~/bin/daysuntil 2017-07-12) days - mantid 3.10 release" >> ~/.daysuntil.deadlines
 echo " $(~/bin/daysuntil 2017-07-17) days - brewfest" >> ~/.daysuntil.deadlines
