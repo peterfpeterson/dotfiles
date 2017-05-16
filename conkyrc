@@ -85,7 +85,7 @@ ${color grey}SNS: $color ${execi 15 ~/bin/beamstatus sns -w 7} ${execibar 15 ~/b
 ${color grey}HFIR:$color ${execi 60 ~/bin/beamstatus hfir -w 7} ${execibar 60 ~/bin/beamstatus hfir -p}
 ${color red}${font DejaVu Sans Mono:bold:size=10}Deadlines ${hr 2}$color${font}
 ${head ~/.daysuntil.deadlines 30 10}${color red}${font DejaVu Sans Mono:bold:size=10}Running ${hr 2}$color${font}
-513/1200 miles ${execibar 43200 echo $((513/12))}
+518/1200 miles ${execibar 43200 echo $((518/12))}
 in year        ${execibar 21600 echo $((`date +%-j`*100/365))}
 ${color red}${font DejaVu Sans Mono:bold:size=10}Pull requests ${hr 2}$color${font}
 ${head ~/.git-open-pr 30 10}
