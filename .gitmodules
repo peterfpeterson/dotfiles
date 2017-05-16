@@ -46,3 +46,6 @@
 [submodule "vrpn-config"]
 	path = vrpn-config
 	url = https://gist.github.com/aec736a8e205b45d0bf3.git
+[submodule "ansible-bash-completion"]
+	path = ansible-bash-completion
+	url = https://github.com/dysosmus/ansible-completion.git
