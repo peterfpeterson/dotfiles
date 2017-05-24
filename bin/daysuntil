@@ -1,6 +1,8 @@
 #!/bin/sh
 if [ $1 ]; then
-    echo $((`date -d $1 +%-j` - `date +%-j`))
+    result=$((`date -d $1 +%-j` - `date +%-j`))
+    result=$(printf %3d $result)
+    echo "$result"
 else
     echo Must supply a date
 fi
