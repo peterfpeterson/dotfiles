@@ -5,7 +5,13 @@ if [ -f ${HOME}/.pythonrc ]; then
   export PYTHONSTARTUP=${HOME}/.pythonrc
 fi
 
-export PATH
+# For homebrew
+if [ -d "/usr/local/sbin" ]; then
+  export PATH="/usr/local/sbin:$PATH"
+else
+  export PATH
+fi
+
 export EDITOR=vim
 
 # Get the aliases and functions
