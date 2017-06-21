@@ -27,7 +27,7 @@ def getPullRequests(base_url, per_page=100):
     req = requests.get(url, timeout=1., params=params)
 
     status_code = req.status_code
-    if status_code == 403:
+    if status_code == requests.codes.FORBIDDEN:
         print "status:", status_code
         print req.json()['message']
         sys.exit(-1)
@@ -54,6 +54,7 @@ def simplify(pullRequest):
     return result
 
 def changeNames(pullRequest, user):
+    print pullRequest
     if pullRequest['creator'] == user:
         pullRequest['creator'] = 'me'
     if pullRequest['assignee'] == user:
@@ -67,7 +68,7 @@ def resolveStatus(pullRequest, base_url):
         params['access_token'] = GITHUB_TOKEN
     req = requests.get(url, timeout=1., params=params)
     status_code = req.status_code
-    if status_code == 403:
+    if status_code == requests.codes.FORBIDDEN:
         print "status:", status_code
         print req.json()['message']
         sys.exit(-1)
