@@ -54,7 +54,7 @@ class BuildJob:
         if not url.endswith('api/json'):
             url = os.path.join(url, 'api/json')
 
-        req = requests.get(url, params=params)
+        req = requests.get(url, timeout=15., params=params)
         if req.status_code != 200:
             raise RuntimeError('failed to get information from %s' % url)
 
@@ -69,7 +69,7 @@ class BuildJob:
         if self.number in known_status.keys():
             self.result = known_status[self.number]
         else:
-            req = requests.get(url, params=params)
+            req = requests.get(url, timeout=15., params=params)
             if req.status_code != 200:
                 raise RuntimeError('failed to get information from %s' % url)
             self.result = req.json()['result']
@@ -135,7 +135,7 @@ class JobsList:
         if not url.endswith('api/json'):
             url = os.path.join(url, 'api/json')
 
-        req = requests.get(url)
+        req = requests.get(url, timeout=15.)
         if req.status_code != 200:
             raise RuntimeError('failed to get information from %s' % url)
 
