@@ -1,0 +1,133 @@
+#!/usr/bin/env python3
+import json
+import re
+import requests
+
+URL_UPDATES = 'https://monitor.sns.gov/dasmon/nom/update/'
+URL_MONITOR = 'https://monitor.sns.gov/dasmon/nom/runs/'
+
+def toInt(text):
+    INT_REGEXP = re.compile('\d+')
+    return int(INT_REGEXP.search(text).group(0))
+
+def toStatus(text):
+    if '>complete<' in text:
+        return 'complete'
+    elif '>incomplete<' in text:
+        return 'incomplete'
+    elif '>error<' in text:
+        return 'error'
+    else:
+        raise RuntimeError('do not know how to convert value "%s"' % text)
+
+
+req = requests.get(URL_MONITOR, timeout=2) # seconds
+status_code = req.status_code
+if status_code != 200:
+    print('for', URL_MONITOR)
+    print('status:', status_code)
+    raise RuntimeError('ERROR')
+
+#print(req.text)
+start_index = req.text.find('last_run_id')
+stop_index = req.text.find('complete_since_run_id', start_index)
+stop_index = req.text.find(';', stop_index)
+last_run_id, complete_since_run_id = [toInt(item) for item in req.text[start_index:stop_index].split('\n')]
+print('run_id_range:', last_run_id, complete_since_run_id)
+
+def toRecord(text):
+    items = [item for item in text.split(', ')
+             if ': ' in item]
+    result = {}
+    known_keys = ['status', 'run', 'run_id']
+    for i, item in enumerate(items[:3]): # should be status, run, run_id
+        key = None
+        for key_search in known_keys:
+            key_possible, value_possible = item.split(':')[:2]
+            key_possible = key_possible[1:-1]
+            if key_possible == key_search:
+                key = key_search
+                value = ''
+                if key == 'status':
+                    value = toStatus(value_possible)
+                elif key == 'run_id':
+                    value = toInt(value_possible)
+                elif key == 'run':
+                    value = toInt(value_possible.split('>')[1])
+                else:
+                    print('>>>', key_possible, '<<< >>>', value_possible, '<<<')
+                    raise RuntimeError('Code missing for key "%s"' % key)
+                break
+        if key is None:
+            raise RuntimeError('failed to find known key in "%s"' % item)
+        else:
+            result[key] = value
+
+    return result
+
+start_index = req.text.find(' records ')
+start_index = req.text.find(' = ', start_index)
+stop_index = req.text.find(' var ', start_index)
+data = req.text[start_index+3:stop_index].strip()[:-1] # trim off trailing ;
+data = data[1:-1] # trim off []
+data = [toRecord(item) for item in data.split('{\'instrument_id\':')]
+data = [item for item in data if item != {}] # remove empty records
+
+# finally create the initial list of runs
+run_list = {}
+for item in data:
+    key = 'run_id_%d' % item['run_id']
+    run_list[key] = dict(run=item['run'],
+                         status=item['status'])
+print('########## run_list - html')
+print(run_list)
+
+def getRequest(since=0,completed_since=0):
+    params = {}
+    if since > 0:
+        params['since'] = since
+    if completed_since > 0:
+        params['complete_since'] = completed_since
+    print(params)
+
+    req = requests.get(URL_UPDATES, params=params, timeout=2) # seconds
+
+    status_code = req.status_code
+    if status_code != 200:
+        print('for', URL_UPDATES)
+        print('status:', status_code)
+        raise RuntimeError('ERROR')
+    return req.json()
+
+#since=976451,complete_since=976192)
+#data = getRequest()
+#since = data['last_run_id']
+
+#data = getRequest(since, since-500)
+#data = getRequest(976451, 976192)
+data = getRequest(last_run_id, complete_since_run_id)
+#data = getRequest(complete_since_run_id, last_run_id)
+
+# TODO something here, but I keep getting empty run lists
+print('########## run_list - json')
+for item in data['run_list']:
+    print(item)
+#print(data['run_list'])
+#for key in data.keys():
+#    print('>>>',key,'<<<', data[key])
+print('##########', len(data['status_list']))
+print('last_run_id', data['last_run_id'])
+#print(data['status_list'])
+#print('----------')
+data = data['status_list']
+data.reverse()
+for item in data:
+    status = toStatus(item['value'])
+    run_id = item['key']
+    run_number = -1 # special key to know things went wrong
+    if run_id in run_list:
+        # update status in run list
+        run_list[run_id]['status'] = status
+        # convert to run number
+        run_number = run_list[run_id]['run']
+    print('NOM_%d' % run_number, status)
