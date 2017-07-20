@@ -88,7 +88,7 @@
     ~/.todo.actions.d/edit: todo.actions.d/todo.txt-edit-addon/todo.actions.d/edit
     ~/.todo.actions.d/futureTasks: todo.actions.d/futureTasks
     ~/.todo.actions.d/nav: todo.actions.d/nav
-    ~/.todo.actions.d/pri: todo.actions.d/todo.txt-pri-addon/.todo.actions.d/pri
+    ~/.todo.actions.d/pri: todo.actions.d/pri
     ~/.todo.actions.d/repeat: todo.actions.d/repeat
     ~/.todo.actions.d/repeat.py: todo.actions.d/repeat.py
     ~/.todo.actions.d/sortCommand: todo.actions.d/sortCommand
