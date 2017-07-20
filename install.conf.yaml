@@ -36,6 +36,7 @@
     ~/bin/mantidpythonfromconfig: mantid-tools/mantidpythonfromconfig
     ~/bin/mantidpythonfromtemplate: mantid-tools/mantidpythonfromtemplate
     ~/bin/mantidreductionlogs: mantid-tools/mantidreductionlogs
+    ~/bin/monitorautoreduction: bin/monitorautoreduction
     ~/bin/purge: purge/purge
     ~/bin/queue-list.py: bin/queue-list.py
     ~/bin/sns_beam: blink1-toys/sns_beam
