@@ -25,6 +25,7 @@ add_package colordiff
 add_package conky
 add_package ninja-build
 add_package python2-argcomplete
+add_package python3-argcomplete
 add_package cmake-gui
 add_package rpm-build
 add_package mantid-developer
