@@ -32,7 +32,7 @@
     ("4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" default)))
  '(package-selected-packages
    (quote
-    (idle-highlight-mode better-defaults yaml-mode markdown-mode color-theme-sanityinc-solarized use-package))))
+    (lua-mode idle-highlight-mode better-defaults yaml-mode markdown-mode color-theme-sanityinc-solarized use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -51,6 +51,12 @@
   ("\\.text\\'" . markdown-mode)
   ("\\.markdown\\'" . markdown-mode)
   ("\\.md\\'" . markdown-mode)
+  )
+
+(use-package lua-mode
+  :ensure t
+  :mode
+  ("\\.lua\\'" . lua-mode)
   )
 
 (use-package yaml-mode
