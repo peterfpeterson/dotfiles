@@ -41,6 +41,10 @@ add_package slock
 add_package terminology
 add_package hidapi-devel
 add_package source-highlight
+# things for awesome window manager
+add_package awesome
+add_package vicious # widget set
+add_package i3lock # screen lock
 # smart card reader
 add_package opensc
 add_package pcsc-tools
