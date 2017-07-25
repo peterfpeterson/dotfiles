@@ -1,7 +1,7 @@
 conky.config = {
   -- alignment = 'top_right',
   gap_x = 5640,
-  gap_y = 550,
+  gap_y = 500,
   background = false,
   border_width = 1,
   cpu_avg_samples = 2,
