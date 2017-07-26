@@ -585,6 +585,7 @@ awful.rules.rules = {
           "Arandr",
           "Gpick",
           "Kruler",
+          "MantidPlot",
           "MessageWin",  -- kalarm.
           "Sxiv",
           "Wpa_gui",
