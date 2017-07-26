@@ -239,8 +239,8 @@ msg_dict[jobsList.name] = jobsList.toDict()
 
 jobs = ['master_clean-archlinux',
         'master_clean-archlinux-clang',
-        'master_clean-fedora24',
         'master_clean-fedora25',
+        'master_clean-fedora26',
 ]
 jobsList = JobsList('Builds of Interest', last_dict, jobs)
 msg_text += str(jobsList)
