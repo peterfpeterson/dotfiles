@@ -246,9 +246,6 @@ cpubar = wibox.widget {
 }
 
 -- total cpu graph
-function cpu_tooltip_formatter(widget, data)
-   return string.format('CPU %d%%', data[1])
-end
 cpuwidget = wibox.widget.graph()
 cpuwidget:set_width(60)
 cpuwidget:set_background_color("#494B4F")
@@ -256,15 +253,13 @@ cpuwidget:set_color({ type = "linear", from = { 0, 0 }, to = { 60,0 }, stops = {
 cpuwidget.border_color = "#000000"
 vicious.register(cpuwidget, vicious.widgets.cpu, "$1", 1)
 cpu_tooltip = awful.tooltip({objects={cpuwidget}})
-vicious.register(cpu_tooltip, vicious.widgets.cpu, cpu_tooltip_formatter, 1)
+vicious.register(cpu_tooltip, vicious.widgets.cpu,
+                 function(widget, data)
+                    return string.format('CPU %d%%', data[1])
+                 end, 1)
 
 
 -- total cpu graph
-function mem_tooltip_formatter(widget, data)
-   return string.format('SYS %d%% = %.1fGiB/%.1fGiB\nSWP %d%% = %.1fGiB/%.1fGiB',
-                        data[1], data[2]/1024, data[3]/1024,
-                        data[5], data[6]/1024, data[7]/1024)
-end
 memwidget_text = wibox.widget.textbox() -- dumb placeholder thing
 memwidget = wibox.widget { width=60,
                            stack=true,
@@ -281,7 +276,12 @@ vicious.register(memwidget_text, vicious.widgets.mem,
                     memwidget:add_value(data[5], 2)
                  end, 1)
 mem_tooltip = awful.tooltip({objects={memwidget}})
-vicious.register(mem_tooltip, vicious.widgets.mem, mem_tooltip_formatter, 1)
+vicious.register(mem_tooltip, vicious.widgets.mem,
+                 function(widget, data)
+                    return string.format('SYS %d%% = %.1fGiB/%.1fGiB\nSWP %d%% = %.1fGiB/%.1fGiB',
+                                         data[1], data[2]/1024, data[3]/1024,
+                                         data[5], data[6]/1024, data[7]/1024)
+                 end, 1)
 
 netwidget = { width=60,
               --stack=true,
