@@ -42,7 +42,11 @@ hostname = io.popen("uname -n"):read()
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init(awful.util.get_themes_dir() .. "default/theme.lua")
+beautiful.init(awful.util.get_themes_dir() .. "zenburn/theme.lua")
+-- beautiful.wallpaper = "/home/pf9/Dropbox/DesktopPictures/02154_standalonecleanwallpaper_2560x1440.jpg"
+-- beautiful.wallpaper = "/home/pf9/Dropbox/DesktopPictures/lost_5-wallpaper-5120x1600.jpg"
+beautiful.wallpaper = "/home/pf9/Dropbox/DesktopPictures/New-Moon-2560x1600-hdwallpapers.us.jpg"
+-- beautiful.wallpaper = "/home/pf9/Dropbox/DesktopPictures/quiraing_black_and_white-wallpaper-5120x1600.jpg"
 
 -- This is used later as the default terminal and editor to run.
 terminal = "gnome-terminal"
