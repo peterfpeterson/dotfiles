@@ -265,23 +265,34 @@ function mem_tooltip_formatter(widget, data)
                         data[1], data[2]/1024, data[3]/1024,
                         data[5], data[6]/1024, data[7]/1024)
 end
-memwidget = wibox.widget.graph()
-memwidget:set_width(60)
-memwidget:set_background_color("#494B4F")
-memwidget:set_color({ type = "linear", from = { 0, 0 }, to = { 60,0 }, stops = { {0, "#00b25a"}, {0.5, "#20b27a" }, {1, "#000000"}}})
-memwidget.border_color = "#000000"
-vicious.register(memwidget, vicious.widgets.mem, "$1", 1)
+memwidget_text = wibox.widget.textbox() -- dumb placeholder thing
+memwidget = wibox.widget { width=60,
+                           stack=true,
+                           min_value=0,
+                           max_value=100,
+                           border_color = "#000000",
+                           background_color= "#494B4F",
+                           stack_colors = { "#00b25a", "#20b27a" },
+                           widget = wibox.widget.graph }
+--memwidget:set_color({ type = "linear", from = { 0, 0 }, to = { 60,0 }, stops = { {0, "#00b25a"}, {0.5, "#20b27a" }, {1, "#000000"}}})
+vicious.register(memwidget_text, vicious.widgets.mem,
+                 function(widget, data)
+                    memwidget:add_value(data[1], 1)
+                    memwidget:add_value(data[5], 2)
+                 end, 1)
 mem_tooltip = awful.tooltip({objects={memwidget}})
 vicious.register(mem_tooltip, vicious.widgets.mem, mem_tooltip_formatter, 1)
 
-netwidget = wibox.widget.graph()
-netwidget:set_width(60)
-netwidget:set_background_color("#494B4F")
-netwidget.border_color = "#000000"
-netwidget:set_color({ type = "linear", from = { 0, 0 }, to = { 60,0 }, stops = { {0, "#edd400"}, {0.5, "#fce84d" }, {1, "#000000"}}})
-netwidget:set_scale(false)
-netwidget:set_min_value(0)
-netwidget:set_max_value(1)
+netwidget = { width=60,
+              --stack=true,
+              scale = false,
+              min_value=0,
+              max_value=1,
+              border_color = "#000000",
+              background_color= "#494B4F",
+              color = { type = "linear", from = { 0, 0 }, to = { 60,0 }, stops = { {0, "#edd400"}, {0.5, "#fce84d" }, {1, "#000000"}}},
+              -- stack_colors = { "#edd400", "#fce84d" },
+              widget = wibox.widget.graph }
 vicious.register(netwidget, vicious.widgets.net, "${ens3 down_mb}", 1)
 
 upwidget = wibox.widget.textbox()
