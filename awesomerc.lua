@@ -639,6 +639,16 @@ client.connect_signal("manage", function (c)
     end
 end)
 
+-- Transparency
+client.connect_signal("focus", function(c)
+                              c.border_color = beautiful.border_focus
+                              c.opacity = 1
+                           end)
+client.connect_signal("unfocus", function(c)
+                                c.border_color = beautiful.border_normal
+                                c.opacity = 0.9
+                             end)
+
 -- Add a titlebar if titlebars_enabled is set to true in the rules.
 client.connect_signal("request::titlebars", function(c)
     -- buttons for the titlebar
