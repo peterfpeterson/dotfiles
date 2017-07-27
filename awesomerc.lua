@@ -184,66 +184,6 @@ end
 screen.connect_signal("property::geometry", set_wallpaper)
 
 -- Graph Widgets
-cpubar1 = wibox.widget {forced_height=10, max_value=1, widget = wibox.widget.progressbar }
-vicious.register(cpubar1, vicious.widgets.cpu, "$2", .5)
-cpubar2 = wibox.widget {forced_height=10, max_value=1, widget = wibox.widget.progressbar }
-vicious.register(cpubar2, vicious.widgets.cpu, "$3", .5)
-cpubar3 = wibox.widget {forced_height=10, max_value=1, widget = wibox.widget.progressbar }
-vicious.register(cpubar3, vicious.widgets.cpu, "$4", .5)
-cpubar4 = wibox.widget {forced_height=10, max_value=1, widget = wibox.widget.progressbar }
-vicious.register(cpubar4, vicious.widgets.cpu, "$5", .5)
-cpubar5 = wibox.widget {forced_height=10, max_value=1, widget = wibox.widget.progressbar }
-vicious.register(cpubar5, vicious.widgets.cpu, "$6", .5)
-cpubar6 = wibox.widget {forced_height=10, max_value=1, widget = wibox.widget.progressbar }
-vicious.register(cpubar6, vicious.widgets.cpu, "$7", .5)
-cpubar7 = wibox.widget {forced_height=10, max_value=1, widget = wibox.widget.progressbar }
-vicious.register(cpubar7, vicious.widgets.cpu, "$8", .5)
-cpubar8 = wibox.widget {forced_height=10, max_value=1, widget = wibox.widget.progressbar }
-vicious.register(cpubar8, vicious.widgets.cpu, "$9", .5)
-cpubar9 = wibox.widget {forced_height=10, max_value=1, widget = wibox.widget.progressbar }
-vicious.register(cpubar9, vicious.widgets.cpu, "$10" , .5)
-cpubar10 = wibox.widget {forced_height=10, max_value=1, widget = wibox.widget.progressbar }
-vicious.register(cpubar10, vicious.widgets.cpu, "$11", .5)
-cpubar11 = wibox.widget {forced_height=10, max_value=1, widget = wibox.widget.progressbar }
-vicious.register(cpubar11, vicious.widgets.cpu, "$12", .5)
-cpubar12 = wibox.widget {forced_height=10, max_value=1, widget = wibox.widget.progressbar }
-vicious.register(cpubar12, vicious.widgets.cpu, "$13", .5)
-cpubar13 = wibox.widget {forced_height=10, max_value=1, widget = wibox.widget.progressbar }
-vicious.register(cpubar13, vicious.widgets.cpu, "$14", .5)
-cpubar14 = wibox.widget {forced_height=10, max_value=1, widget = wibox.widget.progressbar }
-vicious.register(cpubar14, vicious.widgets.cpu, "$15", .5)
-cpubar15 = wibox.widget {forced_height=10, max_value=1, widget = wibox.widget.progressbar }
-vicious.register(cpubar15, vicious.widgets.cpu, "$16", .5)
-cpubar16 = wibox.widget {forced_height=10, max_value=1, widget = wibox.widget.progressbar }
-vicious.register(cpubar16, vicious.widgets.cpu, "$17", .5)
-cpubar17 = wibox.widget {forced_height=10, max_value=1, widget = wibox.widget.progressbar }
-vicious.register(cpubar17, vicious.widgets.cpu, "$18", .5)
-cpubar18 = wibox.widget {forced_height=10, max_value=1, widget = wibox.widget.progressbar }
-vicious.register(cpubar18, vicious.widgets.cpu, "$19", .5)
-cpubar19 = wibox.widget {forced_height=10, max_value=1, widget = wibox.widget.progressbar }
-vicious.register(cpubar19, vicious.widgets.cpu, "$20", .5)
-cpubar20 = wibox.widget {forced_height=10, max_value=1, widget = wibox.widget.progressbar }
-vicious.register(cpubar20, vicious.widgets.cpu, "$21", .5)
-cpubar21 = wibox.widget {forced_height=10, max_value=1, widget = wibox.widget.progressbar }
-vicious.register(cpubar21, vicious.widgets.cpu, "$22", .5)
-cpubar22 = wibox.widget {forced_height=10, max_value=1, widget = wibox.widget.progressbar }
-vicious.register(cpubar22, vicious.widgets.cpu, "$23", .5)
-cpubar23 = wibox.widget {forced_height=10, max_value=1, widget = wibox.widget.progressbar }
-vicious.register(cpubar23, vicious.widgets.cpu, "$24", .5)
-cpubar24 = wibox.widget {forced_height=10, max_value=1, widget = wibox.widget.progressbar }
-vicious.register(cpubar24, vicious.widgets.cpu, "$25", .5)
-
-cpubar = wibox.widget {
- { -- since there is a rotate height is actually width
-    cpubar1, cpubar2, cpubar3, cpubar4, cpubar5, cpubar6, cpubar7, cpubar8,
-    cpubar9, cpubar10, cpubar11, cpubar12, cpubar13, cpubar14, cpubar15,
-    cpubar16, cpubar17, cpubar18, cpubar19, cpubar20, cpubar21, cpubar22,
-    cpubar23, cpubar24,
-   layout = wibox.layout.flex.vertical,
- },
- direction = 'east',
- widget    = wibox.container.rotate,
-}
 
 -- total cpu graph
 cpuwidget = wibox.widget.graph()
@@ -343,7 +283,6 @@ awful.screen.connect_for_each_screen(function(s)
 	    wibox.widget.textbox(' | HFIR: '),
 	    awful.widget.watch('/home/pf9/bin/beamstatus hfir', 60),
 	    wibox.widget.textbox(' '),
-            cpubar,
 	    cpuwidget,
 	    memwidget,
 	    netwidget,
@@ -701,4 +640,8 @@ end)
 
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+
+-- autostart programs
+awful.spawn.with_shell("~/.config/awesome/autorun.sh")
+
 -- }}}
