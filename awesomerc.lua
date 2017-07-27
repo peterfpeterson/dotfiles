@@ -12,6 +12,12 @@ local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
 local vicious = require("vicious")
 
+-- {{{Useful links
+-- https://awesomewm.org/doc/api/index.html - main API docs for awesome
+-- https://github.com/Mic92/vicious - vicious widget library
+-- https://wiki.archlinux.org/index.php/Awesome - arch tips and tricks
+-- }}}
+
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -123,7 +129,7 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 
 -- {{{ Wibar
 -- Create a textclock widget
-mytextclock = wibox.widget.textclock()
+mytextclock = wibox.widget.textclock(" %m-%dT%H:%M ")
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -183,6 +189,17 @@ end
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
 screen.connect_signal("property::geometry", set_wallpaper)
 
+-- Weather widget
+--weatherwidget = wibox.widget.textbox() -- wibox.widget{ type = "textbox" }
+--weather_t = awful.tooltip({ objects = { weatherwidget },})
+--vicious.register(weatherwidget, vicious.widgets.weather,
+--                function (widget, args)
+--                    weather_t:set_text("City: " .. args["{city}"] .."\nWind: " .. args["{windkmh}"] .. "km/h " .. args["{wind}"] .. "\nSky: " .. args["{sky}"] .. "\nHumidity: " .. args["{humid}"] .. "%")
+--                    return args["{tempc}"] .. "C"
+--                end, 1800, "KOQT")
+--                --'1800': check every 30 minutes.
+--                --'CYUL': the Oak Ridge ICAO code.
+
 -- Graph Widgets
 
 -- total cpu graph
@@ -199,7 +216,7 @@ vicious.register(cpu_tooltip, vicious.widgets.cpu,
                  end, 1)
 
 
--- total cpu graph
+-- memory graph
 memwidget_text = wibox.widget.textbox() -- dumb placeholder thing
 memwidget = wibox.widget { width=60,
                            stack=true,
@@ -223,20 +240,38 @@ vicious.register(mem_tooltip, vicious.widgets.mem,
                                          data[5], data[6]/1024, data[7]/1024)
                  end, 1)
 
-netwidget = { width=60,
+-- network usage
+netwidget_down = { width=60,
               --stack=true,
               scale = false,
-              min_value=0,
-              max_value=1,
+              -- min_value=0,
+              -- max_value=1,
               border_color = "#000000",
               background_color= "#494B4F",
               color = { type = "linear", from = { 0, 0 }, to = { 60,0 }, stops = { {0, "#edd400"}, {0.5, "#fce84d" }, {1, "#000000"}}},
               -- stack_colors = { "#edd400", "#fce84d" },
               widget = wibox.widget.graph }
-vicious.register(netwidget, vicious.widgets.net, "${ens3 down_mb}", 1)
+vicious.register(netwidget_down, vicious.widgets.net, "${ens3 down_mb}", 1)
+netwidget_up = { width=60,
+              --stack=true,
+              scale = false,
+              -- min_value=0,
+              -- max_value=1,
+              border_color = "#000000",
+              background_color= "#494B4F",
+              color = { type = "linear", from = { 0, 0 }, to = { 60,0 }, stops = { {0, "#edd400"}, {0.5, "#fce84d" }, {1, "#000000"}}},
+              -- stack_colors = { "#edd400", "#fce84d" },
+              widget = wibox.widget.graph }
+vicious.register(netwidget_up, vicious.widgets.net, "${ens3 up_mb}", 1)
+netwidget = wibox.widget{
+   netwidget_up,
+   netwidget_down,
+   layout = wibox.layout.flex.vertical,
+}
 
+-- uptime
 upwidget = wibox.widget.textbox()
-vicious.register(upwidget, vicious.widgets.uptime, " uptime: $1d$2h$3m |",30)
+vicious.register(upwidget, vicious.widgets.uptime, " $1d$2h$3m |",30)
 
 awful.screen.connect_for_each_screen(function(s)
     -- Wallpaper
@@ -402,7 +437,7 @@ globalkeys = gears.table.join(
     awful.key({ modkey }, "p", function() menubar.show() end,
               {description = "show the menubar", group = "launcher"}),
     -- Lock screen
-    awful.key({ "Mod4" }, "l", function () awful.util.spawn("i3lock -c 000000") end)
+    awful.key({ "Mod4", "Control" }, "l", function () awful.util.spawn("i3lock -c 000000") end)
 )
 
 clientkeys = gears.table.join(
