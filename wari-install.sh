@@ -14,6 +14,9 @@ add_repo rpmfusion-free rpmfusion-nonfree
 if [ ! -f ${REPO_DIR}/_copr_peterfpeterson-morebin.repo ]; then
     add_copr_repo peterfpeterson/morebin
 fi
+if [ ! -f ${REPO_DIR}/_copr_carlwgeorge-ripgrep.repo ]; then
+    add_copr_repo carlwgeorge/ripgrep
+fi
 
 echo "Adding packages for distribution"
 add_packages_from_distro_file
@@ -37,6 +40,7 @@ add_package emacs
 add_package pithos
 add_package mock
 add_package ncdu
+add_package ripgrep
 add_package slock
 add_package terminology
 add_package hidapi-devel
