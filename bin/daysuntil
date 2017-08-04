@@ -1,6 +1,13 @@
 #!/bin/sh
 if [ $1 ]; then
     result=$((`date -d $1 +%-j` - `date +%-j`))
+    # add number of days in current year if the result is negative
+    # this doesn't account for things two years out
+    if [ ! $result -gt 0 ]; then
+        current_year=`date +%Y`
+        days_in_year=$(date -d  $current_year-12-31 +%j)
+        result=$(($result + $days_in_year))
+    fi
     result=$(printf %3d $result)
     echo "$result"
 else
