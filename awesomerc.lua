@@ -241,33 +241,33 @@ vicious.register(mem_tooltip, vicious.widgets.mem,
                  end, 1)
 
 -- network usage
-netwidget_down = { width=60,
-              --stack=true,
-              scale = false,
-              -- min_value=0,
-              -- max_value=1,
-              border_color = "#000000",
-              background_color= "#494B4F",
-              color = { type = "linear", from = { 0, 0 }, to = { 60,0 }, stops = { {0, "#edd400"}, {0.5, "#fce84d" }, {1, "#000000"}}},
-              -- stack_colors = { "#edd400", "#fce84d" },
-              widget = wibox.widget.graph }
-vicious.register(netwidget_down, vicious.widgets.net, "${ens3 down_mb}", 1)
-netwidget_up = { width=60,
-              --stack=true,
-              scale = false,
-              -- min_value=0,
-              -- max_value=1,
-              border_color = "#000000",
-              background_color= "#494B4F",
-              color = { type = "linear", from = { 0, 0 }, to = { 60,0 }, stops = { {0, "#edd400"}, {0.5, "#fce84d" }, {1, "#000000"}}},
-              -- stack_colors = { "#edd400", "#fce84d" },
-              widget = wibox.widget.graph }
-vicious.register(netwidget_up, vicious.widgets.net, "${ens3 up_mb}", 1)
-netwidget = wibox.widget{
-   netwidget_up,
-   netwidget_down,
-   layout = wibox.layout.flex.vertical,
-}
+--netwidget_down = { width=60,
+--              --stack=true,
+--              scale = false,
+--              -- min_value=0,
+--              -- max_value=1,
+--              border_color = "#000000",
+--              background_color= "#494B4F",
+--              color = { type = "linear", from = { 0, 0 }, to = { 60,0 }, stops = { {0, "#edd400"}, {0.5, "#fce84d" }, {1, "#000000"}}},
+--              -- stack_colors = { "#edd400", "#fce84d" },
+--              widget = wibox.widget.graph }
+--vicious.register(netwidget_down, vicious.widgets.net, "${ens3 down_mb}", 1)
+--netwidget_up = { width=60,
+--              --stack=true,
+--              scale = false,
+--              -- min_value=0,
+--              -- max_value=1,
+--              border_color = "#000000",
+--              background_color= "#494B4F",
+--              color = { type = "linear", from = { 0, 0 }, to = { 60,0 }, stops = { {0, "#edd400"}, {0.5, "#fce84d" }, {1, "#000000"}}},
+--              -- stack_colors = { "#edd400", "#fce84d" },
+--              widget = wibox.widget.graph }
+--vicious.register(netwidget_up, vicious.widgets.net, "${ens3 up_mb}", 1)
+--netwidget = wibox.widget{
+--   netwidget_up,
+--   netwidget_down,
+--   layout = wibox.layout.flex.vertical,
+--}
 
 -- uptime
 upwidget = wibox.widget.textbox()
@@ -320,7 +320,7 @@ awful.screen.connect_for_each_screen(function(s)
 	    wibox.widget.textbox(' '),
 	    cpuwidget,
 	    memwidget,
-	    netwidget,
+	    --netwidget,
 	    upwidget,
             mytextclock,
             s.mylayoutbox,
