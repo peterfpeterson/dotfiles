@@ -85,7 +85,7 @@ ${color lightgrey} ${top_mem name 5} ${alignr}$color ${top_mem mem_res 5} ${top_
 ${color grey}Network: Up:$color ${upspeed ens3}
 ${upspeedgraph ens3}
 ${color grey}Down:$color ${downspeed ens3}
-${downspeedgraph en3}
+${downspeedgraph ens3}
 #${color red}${font DejaVu Sans Mono:bold:size=10}Beam power ${hr 2}$color${font}
 #${color grey}SNS: $color ${execi 15 ~/bin/beamstatus sns -w 7} ${execibar 15 ~/bin/beamstatus sns -p}
 #${color grey}HFIR:$color ${execi 60 ~/bin/beamstatus hfir -w 7} ${execibar 60 ~/bin/beamstatus hfir -p}
