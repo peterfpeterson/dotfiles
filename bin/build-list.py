@@ -237,6 +237,11 @@ msg_text += str(jobsList)
 msg_html += jobsList.toHtml()
 msg_dict[jobsList.name] = jobsList.toDict()
 
+jobsList = JobsList('Release Pipeline', last_dict)
+msg_text += str(jobsList)
+msg_html += jobsList.toHtml()
+msg_dict[jobsList.name] = jobsList.toDict()
+
 jobs = ['master_clean-archlinux',
         'master_clean-archlinux-clang',
         'master_clean-fedora25',
