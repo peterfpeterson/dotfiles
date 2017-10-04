@@ -49,3 +49,6 @@
 [submodule "ansible-bash-completion"]
 	path = ansible-bash-completion
 	url = https://github.com/dysosmus/ansible-completion.git
+[submodule "willgit"]
+	path = willgit
+	url = https://github.com/DanielVartanov/willgit.git
