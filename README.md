@@ -18,4 +18,15 @@ Things not covered:
 * Copying `sys/etc/ld.so.conf.d/usr-local.conf` into `/etc/ld.so.conf.d/` and running `ldconfig`. This adds `/usr/local/lib` to your `LD_LIBRARY_PATH`. If ldconfig gives a message about `/etc/ld.so.conf` missing, copy that file over as well.
 * Things in `tools` are not run
 
+To update the individual tools
+------------------------------
+
+These instructions are [inspired/modified from mantid](https://github.com/mantidproject/paraview-build/blob/master/buildscript).
+
+* `git submodule foreach git fetch -p -t`
+* go into each (updated) submodule and decide whether or not to move what revision to use. This is generally done by either:
+  * `git tag` to list the tags then `git checkout tagname`
+  * `git rebase -v origin/master`
+* `git commit <submodule directory names without a trailing slash>`
+
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](http://opensource.org/licenses/MIT)
