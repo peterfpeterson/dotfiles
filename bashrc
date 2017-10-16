@@ -127,7 +127,6 @@ fi
 # source-highlighting with less
 if [ $(command -v highlight) ]; then
   export LESSOPEN="| $(command -v highlight) %s --out-format xterm256 --line-numbers --quiet --force --style solarized-dark"
-  alias cat="$(command -v highlight) $1 --out-format xterm256 --line-numbers --quiet --force --style solarized-dark"
 elif [ $(command -v src-hilite-lesspipe.sh) ]; then
   export LESSOPEN="| $(command -v src-hilite-lesspipe.sh) %s"
 fi
