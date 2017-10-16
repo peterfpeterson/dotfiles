@@ -13,6 +13,9 @@ fi
 # https://github.com/github/hub/
 if [ $(command -v hub) ]; then
   eval "$(hub alias -s)"
+  if [ -f ${HOME}/.ssh/github_oauth ]; then
+    GITHUB_TOKEN=$(cat ${HOME}/.ssh/github_oauth)
+  fi
 fi
 
 if [ $(command -v vim) ]; then
