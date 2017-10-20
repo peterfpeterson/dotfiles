@@ -1,3 +1,4 @@
 */5 7,8,9,10,11,12,13,14,15,16,17,18 * * 1,2,3,4,5 ~/bin/git-list-pr mantidproject/mantid peterfpeterson
+0 6,10,14,18 * * 1-5 ~/code/mantid-developer/update_mantid_git.sh
 3 4 * * 1,2,3,4,5 ~/bin/build-list.py ~/.build-list.config
 3 15 * * 1,2,3,4,5 ~/bin/update_countdown.sh
