@@ -39,6 +39,8 @@ add_package vim-enhanced
 add_package emacs
 add_package pithos
 add_package mock
+add_package rubygem-bundler
+add_package ruby-devel
 add_package ncdu
 add_package ripgrep
 add_package slock
