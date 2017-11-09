@@ -66,6 +66,7 @@
     ~/.conkyrc: conkyrc
     ~/.conkyrc-i3: conkyrc-i3
     ~/.dir_colors: dircolors-solarized/dircolors.ansi-universal
+    ~/.direnvrc: direnvrc
     ~/.emacs: emacs
     ~/etc/vrpn.cfg: vrpn-config/vrpn.cfg
     ~/etc/spacenave_vr_state.pvvr: vrpn-config/spacenave_vr_state.pvvr

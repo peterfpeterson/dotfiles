@@ -150,3 +150,8 @@ alias whatidid_addday="echo $(date '+%F') >> ${WHATIDIDDIR}/$(date '+%Y-week%V.m
 if [ $(command -v complete_bundle_bash_command) ]; then
   eval `complete_bundle_bash_command init`
 fi
+
+# add direnv https://github.com/direnv/direnv/
+if [ $(command -v direnv) ]; then
+  eval "$(direnv hook bash)"
+fi

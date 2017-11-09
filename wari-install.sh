@@ -27,6 +27,7 @@ add_package autofs
 add_package ccache
 add_package colordiff
 add_package conky
+add_package direnv
 add_package ninja-build
 add_package python2-argcomplete
 add_package python3-argcomplete
