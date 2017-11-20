@@ -142,8 +142,11 @@ if __name__ == '__main__':
     if width < 0:
         parser.error('Terminal width ({}) is too small by {} characters'.format(options.width,
                                                                                     -1*width))
+    if numinstr > 1:
+        width = width // (numinstr-1)
     lineformat = ['{{}}' for reporter in reporters]
-    lineformat = ('{:^' + str((width // (numinstr-1)))+ '}').join(lineformat)
+
+    lineformat = ('{:^' + str(width)+ '}').join(lineformat)
     bars = tuple(['|' for reporter in reporters])
     lineformat = lineformat.format(*bars)
 
