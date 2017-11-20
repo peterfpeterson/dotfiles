@@ -5,6 +5,7 @@ import time
 
 INSTRUMENTS = ['ARCS', 'BSS', 'CNCS', 'CORELLI', 'EQSANS', 'HYS', 'MANDI', 'NOM', 'PG3',
                'REF_L', 'REF_M', 'SEQ', 'SNAP', 'TOPAZ', 'USANS', 'VIS', 'VULCAN']
+LEGACY_DAS = ['ARCS', 'BSS', 'SNAP', 'TOPAZ']
 STATUS = {'incomplete':'incmp',
           'complete':  'compl',
           'error':     'error'}
@@ -36,9 +37,10 @@ def getRunList(instrument):
     return getJson(URL.format(instrument), params={'format':'json'})
 
 class Reporter(object):
-    def __init__(self, instrument, fullWidth):
+    def __init__(self, instrument, fullWidth, withHeader):
         self.instrument = instrument
         self.fullWidth = fullWidth
+        self.withHeader = withHeader
         self.update()
 
     def update(self):
@@ -70,17 +72,19 @@ class Reporter(object):
             info = '{}  {}  {}'.format(runid, info['timestamp'], info['status'])
             self.lines.append(info)
 
-        # put together header
         self.width = len(self.lines[0])
-        fullWidth = min(self.fullWidth, self.width)
-        propline = '{:<} {:>' + str(self.width-len(self.instrument)-1) + '}'
-        self.lines.insert(0, propline.format(self.instrument.upper(), proposal))
-        rateline = '{:<} {:>' + str(self.width-len(recording_status)-1) + '}'
-        self.lines.insert(1, rateline.format(recording_status, count_rate))
-        if len(title) > fullWidth: # trim the title to width
-            title = title[:fullWidth-1]
-        titleline = '{:^' + str(self.width) + '}'
-        self.lines.insert(2, titleline.format(title))
+
+        # put together header
+        if self.withHeader:
+            fullWidth = min(self.fullWidth, self.width)
+            propline = '{:<} {:>' + str(self.width-len(self.instrument)-1) + '}'
+            self.lines.insert(0, propline.format(self.instrument.upper(), proposal))
+            rateline = '{:<} {:>' + str(self.width-len(recording_status)-1) + '}'
+            self.lines.insert(1, rateline.format(recording_status, count_rate))
+            if len(title) > fullWidth: # trim the title to width
+                title = title[:fullWidth-1]
+            titleline = '{:^' + str(self.width) + '}'
+            self.lines.insert(2, titleline.format(title))
 
         self.numlines = len(self.lines)
 
@@ -111,21 +115,27 @@ if __name__ == '__main__':
     argcomplete.autocomplete(parser)
     # parse the command line
     options = parser.parse_args()
+    options.instruments = [instr.upper() for instr in options.instruments]
     numinstr = len(options.instruments)
 
     # get all of the reporters
-    reporters = [Reporter(instr, fullWidth=(options.width // numinstr))
+    reporters = [Reporter(instr, fullWidth=(options.width // numinstr),
+                          withHeader=(instr not in LEGACY_DAS))
                  for instr in options.instruments]
 
     # create the format string
-    if numinstr == 1:
-        lineformat = '{:<}'
-    elif numinstr == 2:
-        width = options.width - reporters[0].width - reporters[1].width-2
-        lineformat = '{{}}{:^' + str(width) + '}{{}}'
-        lineformat = lineformat.format('|')
-    else:
-        raise RuntimeError('lineformat not implemented for 3+ instruments')
+    # determine width for space between columns
+    width = options.width
+    for reporter in reporters:
+        width -= reporter.width
+    width -= len(reporters)
+    if width < 0:
+        parser.error('Terminal width ({}) is too small by {} characters'.format(options.width,
+                                                                                    -1*width))
+    lineformat = ['{{}}' for reporter in reporters]
+    lineformat = ('{:^' + str(width // numinstr)+ '}').join(lineformat)
+    bars = tuple(['|' for reporter in reporters])
+    lineformat = lineformat.format(*bars)
 
     starttime=time.time()
     while True:
@@ -136,7 +146,7 @@ if __name__ == '__main__':
         numlines = min(options.height, max([reporter.numlines for reporter in reporters]))
 
         # put together final version
-        for index in range(numlines):
+        for index in range(options.height):
             args = []
             for reporter in reporters:
                 args.append(reporter.line(index))
