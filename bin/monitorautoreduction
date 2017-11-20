@@ -2,7 +2,9 @@
 from __future__ import (absolute_import, division, print_function, unicode_literals)
 import requests
 
-instrument = "nom"
+INSTRUMENTS = ['ARCS', 'BSS', 'CNCS', 'CORELLI', 'EQSANS', 'HYS', 'MANDI', 'NOM', 'PG3',
+               'REF_L', 'REF_M', 'SEQ', 'SNAP', 'TOPAZ', 'USANS', 'VIS', 'VULCAN']
+
 
 URL_BASE = 'https://monitor.sns.gov/'
 URL = URL_BASE + 'dasmon/{0}/runs/'
@@ -30,5 +32,53 @@ def getJson(url, params):
 def getRunList(instrument):
     return getJson(URL.format(instrument), params={'format':'json'})
 
-json_doc = getRunList(instrument)
-print(json_doc)
+if __name__ == '__main__':
+    import argparse     # for command line options
+    import argcomplete  # for bash completion
+    parser = argparse.ArgumentParser(description="Print current status of autoreduction")
+    allowed_instruments = [instr.lower() for instr in INSTRUMENTS]
+    allowed_instruments.extend(INSTRUMENTS)
+    parser.add_argument('instruments', nargs='+', choices=allowed_instruments,
+                         help='Specify the instruments')
+    # default terminal size is often 80x24
+    parser.add_argument('--width', type=int, default=80,
+                        help='Width of terminal (default=80)')
+    parser.add_argument('--height', type=int, default=24,
+                        help='Height of terminal (default=24)')
+
+
+    # set up bash completion
+    argcomplete.autocomplete(parser)
+    # parse the command line
+    options = parser.parse_args()
+
+    instrument = options.instruments[0]
+    json_doc = getRunList(instrument)
+
+    proposal = json_doc.get('proposal_id', '')
+    title = json_doc.get('run_title', '')
+    recording_status = json_doc.get('recording_status', '')
+    count_rate = '{0} counts/sec'.format(json_doc.get('count_rate', 0.))
+
+
+    print('{0:<} {1:>}'.format(instrument.upper(), proposal))
+    print(recording_status, count_rate)
+    print(title)
+
+    runs = json_doc['runs']
+    run_list = {}
+    for status in runs:
+        runid = '{0}_{1}'.format(instrument.upper(), status['run'])
+        timestamp = status['timestamp'].split()
+        timestamp = '{0} {1}'.format(timestamp[0], timestamp[3])
+        run_list[runid] = {'timestamp':timestamp,
+                           'status':status['status']}
+    runs = list(run_list.keys())
+    runs.sort()
+    for runid in runs[::-1]:
+        info = run_list[runid]
+        info = '{0}  {1}  {2:>10}'.format(runid, info['timestamp'], info['status'])
+        print(info)
+
+#print(json_doc.keys())
+#print(json_doc['runs'])
