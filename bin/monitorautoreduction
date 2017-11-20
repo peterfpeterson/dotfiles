@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 from __future__ import (absolute_import, division, print_function, unicode_literals)
 import requests
+import time
 
 INSTRUMENTS = ['ARCS', 'BSS', 'CNCS', 'CORELLI', 'EQSANS', 'HYS', 'MANDI', 'NOM', 'PG3',
                'REF_L', 'REF_M', 'SEQ', 'SNAP', 'TOPAZ', 'USANS', 'VIS', 'VULCAN']
@@ -36,7 +37,12 @@ def getRunList(instrument):
 
 class Reporter(object):
     def __init__(self, instrument, fullWidth):
-        json_doc = getRunList(instrument)
+        self.instrument = instrument
+        self.fullWidth = fullWidth
+        self.update()
+
+    def update(self):
+        json_doc = getRunList(self.instrument)
 
         # get the header information together
         proposal = json_doc.get('proposal_id', '')
@@ -48,7 +54,7 @@ class Reporter(object):
         runs = json_doc['runs']
         run_list = {}
         for status in runs:
-            runid = '{0}_{1}'.format(instrument.upper(), status['run'])
+            runid = '{0}_{1}'.format(self.instrument.upper(), status['run'])
             timestamp = status['timestamp'].split()
             timestamp = '{0} {1}'.format(timestamp[0], timestamp[3])
             run_list[runid] = {'timestamp':timestamp,
@@ -66,9 +72,9 @@ class Reporter(object):
 
         # put together header
         self.width = len(self.lines[0])
-        fullWidth = min(fullWidth, self.width)
-        propline = '{:<} {:>' + str(self.width-len(instrument)-1) + '}'
-        self.lines.insert(0, propline.format(instrument.upper(), proposal))
+        fullWidth = min(self.fullWidth, self.width)
+        propline = '{:<} {:>' + str(self.width-len(self.instrument)-1) + '}'
+        self.lines.insert(0, propline.format(self.instrument.upper(), proposal))
         rateline = '{:<} {:>' + str(self.width-len(recording_status)-1) + '}'
         self.lines.insert(1, rateline.format(recording_status, count_rate))
         if len(title) > fullWidth: # trim the title to width
@@ -97,6 +103,8 @@ if __name__ == '__main__':
                         help='Width of terminal (default=80)')
     parser.add_argument('--height', type=int, default=24,
                         help='Height of terminal (default=24)')
+    parser.add_argument('--refresh', type=int, default=60, metavar='SECONDS',
+                        help='Refresh rate (default=60)')
 
 
     # set up bash completion
@@ -106,10 +114,8 @@ if __name__ == '__main__':
     numinstr = len(options.instruments)
 
     # get all of the reporters
-    reporters = [Reporter(instr, fullWidth=(options.width / numinstr)) for instr in options.instruments]
-
-    # find the maximum number of lines for the reporters, but limit to height
-    numlines = min(options.height, max([reporter.numlines for reporter in reporters]))
+    reporters = [Reporter(instr, fullWidth=(options.width // numinstr))
+                 for instr in options.instruments]
 
     # create the format string
     if numinstr == 1:
@@ -121,9 +127,20 @@ if __name__ == '__main__':
     else:
         raise RuntimeError('lineformat not implemented for 3+ instruments')
 
-    # put together final version
-    for index in range(numlines):
-        args = []
+    starttime=time.time()
+    while True:
         for reporter in reporters:
-            args.append(reporter.line(index))
-        print(lineformat.format(*tuple(args)))
+            reporter.update()
+
+        # find the maximum number of lines for the reporters, but limit to height
+        numlines = min(options.height, max([reporter.numlines for reporter in reporters]))
+
+        # put together final version
+        for index in range(numlines):
+            args = []
+            for reporter in reporters:
+                args.append(reporter.line(index))
+            print(lineformat.format(*tuple(args)))
+
+        # sleep for the prescribed time
+        time.sleep(options.refresh - ((time.time() - starttime) % options.refresh))
