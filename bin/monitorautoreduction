@@ -4,7 +4,9 @@ import requests
 
 INSTRUMENTS = ['ARCS', 'BSS', 'CNCS', 'CORELLI', 'EQSANS', 'HYS', 'MANDI', 'NOM', 'PG3',
                'REF_L', 'REF_M', 'SEQ', 'SNAP', 'TOPAZ', 'USANS', 'VIS', 'VULCAN']
-
+STATUS = {'incomplete':'incmp',
+          'complete':  'compl',
+          'error':     'error'}
 
 URL_BASE = 'https://monitor.sns.gov/'
 URL = URL_BASE + 'dasmon/{0}/runs/'
@@ -32,6 +34,56 @@ def getJson(url, params):
 def getRunList(instrument):
     return getJson(URL.format(instrument), params={'format':'json'})
 
+class Reporter(object):
+    def __init__(self, instrument, fullWidth):
+        json_doc = getRunList(instrument)
+
+        # get the header information together
+        proposal = json_doc.get('proposal_id', '')
+        title = json_doc.get('run_title', '').strip()
+        recording_status = json_doc.get('recording_status', '')
+        count_rate = '{0:.0f} counts/sec'.format(float(json_doc.get('count_rate', 0.)))
+
+        # put together all off the run information
+        runs = json_doc['runs']
+        run_list = {}
+        for status in runs:
+            runid = '{0}_{1}'.format(instrument.upper(), status['run'])
+            timestamp = status['timestamp'].split()
+            timestamp = '{0} {1}'.format(timestamp[0], timestamp[3])
+            run_list[runid] = {'timestamp':timestamp,
+                               'status':STATUS.get(status['status'], status['status'])}
+        runs = list(run_list.keys())
+        runs.sort()
+
+
+        # put together list of runs
+        self.lines = []
+        for runid in runs[::-1]:
+            info = run_list[runid]
+            info = '{}  {}  {}'.format(runid, info['timestamp'], info['status'])
+            self.lines.append(info)
+
+        # put together header
+        self.width = len(self.lines[0])
+        fullWidth = min(fullWidth, self.width)
+        propline = '{:<} {:>' + str(self.width-len(instrument)-1) + '}'
+        self.lines.insert(0, propline.format(instrument.upper(), proposal))
+        rateline = '{:<} {:>' + str(self.width-len(recording_status)-1) + '}'
+        self.lines.insert(1, rateline.format(recording_status, count_rate))
+        if len(title) > fullWidth: # trim the title to width
+            title = title[:fullWidth-1]
+        titleline = '{:^' + str(self.width) + '}'
+        self.lines.insert(2, titleline.format(title))
+
+        self.numlines = len(self.lines)
+
+    def line(self, index):
+        if index >= self.numlines:
+            return ' '*self.width
+        else:
+            return self.lines[index]
+
 if __name__ == '__main__':
     import argparse     # for command line options
     import argcomplete  # for bash completion
@@ -51,34 +103,27 @@ if __name__ == '__main__':
     argcomplete.autocomplete(parser)
     # parse the command line
     options = parser.parse_args()
+    numinstr = len(options.instruments)
 
-    instrument = options.instruments[0]
-    json_doc = getRunList(instrument)
+    # get all of the reporters
+    reporters = [Reporter(instr, fullWidth=(options.width / numinstr)) for instr in options.instruments]
 
-    proposal = json_doc.get('proposal_id', '')
-    title = json_doc.get('run_title', '')
-    recording_status = json_doc.get('recording_status', '')
-    count_rate = '{0} counts/sec'.format(json_doc.get('count_rate', 0.))
+    # find the maximum number of lines for the reporters, but limit to height
+    numlines = min(options.height, max([reporter.numlines for reporter in reporters]))
 
+    # create the format string
+    if numinstr == 1:
+        lineformat = '{:<}'
+    elif numinstr == 2:
+        width = options.width - reporters[0].width - reporters[1].width-2
+        lineformat = '{{}}{:^' + str(width) + '}{{}}'
+        lineformat = lineformat.format('|')
+    else:
+        raise RuntimeError('lineformat not implemented for 3+ instruments')
 
-    print('{0:<} {1:>}'.format(instrument.upper(), proposal))
-    print(recording_status, count_rate)
-    print(title)
-
-    runs = json_doc['runs']
-    run_list = {}
-    for status in runs:
-        runid = '{0}_{1}'.format(instrument.upper(), status['run'])
-        timestamp = status['timestamp'].split()
-        timestamp = '{0} {1}'.format(timestamp[0], timestamp[3])
-        run_list[runid] = {'timestamp':timestamp,
-                           'status':status['status']}
-    runs = list(run_list.keys())
-    runs.sort()
-    for runid in runs[::-1]:
-        info = run_list[runid]
-        info = '{0}  {1}  {2:>10}'.format(runid, info['timestamp'], info['status'])
-        print(info)
-
-#print(json_doc.keys())
-#print(json_doc['runs'])
+    # put together final version
+    for index in range(numlines):
+        args = []
+        for reporter in reporters:
+            args.append(reporter.line(index))
+        print(lineformat.format(*tuple(args)))
