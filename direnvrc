@@ -7,3 +7,8 @@ layout_virtualenvwrapper() {
   local venv_path="${WORKON_HOME}/$1"
   layout_virtualenv $venv_path
 }
+
+layout_conda() {
+  local venv_name="$1"
+  source ${HOME}/miniconda3/bin/activate ${venv_path}
+}
