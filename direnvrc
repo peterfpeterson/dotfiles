@@ -60,7 +60,7 @@ layout_python3() {
   fi
 }
 
-########## needs to be a pull request
+########## https://github.com/direnv/direnv/pull/312
 
 # usage: layout anaconda <enviroment_name> <conda_exe>
 # where <conda_exe> is optional
