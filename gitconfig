@@ -1,19 +1,12 @@
 # Allow local customizations in the .gitconfig_local file
 [include]
 	path = ~/.gitconfig_local
-
-[difftool "kompare"]
-	external = kompare
-	prompt = false
+[diff]
+	tool = meld
 [difftool]
-        external = meld
-        prompt = false
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path =
-[mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
+	prompt = false
+[merge]
+	tool = meld
 [color]
 	ui = auto
 	branch = auto
