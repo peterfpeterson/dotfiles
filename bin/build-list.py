@@ -27,7 +27,8 @@ COLORS = {
     'FAILURE':  'red',
     'UNSTABLE': 'yellow',
     'ABORTED':  'grey',
-    'DISABLED': 'grey'
+    'DISABLED': 'grey',
+    'NEVER': 'grey'
 }
 
 class BuildJob:
@@ -61,6 +62,12 @@ class BuildJob:
         self.name = req.json()['displayName']
         self.color = req.json()['color']
         lastCompletedBuild = req.json()['lastCompletedBuild']
+        if lastCompletedBuild is None: # set as unset and return early
+            self.number = 0
+            self.urlBuild = None
+            self.result = 'NEVER'
+            return
+
         self.number = lastCompletedBuild['number']
 
         self.urlBuild = lastCompletedBuild['url']
