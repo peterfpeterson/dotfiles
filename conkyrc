@@ -25,7 +25,6 @@ conky.config = {
   own_window = true,
   own_window_class = 'Conky',
   own_window_transparent = true, -- requires xcompmgr in awesome
-  own_window_type = 'desktop',
   own_window_hints = 'undecorated,below,skip_taskbar,sticky',
   own_window_argb_visual = true,
   stippled_borders = 0,
