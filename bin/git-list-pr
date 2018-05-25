@@ -19,15 +19,15 @@ def getGithubOauthToken():
 
 GITHUB_TOKEN = getGithubOauthToken()
 
-def getPullRequests(base_url, per_page=100):
+def getPullRequests(base_url, per_page=100, timeout=10):
     url = base_url + "pulls"
     params = {'per_page':per_page}
     if GITHUB_TOKEN is not None:
         params['access_token'] = GITHUB_TOKEN
-    req = requests.get(url, timeout=1., params=params)
+    req = requests.get(url, timeout=timeout, params=params)
 
     status_code = req.status_code
-    if status_code == requests.codes.FORBIDDEN:
+    if not status_code == requests.codes.OK:
         print "status:", status_code
         print req.json()['message']
         sys.exit(-1)
@@ -99,10 +99,12 @@ if __name__ == "__main__":
     parser.add_argument('--dryrun', action='store_true', help='print results to stdout rather than file')
     parser.add_argument('--perpage', default=100,
                         help='number of pull requests to fetch (default=%(default)s)')
+    parser.add_argument('--timeout', default=10,
+                        help='timeout for http requests (default=%(default)s)')
     args = parser.parse_args()
 
     url = "%s%s/" % (BASE_URL, args.repo)
-    pullRequests = getPullRequests(url, args.perpage)
+    pullRequests = getPullRequests(url, args.perpage, timeout=args.timeout)
 
     pullRequests = [simplify(request) for request in pullRequests]
     pullRequests = [changeNames(request, args.username) for request in pullRequests]
