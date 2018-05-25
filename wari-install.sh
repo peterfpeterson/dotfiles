@@ -10,7 +10,7 @@ add_repo elrepo epel
 add_repo mantid
 add_repo rpmfusion-free rpmfusion-nonfree
 #add_repo sns
-#add_repo nvidia
+add_repo nvidia
 
 if [ ! -f ${REPO_DIR}/_copr_peterfpeterson-morebin.repo ]; then
     add_copr_repo peterfpeterson/morebin
