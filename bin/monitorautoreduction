@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 from __future__ import (absolute_import, division, print_function, unicode_literals)
 import os
 import requests
@@ -6,7 +6,7 @@ import time
 
 INSTRUMENTS = ['ARCS', 'BSS', 'CNCS', 'CORELLI', 'EQSANS', 'HYS', 'MANDI', 'NOM', 'PG3',
                'REF_L', 'REF_M', 'SEQ', 'SNAP', 'TOPAZ', 'USANS', 'VIS', 'VULCAN']
-LEGACY_DAS = ['ARCS', 'BSS', 'SNAP', 'TOPAZ']
+LEGACY_DAS = ['ARCS', 'BSS', 'TOPAZ']
 STATUS = {'incomplete':'incmp',
           'complete':  'compl',
           'error':     'error'}
@@ -16,7 +16,7 @@ URL = URL_BASE + 'dasmon/{0}/runs/'
 
 def getJson(url, params):
     '''anything other than a 200 generates an exception'''
-    req = requests.get(url, params, timeout=1) # seconds
+    req = requests.get(url, params=params, timeout=1) # seconds
     status_code = req.status_code
 
     if status_code != requests.codes.ALL_OK:
