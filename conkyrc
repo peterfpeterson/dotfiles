@@ -64,14 +64,14 @@ ${color lightgrey} ${top name 2} ${alignr}$color${top cpu 2}
 ${color lightgrey} ${top name 3} ${alignr}$color${top cpu 3}
 ${color lightgrey} ${top name 4} ${alignr}$color${top cpu 4}
 ${color lightgrey} ${top name 5} ${alignr}$color${top cpu 5}
-#${color red}${font DejaVu Sans Mono:bold:size=10}Memory ${hr 3}
-#${font}${color grey}RAM Usage:$color $mem/$memmax $memperc%
-#${membar 15}
-#${voffset -8}
-#${color grey}Swap $color $swap/$swapmax $swapperc%
-#${swapbar 15}
-#${voffset -8}
-#${color grey}Top ${alignr}RES    VSIZE
+${color red}${font DejaVu Sans Mono:bold:size=10}Memory ${hr 3}
+${font}${color grey}RAM Usage:$color $mem/$memmax $memperc%
+${membar 15}
+${voffset -8}
+${color grey}Swap $color $swap/$swapmax $swapperc%
+${swapbar 15}
+${voffset -8}
+${color grey}Top ${alignr}RES    VSIZE
 ${color red} ${top_mem name 1} ${alignr}$color${top_mem mem_res 1} ${top_mem mem_vsize 1}
 ${color lightgrey} ${top_mem name 2} ${alignr}$color ${top_mem mem_res 2} ${top_mem mem_vsize 2}
 ${color lightgrey} ${top_mem name 3} ${alignr}$color ${top_mem mem_res 3} ${top_mem mem_vsize 3}
