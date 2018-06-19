@@ -23,39 +23,29 @@ layout_python() {
       return 1
     fi
 
-    # get supplied virtualenv version
-    local virtualenv=virtualenv
-    if [[ $# -gt 0 ]]; then
-        if [[ "${1}" == virtualenv* ]]; then
-            virtualenv=${1}
-            shift
-        fi
-    fi
-
     export VIRTUAL_ENV=$(direnv_layout_dir)/python-$python_version
     if [[ ! -d $VIRTUAL_ENV ]]; then
-      log_status "$virtualenv --python=$python $@ $VIRTUAL_ENV"
-      $virtualenv "--python=$python" "$@" "$VIRTUAL_ENV"
+      # find virtualenv which matches the $python_version if possible
+      # start with virtualenv-major.minor.patch
+      local virtualenv="virtualenv-$python_version"
+      if [[ ! $(command -v $virtualenv) ]]; then
+        # then try virtualenv-major.minor
+        virtualenv="virtualenv-${python_version%.*}"
+        if [[ ! $(command -v $virtualenv) ]]; then
+          # then try virtualenv-major
+          virtualenv="virtualenv-${python_version%.*.*}"
+          if [[ ! $(command -v $virtualenv) ]]; then
+            # give up and use default name
+            virtualenv="virtualenv"
+          fi
+        fi
+      fi
+      if [[ ! $(command -v $virtualenv) ]]; then
+        log_error "Could not find virtualenv"
+        return 1
+      fi
+      "$virtualenv" "--python=$python" "$@" "$VIRTUAL_ENV"
     fi
   fi
   PATH_add "$VIRTUAL_ENV/bin"
-}
-
-# this wins out over system version
-layout_python2() {
-  if [[ $(command -v virtualenv-2) ]]; then
-      layout_python python2 virtualenv-2 "$@"
-  else
-      layout_python python2 "$@"
-  fi
-}
-
-# I call this with `layout python3 --system-site-packages`
-# this wins out over system version
-layout_python3() {
-  if [[ $(command -v virtualenv-3) ]]; then
-      layout_python python3 virtualenv-3 "$@"
-  else
-      layout_python python3 "$@"
-  fi
 }
