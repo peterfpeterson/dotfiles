@@ -7,6 +7,7 @@
     - [mkdir -p ~/.config/awesome]
     - [mkdir -p ~/.config/Code/User]
     - [mkdir -p ~/.config/i3]
+    - [mkdir -p ~/.config/i3status]
     - [mkdir -p ~/etc]
     - [mkdir -p ~/.fonts]
     - [mkdir -p ~/.mantid]
@@ -63,6 +64,7 @@
     ~/.config/awesome/rc.lua: awesomerc.lua
     ~/.config/Code/User/settings.json: ms-code-settings.json
     ~/.config/i3/config: i3config
+    ~/.config/i3status/config: i3statusconf
     ~/.conkyrc: conkyrc
     ~/.conkyrc-i3: conkyrc-i3
     ~/.dir_colors: dircolors-solarized/dircolors.ansi-universal
