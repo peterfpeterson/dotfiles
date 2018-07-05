@@ -175,9 +175,20 @@ bar {
         status_command $HOME/bin/conky-i3bar
 }
 
+# assign odd workspaces to left and event to right
+workspace 1 output DP-3
+workspace 3 output DP-3
+workspace 5 output DP-3
+workspace 7 output DP-3
+workspace 9 output DP-3
+
+workspace 2 output DP-2
+workspace 4 output DP-2
+workspace 6 output DP-2
+workspace 8 output DP-2
+
 # Assign MantidPlot to workspace 3
-workspace 3 output DP-2
-assign [class="MantidPlot"] 3
+assign [class="MantidPlot"] 4
 for_window [class="MantidPlot"] floating enable
 
 # start the screensaver daemon
