@@ -1,0 +1,17 @@
+general {
+  output_format = "i3bar"
+}
+
+order = "cpu_usage"
+order += "load"
+order += "disk /"
+
+cpu_usage {
+  format = "cpu: %usage | %cpu0 %cpu1"
+}
+load {
+  format = "load: %1min, %5min, %15min"
+}
+disk "/" {
+  format = "%avail"
+}
