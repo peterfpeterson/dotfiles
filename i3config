@@ -187,7 +187,7 @@ workspace 4 output DP-2
 workspace 6 output DP-2
 workspace 8 output DP-2
 
-# Assign MantidPlot to workspace 3
+# Assign MantidPlot to workspace 4 and floating
 assign [class="MantidPlot"] 4
 for_window [class="MantidPlot"] floating enable
 

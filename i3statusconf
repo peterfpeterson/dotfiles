@@ -7,7 +7,7 @@ order += "load"
 order += "disk /"
 
 cpu_usage {
-  format = "cpu: %usage | %cpu0 %cpu1"
+  format = "cpu: %usage"
 }
 load {
   format = "load: %1min, %5min, %15min"
