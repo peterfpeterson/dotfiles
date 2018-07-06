@@ -187,9 +187,11 @@ workspace 4 output DP-2
 workspace 6 output DP-2
 workspace 8 output DP-2
 
-# Assign MantidPlot to workspace 4 and floating
-assign [class="MantidPlot"] 4
+# Assign MantidPlot to workspace 2 and floating
+assign [class="MantidPlot"] 2
 for_window [class="MantidPlot"] floating enable
 
 # start the screensaver daemon
 exec --no-startup-id /usr/bin/gnome-screensaver
+# set the desktop background
+exec --no-startup-id feh --bg-scale  ~/Dropbox/DesktopPictures/New-Moon-2560x1600-hdwallpapers.us.jpg ~/Dropbox/DesktopPictures/The-Treetop-Temple-Protects-Kyoto-Japan-2560x1600-hdwallpapers.us.jpg
