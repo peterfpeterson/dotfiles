@@ -1,0 +1,26 @@
+general {
+  output_format = "i3bar"
+}
+
+order = "cpu_usage"
+order += "tztime date"
+order += "tztime local"
+order += "tztime london"
+
+cpu_usage {
+  format = "cpu: %usage"
+}
+
+tztime date {
+        format = "%m-%d"
+}
+
+
+tztime local {
+        format = "%H:%M %Z"
+}
+
+tztime london {
+        format = "%H:%M %Z"
+        timezone = "Europe/London"
+}
