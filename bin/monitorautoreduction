@@ -14,9 +14,9 @@ STATUS = {'incomplete':'incmp',
 URL_BASE = 'https://monitor.sns.gov/'
 URL = URL_BASE + 'dasmon/{0}/runs/'
 
-def getJson(url, params):
+def getJson(url, timeout, params):
     '''anything other than a 200 generates an exception'''
-    req = requests.get(url, params=params, timeout=1) # seconds
+    req = requests.get(url, params=params, timeout=timeout) # seconds
     status_code = req.status_code
 
     if status_code != requests.codes.ALL_OK:
@@ -34,18 +34,19 @@ def getJson(url, params):
 
     return json_doc
 
-def getRunList(instrument):
-    return getJson(URL.format(instrument), params={'format':'json'})
+def getRunList(instrument, timeout):
+    return getJson(URL.format(instrument), timeout, params={'format':'json'})
 
 class Reporter(object):
-    def __init__(self, instrument, fullWidth, withHeader):
+    def __init__(self, instrument, fullWidth, withHeader, timeout):
         self.instrument = instrument
         self.fullWidth = fullWidth
         self.withHeader = withHeader
+        self.timeout = timeout
         self.update()
 
     def update(self):
-        json_doc = getRunList(self.instrument)
+        json_doc = getRunList(self.instrument, self.timeout)
 
         # get the header information together
         proposal = json_doc.get('proposal_id', '')
@@ -114,11 +115,13 @@ if __name__ == '__main__':
     parser.add_argument('instruments', nargs='+', choices=allowed_instruments,
                          help='Specify the instruments')
     parser.add_argument('--width', type=int, default=def_columns,
-                        help='Width of terminal (default={})'.format(def_columns))
+                        help='Width of terminal (default=%(default)s)')
     parser.add_argument('--height', type=int, default=def_lines,
-                        help='Height of terminal (default={})'.format(def_lines))
+                        help='Height of terminal (default=%(default)s)')
     parser.add_argument('--refresh', type=int, default=60, metavar='SECONDS',
-                        help='Refresh rate (default=60)')
+                        help='Refresh rate (default=%(default)s)')
+    parser.add_argument('--timeout', type=int, default=5, metavar='SECONDS',
+                        help='Timeout of requests (default=%(default)s)')
 
 
     # set up bash completion
@@ -130,7 +133,7 @@ if __name__ == '__main__':
 
     # get all of the reporters
     reporters = [Reporter(instr, fullWidth=(options.width // numinstr),
-                          withHeader=(instr not in LEGACY_DAS))
+                          withHeader=(instr not in LEGACY_DAS), timeout=options.timeout)
                  for instr in options.instruments]
 
     # create the format string
