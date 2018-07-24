@@ -172,7 +172,7 @@ bar {
 bar {
         output DP-2
         tray_output primary
-        status_command /usr/bin/i3status -c $HOME/.config/i3status/config2
+        status_command /usr/bin/i3status -c $HOME/.config/i3status/config2 | $HOME/bin/i3statuswrapper.py
 }
 
 # assign odd workspaces to left and event to right

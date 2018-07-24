@@ -22,7 +22,7 @@
 - link:
     ~/.bash_profile: bash_profile
     ~/.bashrc: bashrc
-    ~/bin/beamstatus: bin/beamstatus
+    ~/bin/beamstatus.py: bin/beamstatus
     ~/bin/daysuntil: bin/daysuntil
     ~/bin/git-publish-branch: willgit/bin/git-publish-branch
     ~/bin/git-rank-contributors: willgit/bin/git-rank-contributors
@@ -33,7 +33,7 @@
     ~/bin/dropbox: bin/dropbox.py
     ~/bin/git-clang-format: bin/git-clang-format
     ~/bin/git-list-pr: bin/git-list-pr
-    ~/bin/iwyu_tool.py: bin/iwyu_tool.py
+    ~/bin/i3statuswrapper.py: bin/i3statuswrapper.py
     ~/bin/jenkins_mantid_to_blink1.sh: blink1-toys/jenkins_mantid_to_blink1.sh
     ~/bin/load-to-blink1.sh: bin/load-to-blink1.sh
     ~/bin/mantidpythonfromconfig: mantid-tools/mantidpythonfromconfig

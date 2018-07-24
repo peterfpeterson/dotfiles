@@ -24,13 +24,18 @@
 # 2, as published by Sam Hocevar. See http://sam.zoy.org/wtfpl/COPYING for more
 # details.
 
-import sys
 import json
+import os
+import sys
+sys.path.insert(0, os.path.join(os.environ['HOME'],'bin'))
+from beamstatus import getPower
 
-def get_governor():
-    """ Get the current governor for cpu0, assuming all CPUs use the same. """
-    with open('/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor') as fp:
-        return fp.readlines()[0].strip()
+def get_beamstatus(facility):
+    if facility == 'HFIR':
+        formatstr = '{} {:>5}'
+    else:
+        formatstr = '{} {:>6}'
+    return formatstr.format(facility, getPower(facility, False))
 
 def print_line(message):
     """ Non-buffered printing to stdout. """
@@ -66,6 +71,7 @@ if __name__ == '__main__':
         j = json.loads(line)
         # insert information into the start of the json, but could be anywhere
         # CHANGE THIS LINE TO INSERT SOMETHING ELSE
-        j.insert(0, {'full_text' : '%s' % get_governor(), 'name' : 'gov'})
+        j.insert(0, {'full_text' : '%s' % get_beamstatus('HFIR'), 'name' : 'HFIR'})
+        j.insert(0, {'full_text' : '%s' % get_beamstatus('SNS'), 'name' : 'SNS'})
         # and echo back new encoded json
         print_line(prefix+json.dumps(j))

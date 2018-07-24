@@ -1,15 +1,11 @@
 general {
   output_format = "i3bar"
+  interval = 45
 }
 
-order = "cpu_usage"
-order += "tztime date"
+order = "tztime date"
 order += "tztime local"
 order += "tztime london"
-
-cpu_usage {
-  format = "cpu: %usage"
-}
 
 tztime date {
         format = "%m-%d"
