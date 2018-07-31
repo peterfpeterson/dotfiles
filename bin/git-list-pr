@@ -19,7 +19,7 @@ def getGithubOauthToken():
 
 GITHUB_TOKEN = getGithubOauthToken()
 
-def getPullRequests(base_url, per_page=100, timeout=10):
+def getPullRequests(base_url, per_page=100, timeout=10.):
     url = base_url + "pulls"
     params = {'per_page':per_page}
     if GITHUB_TOKEN is not None:
@@ -61,12 +61,12 @@ def changeNames(pullRequest, user):
         pullRequest['assignee'] = 'me'
     return pullRequest
 
-def resolveStatus(pullRequest, base_url):
+def resolveStatus(pullRequest, base_url, timeout):
     url = "%scommits/%s/status" % (base_url, pullRequest['sha'])
     params = {}
     if GITHUB_TOKEN is not None:
         params['access_token'] = GITHUB_TOKEN
-    req = requests.get(url, timeout=1., params=params)
+    req = requests.get(url, timeout=float(timeout), params=params)
     status_code = req.status_code
     if status_code == requests.codes.FORBIDDEN:
         print "status:", status_code
@@ -116,7 +116,7 @@ if __name__ == "__main__":
     finalSet = []
     for pullRequest in pullRequests:
         if pullRequest['creator'] == 'me' or pullRequest['assignee'] == 'me':
-            finalSet.append(resolveStatus(pullRequest, url))
+            finalSet.append(resolveStatus(pullRequest, url, timeout=args.timeout))
 
     # print the results
     if args.dryrun:
