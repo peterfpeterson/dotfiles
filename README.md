@@ -2,7 +2,18 @@
 
 This my configuration files as managed by [dotbot](https://github.com/anishathalye/dotbot).
 
-To run just type
+Before doing anything initialize/update the submodules
+
+```bash
+git submodule init
+git submodule update
+cd todo.actions.d
+git submodule init
+git submodule update
+cd -
+```
+
+Then run
 
 ```bash
 $ ./install
