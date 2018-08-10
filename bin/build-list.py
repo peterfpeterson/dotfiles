@@ -249,14 +249,13 @@ msg_text += str(jobsList)
 msg_html += jobsList.toHtml()
 msg_dict[jobsList.name] = jobsList.toDict()
 
-jobs = ['master_clean-archlinux',
-        'master_clean-archlinux-clang',
-        'master_clean-fedora26',
+jobs = [
 ]
-jobsList = JobsList('Builds of Interest', last_dict, jobs)
-msg_text += str(jobsList)
-msg_html += jobsList.toHtml()
-msg_dict[jobsList.name] = jobsList.toDict()
+if len(jobs) > 0:
+    jobsList = JobsList('Builds of Interest', last_dict, jobs)
+    msg_text += str(jobsList)
+    msg_html += jobsList.toHtml()
+    msg_dict[jobsList.name] = jobsList.toDict()
 
 msg_html += '</table>\n'
 msg_html += '<p>Jobs that succeeded the last two times they were ' \
