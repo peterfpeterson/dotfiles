@@ -190,7 +190,8 @@ workspace 8 output DP-2
 # Assign MantidPlot to workspace 2 and floating
 #assign [class="MantidPlot"] 2
 for_window [class="MantidPlot"] floating enable
-for_window [class="Mantid Workbench"] floating enable
+# mantid workbench
+for_window [class="workbench"] floating enable
 
 # start the screensaver daemon
 exec --no-startup-id /usr/bin/gnome-screensaver
