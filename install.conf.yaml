@@ -82,6 +82,7 @@
     ~/.gitprompt: bash-git-prompt
     ~/.git-prompt-colors.sh: git-prompt-colors.sh
     ~/.rpmmacros: rpmmacros
+    ~/.toprc: toprc
     ~/.topydo: topydo.conf
     ~/.todo/config: todo.config
     ~/.vimrc: vimrc
