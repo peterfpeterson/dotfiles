@@ -5,10 +5,6 @@ if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
 fi
 
-# flip a table if a command didn't work
-# TODO needs to be tweaked for interaction with gitprompt
-#PROMPT_COMMAND='[ $? -eq 0 ] || printf "(╯°□°）╯︵ ┻━┻\n"'
-
 # Git prompt stuff
 if [ -f ${HOME}/.gitprompt/gitprompt.sh ]; then
   . ${HOME}/.gitprompt/gitprompt.sh
@@ -161,4 +157,18 @@ fi
 # add direnv https://github.com/direnv/direnv/
 if [ $(command -v direnv) ]; then
   eval "$(direnv hook bash)"
+fi
+
+# flip a table if a command didn't work
+function table_flip() {
+  if [ $? -ne 0 ]; then
+    printf "(╯°□°)╯⏜ ┻━┻\n"
+  fi
+}
+if [ -z "$PROMPT_COMMAND}" ]; then
+    PROMPT_COMMAND='table_flip'
+elif [ $PROMPT_COMMAND != "${PROMPT_COMMAND/_direnv_hook/}" ]; then
+    PROMPT_COMMAND="${PROMPT_COMMAND/_direnv_hook/_direnv_hook||table_flip}"
+else
+    PROMPT_COMMAND="table_flip;$PROMPT_COMMAND"
 fi
