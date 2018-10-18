@@ -5,6 +5,10 @@ if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
 fi
 
+# flip a table if a command didn't work
+# TODO needs to be tweaked for interaction with gitprompt
+#PROMPT_COMMAND='[ $? -eq 0 ] || printf "(╯°□°）╯︵ ┻━┻\n"'
+
 # Git prompt stuff
 if [ -f ${HOME}/.gitprompt/gitprompt.sh ]; then
   . ${HOME}/.gitprompt/gitprompt.sh
@@ -140,9 +144,6 @@ export LESS=' -R '
 if [ $(command -v colordiff) ]; then
   alias diff=colordiff
 fi
-
-# flip a table if a command didn't work
-PROMPT_COMMAND='[ $? -eq 0 ] || printf "(╯°□°）╯︵ ┻━┻\n"'
 
 # whatidid
 WHATIDIDDIR=${HOME}/Dropbox/whatidid
