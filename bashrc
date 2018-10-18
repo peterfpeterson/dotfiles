@@ -141,6 +141,9 @@ if [ $(command -v colordiff) ]; then
   alias diff=colordiff
 fi
 
+# flip a table if a command didn't work
+PROMPT_COMMAND='[ $? -eq 0 ] || printf "(╯°□°）╯︵ ┻━┻\n"'
+
 # whatidid
 WHATIDIDDIR=${HOME}/Dropbox/whatidid
 alias whatidid="${EDITOR} ${WHATIDIDDIR}/$(date '+%Y-week%V.md')"
