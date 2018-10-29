@@ -161,8 +161,9 @@ fi
 
 # flip a table if a command didn't work
 function table_flip() {
-  if [ $? -ne 0 ]; then
-    printf "(╯°□°)╯⏜ ┻━┻\n"
+  local result=$?
+  if [ $result -ne 0 ]; then
+    printf "(╯°□°)╯⏜ ┻━┻ ⏜ $result\n"
   fi
 }
 if [ -z "$PROMPT_COMMAND}" ]; then
