@@ -52,3 +52,6 @@
 [submodule "willgit"]
 	path = willgit
 	url = https://github.com/DanielVartanov/willgit.git
+[submodule "fzf"]
+	path = fzf
+	url = https://github.com/junegunn/fzf.git
