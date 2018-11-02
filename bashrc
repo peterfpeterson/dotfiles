@@ -147,7 +147,6 @@ alias whatidid="${EDITOR} ${WHATIDIDDIR}/$(date '+%Y-week%V.md')"
 alias whatidid_addday="echo $(date '+%F') >> ${WHATIDIDDIR}/$(date '+%Y-week%V.md')"
 
 export GOPATH=$HOME/go
-export GOARCH=x86
 
 # gem install bundler_bash_completion
 if [ $(command -v complete_bundle_bash_command) ]; then
