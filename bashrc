@@ -173,7 +173,9 @@ fi
 # flip a table if a command didn't work
 function table_flip() {
   local result=$?
-  if [ $result -ne 0 ]; then
+  if [ $result -eq 148 ]; then  # SIGTSTP
+    printf "¯\(°_o)/¯\n"        # should be "utf8 katakana tu" for the face
+  elif [ $result -ne 0 ]; then  # all other non-zero
     printf "(╯°□°)╯⏜ ┻━┻ ⏜ $result\n"
   fi
 }
