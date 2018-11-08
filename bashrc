@@ -63,6 +63,7 @@ fi
 
 
 alias grep="grep --color=auto"
+alias subdir="ls -d */"
 
 # Setup for tcmalloc
 if [ -e /usr/lib64/libtcmalloc.so ]; then
@@ -151,6 +152,17 @@ export GOPATH=$HOME/go
 # gem install bundler_bash_completion
 if [ $(command -v complete_bundle_bash_command) ]; then
   eval `complete_bundle_bash_command init`
+fi
+
+# extra fzf definitions https://github.com/junegunn/fzf
+if [ $(command -v fzf) ]; then
+  complete -F _fzf_path_completion pycharm
+  alias fzfpreview="fzf --preview 'less {}'"
+
+  _fzf_complete_ssh_notrigger() {
+    FZF_COMPLETION_TRIGGER='' _fzf_complete_ssh
+  }
+  complete -o bashdefault -o default -F _fzf_complete_ssh_notrigger ssh
 fi
 
 # add direnv https://github.com/direnv/direnv/
