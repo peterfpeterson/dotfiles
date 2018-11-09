@@ -29,13 +29,54 @@ import os
 import sys
 sys.path.insert(0, os.path.join(os.environ['HOME'],'bin'))
 from beamstatus import getPower
+from monitorautoreduction import getRunList
 
-def get_beamstatus(facility):
+GREEN  = '#00CC00'
+YELLOW = '#CCCC00'
+RED    = '#CC0000'
+
+def getBeamstatus(facility):
     if facility == 'HFIR':
         formatstr = '{} {:>5}'
     else:
         formatstr = '{} {:>6}'
-    return formatstr.format(facility, getPower(facility, False))
+    try:
+        text = getPower(facility, False)
+        color = None
+        if text.lower().strip() == 'off':
+            color = RED
+        text = formatstr.format(facility, text)
+    except: # any error
+        return createRecord(facility, 'ERROR', RED)
+
+    return createRecord(facility, text, color)
+
+
+def getLastRun(instrument):
+    instrument = instrument.upper()
+    try:
+        runinfo = getRunList(instrument, 2)['runs'][0]
+        text = '{}_{}'.format(instrument, runinfo['run'])
+        status = str(runinfo['status']).lower()
+    except: # any error
+        return createRecord(instrument, 'ERROR', RED)
+
+    color = None
+    if status == 'incomplete':
+        color = YELLOW
+    elif status == 'error':
+        color = RED
+    elif status == 'complete':
+        color = GREEN
+
+    return createRecord(instrument, text, color)
+
+def createRecord(name, fulltext, color=None):
+    result = {'full_text' : fulltext,
+              'name': name}
+    if color is not None:
+        result['color'] = color
+    return result
 
 def print_line(message):
     """ Non-buffered printing to stdout. """
@@ -70,8 +111,10 @@ if __name__ == '__main__':
 
         j = json.loads(line)
         # insert information into the start of the json, but could be anywhere
-        # CHANGE THIS LINE TO INSERT SOMETHING ELSE
-        j.insert(0, {'full_text' : '%s' % get_beamstatus('HFIR'), 'name' : 'HFIR'})
-        j.insert(0, {'full_text' : '%s' % get_beamstatus('SNS'), 'name' : 'SNS'})
+        for name in 'HFIR', 'SNS':
+            j.insert(0, getBeamstatus(name))
+        for name in 'SNAP', 'PG3', 'NOM':
+            j.insert(0, getLastRun(name))
+
         # and echo back new encoded json
         print_line(prefix+json.dumps(j))
