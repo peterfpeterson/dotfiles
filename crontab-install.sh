@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/bin/sh
 if [[ $(hostname) == molly* ]]; then
     echo "installing crontab"
     crontab crontab
