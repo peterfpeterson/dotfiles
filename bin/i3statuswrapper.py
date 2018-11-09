@@ -47,7 +47,7 @@ def getBeamstatus(facility):
             color = RED
         text = formatstr.format(facility, text)
     except: # any error
-        return createRecord(facility, 'ERROR', RED)
+        return createRecord(facility, facility + '_ERROR', RED)
 
     return createRecord(facility, text, color)
 
@@ -55,11 +55,19 @@ def getBeamstatus(facility):
 def getLastRun(instrument):
     instrument = instrument.upper()
     try:
-        runinfo = getRunList(instrument, 2)['runs'][0]
-        text = '{}_{}'.format(instrument, runinfo['run'])
+        record = getRunList(instrument, 2)
+        rec_status = record['recording_status']
+        runinfo = record['runs']
+        # select the correct run to display
+        if rec_status.lower() == 'recording' and len(runinfo) > 1:
+            runinfo = runinfo[1]
+        else:
+            runinfo = runinfo[0]
+
+        text = '{}_{} {}'.format(instrument, runinfo['run'], rec_status[0])
         status = str(runinfo['status']).lower()
-    except: # any error
-        return createRecord(instrument, 'ERROR', RED)
+    except:  # any error
+        return createRecord(instrument, instrument + ' ERROR', RED)
 
     color = None
     if status == 'incomplete':
