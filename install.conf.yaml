@@ -10,6 +10,7 @@
     - [mkdir -p ~/.config/i3status]
     - [mkdir -p ~/etc]
     - [mkdir -p ~/.fonts]
+    - [mkdir -p ~/.gdb/python]
     - [mkdir -p ~/.mantid]
     - [mkdir -p ~/tmp]
     - [mkdir -p ~/.todo.actions.d]
@@ -77,6 +78,8 @@
     ~/.fonts/FiraCode-Retina.otf: font-FiraCode/distr/otf/FiraCode-Retina.otf
     ~/.fonts/FiraCode-Medium.otf: font-FiraCode/distr/otf/FiraCode-Medium.otf
     ~/.fonts/xkcd.otf: font-xkcd/xkcd/build/xkcd.otf
+    ~/.gdb/python/libcxx: libcxx-pretty-printers/src/libcxx/
+    ~/.gdb/python/boost: Boost-Pretty-Printer/boost/
     ~/.gitconfig: gitconfig
     ~/.gitexcludes: gitexcludes
     ~/.gitprompt: bash-git-prompt
