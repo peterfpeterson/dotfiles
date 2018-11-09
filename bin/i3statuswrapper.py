@@ -104,6 +104,14 @@ def read_line():
     except KeyboardInterrupt:
         sys.exit()
 
+######################################################################
+# In principle i3 will feed back click events according to the main
+# documentation at https://i3wm.org/docs/i3bar-protocol.html with
+# some random other document pointing at
+# http://code.stapelberg.de/git/i3/commit/?h=next&id=58e68940f646e7f3a61d0e5128dfb5f4adef3df2
+# suggesting it is useful information.
+######################################################################
+
 if __name__ == '__main__':
     # Skip the first line which contains the version header.
     print_line(read_line())
