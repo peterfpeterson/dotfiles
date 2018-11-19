@@ -80,6 +80,7 @@
     ~/.fonts/xkcd.otf: font-xkcd/xkcd/build/xkcd.otf
     ~/.gdb/python/libcxx: libcxx-pretty-printers/src/libcxx/
     ~/.gdb/python/boost: Boost-Pretty-Printer/boost/
+    ~/.gdbinit: gdbinit
     ~/.gitconfig: gitconfig
     ~/.gitexcludes: gitexcludes
     ~/.gitprompt: bash-git-prompt
