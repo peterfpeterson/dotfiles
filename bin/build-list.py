@@ -3,7 +3,7 @@ from __future__ import (absolute_import, division, print_function)
 from datetime import datetime, timedelta
 import json
 import os
-import requests # python-requests
+import requests  # python-requests
 import smtplib
 import sys
 import time
@@ -18,9 +18,9 @@ from email.mime.text import MIMEText
 jobsAll = {}
 
 COLORS = {
-    'blue':'black',
-    'yellow':'yellow',
-    'red':'red',
+    'blue': 'black',
+    'yellow': 'yellow',
+    'red': 'red',
     'disabled': 'grey',
     'aborted': 'grey',
     '': 'black',
@@ -33,8 +33,10 @@ COLORS = {
     'NEVER': 'grey'
 }
 
+
 def buildResultToHtml(result):
     return '<font color=\'{}\'>{}</font>'.format(COLORS[result], result)
+
 
 def timestampToHtml(timestamp):
     date = timestamp.split('T')[0]
@@ -43,7 +45,7 @@ def timestampToHtml(timestamp):
 
 class BuildJob:
     def __init__(self, url, prev):
-        params={}
+        params = {}
 
         # convert known status to something more usable
         known_status = {}
@@ -72,7 +74,7 @@ class BuildJob:
         self.name = req.json()['displayName']
         self.color = req.json()['color']
         lastCompletedBuild = req.json()['lastCompletedBuild']
-        if lastCompletedBuild is None: # set as unset and return early
+        if lastCompletedBuild is None:  # set as unset and return early
             self.number = 0
             self.urlBuild = None
             self.result = 'NEVER'
@@ -81,7 +83,7 @@ class BuildJob:
         self.number = lastCompletedBuild['number']
 
         self.urlBuild = lastCompletedBuild['url']
-        url =  self.urlBuild + '/api/json'
+        url = self.urlBuild + '/api/json'
 
         if self.number in known_status.keys():
             self.result = known_status[self.number]
@@ -127,7 +129,6 @@ class BuildJob:
         else:
             previous = '<td COLSPAN=\'2\'>&nbsp;</td>'
 
-
         current = BuildJob.__statusToHtml(self.urlBuild, self.number,
                                           self.result)
 
@@ -139,6 +140,7 @@ class BuildJob:
         result += '>%s</tr>\n' % '\n'.join(cells)
 
         return result
+
 
 class JobsList:
     def __init__(self, name, prev={}, jobs=None):
@@ -176,7 +178,7 @@ class JobsList:
 
     def __str__(self):
         text = self.name + '\n'
-        text += '-' * len(self.name) +'\n'
+        text += '-' * len(self.name) + '\n'
         for name in self.jobs:
             job = self.__getJob(name)
             if job.show():
@@ -184,7 +186,8 @@ class JobsList:
         return text
 
     def toHtml(self):
-        text = '<tr><th bgcolor=\'#424242\' COLSPAN=\'5\'><b><font color=\'#EEEEEE\'>%s</font></b></th></tr>\n' % self.name
+        text = '<tr><th bgcolor="#424242" COLSPAN="5"><b><font color="#EEEEEE">'
+        text += '{}</font></b></th></tr>\n'.format(self.name)
         i = 0
         for name in self.jobs:
             job = self.__getJob(name)
@@ -208,7 +211,7 @@ configfile = os.path.expanduser('~/.build-list.config')
 if len(sys.argv) == 2:
     configfile = sys.argv[1]
 if not os.path.exists(configfile):
-    print('Did not find configuration file \'%s\'' % s)
+    print('Did not find configuration file "{}"'.format(configfile))
     print('Either supply one as an argument or create default one')
     sys.exit(-1)
 
@@ -223,7 +226,7 @@ with open(configfile, 'r') as handle:
 
 print('  base_url =', BASE_URL)
 print('  from     =', email_from)
-print('  to       =', email_to) # can separate addresses with ';'
+print('  to       =', email_to)  # can separate addresses with ';'
 print('  smtp     =', email_smtp)
 
 VIEW_URL = os.path.join(BASE_URL, 'view')
@@ -238,8 +241,10 @@ if os.path.exists(last_file):
 else:
     last_dict = {}
 
-DEPLOY_JOBS = ['isis_task_copy_mantidnightly_rpm', 'ornl_task_copy_mantidnightly_rpm',
-               'isis_task_copy_mantidnightly_deb', 'master_create_conda_linux_pkgs']
+DEPLOY_JOBS = ['isis_task_copy_mantidnightly_rpm',
+               'ornl_task_copy_mantidnightly_rpm',
+               'isis_task_copy_mantidnightly_deb',
+               'master_create_conda_linux_pkgs']
 
 #################### generate the report
 print('Collecting information about jobs')
@@ -300,8 +305,8 @@ with open(last_file, 'w') as handle:
 print('********************')
 print(msg_text,)
 print('********************')
-#print(msg_html)
-#print('********************')
+# print(msg_html)
+# print('********************')
 
 #################### send the email
 print('Sending email')
@@ -322,7 +327,8 @@ msg.attach(part2)
 
 # Send the message via local SMTP server.
 with smtplib.SMTP(email_smtp) as s:
-    # sendmail function takes 3 arguments: sender's address, recipient's address
-    # and message to send - here it is sent as one string.
+    # sendmail function takes 3 arguments: sender's address,
+    # recipient's address and message to send - here it is
+    # sent as one string.
     s.sendmail(email_from, email_to, msg.as_string())
     s.quit()
