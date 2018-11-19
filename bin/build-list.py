@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 from __future__ import (absolute_import, division, print_function)
+from datetime import datetime, timedelta
 import json
 import os
 import requests # python-requests
 import smtplib
 import sys
+import time
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
@@ -30,6 +32,14 @@ COLORS = {
     'DISABLED': 'grey',
     'NEVER': 'grey'
 }
+
+def buildResultToHtml(result):
+    return '<font color=\'{}\'>{}</font>'.format(COLORS[result], result)
+
+def timestampToHtml(timestamp):
+    date = timestamp.split('T')[0]
+    return '<time datetime="{}">{}</time>'.format(timestamp, date)
+
 
 class BuildJob:
     def __init__(self, url, prev):
@@ -80,7 +90,13 @@ class BuildJob:
             if req.status_code != 200:
                 raise RuntimeError('failed to get information from %s' % url)
             self.result = req.json()['result']
-            self.timestamp = req.json()['timestamp'] # TODO convert to object
+
+            # time stamp is in client's local timezone
+            timestamp = datetime.fromtimestamp(req.json()['timestamp'] / 1000.)  # convert to correct units
+            utc_offset = time.altzone if time.localtime().tm_isdst else time.timezone
+            utc_offset = timedelta(seconds=-utc_offset)
+            timestamp += utc_offset
+            self.timestamp = '{}Z'.format(timestamp.replace(microsecond=0).isoformat())
 
     def show(self):
         if self.result == 'SUCCESS' and \
@@ -96,7 +112,7 @@ class BuildJob:
 
     def __statusToHtml(url, number, result):
         number = '<a href=\'%s\'>%d</a>' % (url, number)
-        result = '<font color=\'%s\'>%s</font>' % (COLORS[result], result)
+        result = buildResultToHtml(result)
 
         return '<td>%s</td><td>%s</td>' % (number, result)
 
@@ -222,11 +238,24 @@ if os.path.exists(last_file):
 else:
     last_dict = {}
 
+DEPLOY_JOBS = ['isis_task_copy_mantidnightly_rpm', 'ornl_task_copy_mantidnightly_rpm',
+               'isis_task_copy_mantidnightly_deb', 'master_create_conda_linux_pkgs']
+
 #################### generate the report
 print('Collecting information about jobs')
 msg_dict = {}
 msg_text = ''
 msg_html = '<html><head></head><body>\n'
+
+msg_html += '<ul>\n'
+for name in DEPLOY_JOBS:
+    job = BuildJob(name, {})
+    msg_text += '{} {} {}\n'.format(job.timestamp, job.result, job.name)
+    msg_html += '<li>{} {} <a href="{}">{}</a></td></li>\n'.format(timestampToHtml(job.timestamp),
+                                                                   buildResultToHtml(job.result),
+                                                                   job.urlJob, job.name)
+msg_html += '</ul>\n\n'
+
 msg_html += '<table>\n'
 
 jobsList = JobsList('Critical Jobs', last_dict)
