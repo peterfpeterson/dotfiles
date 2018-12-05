@@ -2,7 +2,7 @@
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then
-	. /etc/bashrc
+  . /etc/bashrc
 fi
 
 # Git prompt stuff
@@ -163,6 +163,10 @@ if [ $(command -v fzf) ]; then
     FZF_COMPLETION_TRIGGER='' _fzf_complete_ssh
   }
   complete -o bashdefault -o default -F _fzf_complete_ssh_notrigger ssh
+
+  if [ -f $HOME/.fzf.bash ]; then
+    . $HOME/.fzf.bash
+  fi
 fi
 
 # add direnv https://github.com/direnv/direnv/
