@@ -7,7 +7,6 @@
 	prompt = false
 [merge]
 	tool = meld
-        conflictstyle = diff3
 [color]
 	ui = auto
 	branch = auto
