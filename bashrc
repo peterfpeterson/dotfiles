@@ -183,7 +183,7 @@ function table_flip() {
     printf "(╯°□°)╯⏜ ┻━┻ ⏜ $result\n"
   fi
 }
-if [ -z "$PROMPT_COMMAND}" ]; then
+if [ -z "${PROMPT_COMMAND}" ]; then
     PROMPT_COMMAND='table_flip'
 elif [ $PROMPT_COMMAND != "${PROMPT_COMMAND/_direnv_hook/}" ]; then
     PROMPT_COMMAND="${PROMPT_COMMAND/_direnv_hook/_direnv_hook||table_flip}"
