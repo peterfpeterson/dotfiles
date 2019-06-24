@@ -1,6 +1,5 @@
 #!/bin/sh
-echo "$(~/bin/daysuntil 2019-06-21) days - SNS start-up" > ~/.daysuntil.deadlines
-echo "$(~/bin/daysuntil 2019-06-29) days - Secret City Tri" >> ~/.daysuntil.deadlines
+echo "$(~/bin/daysuntil 2019-06-29) days - Secret City Tri" > ~/.daysuntil.deadlines
 echo "$(~/bin/daysuntil 2019-07-17) days - DOE software review" >> ~/.daysuntil.deadlines
 echo "$(~/bin/daysuntil 2019-08-27) days - Smoky Mountain Conference" >> ~/.daysuntil.deadlines
 echo "$(~/bin/daysuntil 2019-10-13) days - TN Toughman" >> ~/.daysuntil.deadlines
