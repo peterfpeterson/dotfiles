@@ -1,15 +1,21 @@
 #!/usr/bin/env python
+from __future__ import print_function
 import sys
-import pylab
+import numpy as np
+try:
+    import pylab
+except ImportError:
+    pylab = None  # disable plotting
 
 def get_stats(data):
+
     # simple pylab functions
     info = {
-        "mean":pylab.mean(data),
-        "q25":pylab.percentile(data,25),
-        "median":pylab.median(data),
-        "q75":pylab.percentile(data,75),
-        "stddev":pylab.std(data),
+        "mean":np.mean(data),
+        "q25":np.percentile(data,25),
+        "median":np.median(data),
+        "q75":np.percentile(data,75),
+        "stddev":np.std(data),
     }
 
     # min/max
@@ -31,11 +37,11 @@ def print_table(info, labels):
     # generate a format string
     formatstr=""
     for key in labels:
-        formatstr += "%%%ds  " % widths[key]
+        formatstr += '{:' + str(widths[key]) + '}  '
 
     # print out the information
-    print formatstr % tuple(labels)
-    print formatstr % tuple([info[key] for key in labels])
+    print(formatstr.format(*tuple(labels)))
+    print(formatstr.format(*tuple([info[key] for key in labels])))
 
 def print_stats(info):
     print_table(info, ["min", "q25", "median", "q75", "max"])
@@ -47,7 +53,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Calculate statistics on a list of values')
     parser.add_argument('values', metavar='N', nargs='+',
                    help='values to get statistics of')
-    parser.add_argument('--plot', action='store_true', help='Generate a box and whisker plot')
+    if pylab:
+        parser.add_argument('--plot', action='store_true', help='Generate a box and whisker plot')
     args = parser.parse_args()
 
     # convert the data into something useful (like a list of floats)
@@ -59,13 +66,13 @@ if __name__ == "__main__":
             value = value.split(",")
             value = [float(a) for a in value if len(a) > 0]
             data.extend(value)
-    print "data =", data
+    print('data =', data)
 
     # print out the statistics
     stat_info = get_stats(data)
     print_stats(stat_info)
 
     # box and whisker plot
-    if args.plot:
+    if pylab and args.plot:
         pylab.boxplot(data)
         pylab.show()
