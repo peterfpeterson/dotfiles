@@ -1,21 +1,21 @@
 #!/usr/bin/env python
 from __future__ import print_function
-import sys
 import numpy as np
 try:
     import pylab
 except ImportError:
     pylab = None  # disable plotting
 
+
 def get_stats(data):
 
     # simple pylab functions
     info = {
-        "mean":np.mean(data),
-        "q25":np.percentile(data,25),
-        "median":np.median(data),
-        "q75":np.percentile(data,75),
-        "stddev":np.std(data),
+        "mean": np.mean(data),
+        "q25": np.percentile(data, 25),
+        "median": np.median(data),
+        "q75": np.percentile(data, 75),
+        "stddev": np.std(data),
     }
 
     # min/max
@@ -28,14 +28,15 @@ def get_stats(data):
         info[key] = str(info[key])
     return info
 
+
 def print_table(info, labels):
     # determine field widths
     widths = {}
     for key in labels:
         widths[key] = max(len(key), len(info[key]))
 
-    # generate a format string
-    formatstr=""
+    # generate a format string - there is probably a fancier way
+    formatstr = ""
     for key in labels:
         formatstr += '{:' + str(widths[key]) + '}  '
 
@@ -43,18 +44,22 @@ def print_table(info, labels):
     print(formatstr.format(*tuple(labels)))
     print(formatstr.format(*tuple([info[key] for key in labels])))
 
+
 def print_stats(info):
     print_table(info, ["min", "q25", "median", "q75", "max"])
     print_table(info, ["mean", "stddev"])
 
+
 if __name__ == "__main__":
     # set up the command line parser
     import argparse
-    parser = argparse.ArgumentParser(description='Calculate statistics on a list of values')
+    parser = argparse.ArgumentParser(description='Calculate statistics on a'
+                                     ' list of values')
     parser.add_argument('values', metavar='N', nargs='+',
-                   help='values to get statistics of')
+                        help='values to get statistics of')
     if pylab:
-        parser.add_argument('--plot', action='store_true', help='Generate a box and whisker plot')
+        parser.add_argument('--plot', action='store_true',
+                            help='Generate a box and whisker plot')
     args = parser.parse_args()
 
     # convert the data into something useful (like a list of floats)
