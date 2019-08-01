@@ -35,10 +35,8 @@ def print_table(info, labels):
     for key in labels:
         widths[key] = max(len(key), len(info[key]))
 
-    # generate a format string - there is probably a fancier way
-    formatstr = ""
-    for key in labels:
-        formatstr += '{:' + str(widths[key]) + '}  '
+    # generate a format string
+    formatstr = '  '.join(['{:' + str(widths[key]) + '}' for key in labels])
 
     # print out the information
     print(formatstr.format(*tuple(labels)))
