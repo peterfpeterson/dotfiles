@@ -41,6 +41,7 @@
     ~/bin/mantidreductionlogs: mantid-tools/mantidreductionlogs
     ~/bin/monitorautoreduction: bin/monitorautoreduction.py
     ~/bin/purge: purge/purge
+    ~/bin/profstats.py: bin/profstats.py
     ~/bin/queue-list.py: bin/queue-list.py
     ~/bin/sns_beam: blink1-toys/sns_beam
     ~/bin/stats: bin/stats
