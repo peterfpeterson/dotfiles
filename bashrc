@@ -104,6 +104,10 @@ if [ $(command -v ninja-build) ]; then
   alias ninja=ninja-build
 fi
 
+if [ $(command -v ninja-build) ]; then
+  export RIPGREP_CONFIG_PATH=${HOME}/.ripgreprc
+fi
+
 PATH=$HOME/bin:/usr/local/bin:$PATH
 #if [ -d $HOME/miniconda2 ]; then
 #   PATH=$HOME/miniconda2/bin:$PATH
