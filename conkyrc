@@ -81,10 +81,10 @@ ${color lightgrey} ${top_mem name 5} ${alignr}$color ${top_mem mem_res 5} ${top_
 # / $color${fs_used /}/${fs_size /} ${fs_bar 6 /}
 #${font}${color lightgrey}Read  $color${diskio_read} $alignr${diskiograph_read 17,200}
 #${color lightgrey}Write $color${diskio_write} $alignr${diskiograph_write 17,200}
-${color grey}Network: Up:$color ${upspeed ens3}
-${upspeedgraph ens3}
-${color grey}Down:$color ${downspeed ens3}
-${downspeedgraph ens3}
+${color grey}Network: Up:$color ${upspeed enp1s0}
+${upspeedgraph enp1s0}
+${color grey}Down:$color ${downspeed enp1s0}
+${downspeedgraph enp1s0}
 #${color red}${font DejaVu Sans Mono:bold:size=10}Beam power ${hr 2}$color${font}
 #${color grey}SNS: $color ${execi 15 ~/bin/beamstatus sns -w 7} ${execibar 15 ~/bin/beamstatus sns -p}
 #${color grey}HFIR:$color ${execi 60 ~/bin/beamstatus hfir -w 7} ${execibar 60 ~/bin/beamstatus hfir -p}
