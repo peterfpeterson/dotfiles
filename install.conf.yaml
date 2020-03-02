@@ -59,7 +59,6 @@
     ~/.bash_completion.d/ctest: ctest-completion/ctest
     ~/.bash_completion.d/watchman_sh: bash_completions.d/watchman_sh
     ~/.bash_completion.d/dropbox_bash_completion: bash_completions.d/dropbox_bash_completion
-    ~/.bash_completion.d/tmux_completion: tmux-bash-completion/completions/tmux
     ~/.config/autostart/chrome.desktop: config/autostart/chrome.desktop
     ~/.config/autostart/conky.desktop: config/autostart/conky.desktop
     ~/.config/awesome/rc.lua: awesomerc.lua
