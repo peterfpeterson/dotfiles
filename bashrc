@@ -146,6 +146,11 @@ if [ $(command -v colordiff) ]; then
   alias diff=colordiff
 fi
 
+# diff two normalized xml files
+diffxml() {
+    diff <(xmllint --exc-c14n "$1") <(xmllint --exc-c14n "$2")
+}
+
 # whatidid
 WHATIDIDDIR=${HOME}/Dropbox/whatidid
 alias whatidid="${EDITOR} ${WHATIDIDDIR}/$(date '+%Y-week%V.md')"
