@@ -1,33 +1,4 @@
 ######################################################################
-# customization taken from liquidprompt
-######################################################################
-_LP_USER_SYMBOL="\u"
-
-########## USER
-# Yellow for root, bold if the user is not the login one, else no color.
-if [[ "$EUID" -ne "0" ]] ; then  # if user is not root
-    # if user is not login user
-    if [[ ${USER} != "$(logname 2>/dev/null || echo $LOGNAME)" ]]; then
-        LP_USER="${LP_COLOR_USER_ALT}${_LP_USER_SYMBOL}@${NO_COL}"
-    else
-        if [[ "${LP_USER_ALWAYS}" -ne "0" ]] ; then
-            LP_USER="${LP_COLOR_USER_LOGGED}${_LP_USER_SYMBOL}@${NO_COL}"
-        else
-            LP_USER=""
-        fi
-    fi
-else # root!
-    LP_USER="${LP_COLOR_USER_ROOT}${_LP_USER_SYMBOL}${NO_COL}"
-    LP_COLOR_MARK="${LP_COLOR_MARK_ROOT}"
-    LP_COLOR_PATH="${LP_COLOR_PATH_ROOT}"
-    # Disable VCS info for all paths
-    if [[ "$LP_ENABLE_VCS_ROOT" != 1 ]]; then
-        LP_DISABLED_VCS_PATH=/
-        LP_MARK_DISABLED="$_LP_MARK_SYMBOL"
-    fi
-fi
-
-######################################################################
 # customization for git-prompt
 ######################################################################
 # These are the defaults from the "Default" theme

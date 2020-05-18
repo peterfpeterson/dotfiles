@@ -7,7 +7,8 @@ fi
 
 # Git prompt stuff
 if [ -f ${HOME}/.gitprompt/gitprompt.sh ]; then
-  . ${HOME}/.gitprompt/gitprompt.sh
+  GIT_PROMPT_SHOW_UNTRACKED_FILES=no
+  source ${HOME}/.gitprompt/gitprompt.sh
 fi
 
 # https://github.com/github/hub/
