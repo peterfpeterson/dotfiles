@@ -179,7 +179,11 @@ fi
 # extra fzf definitions https://github.com/junegunn/fzf
 if [ $(command -v fzf) ]; then
   complete -F _fzf_path_completion pycharm
-  alias fzfpreview="fzf --preview 'less {}'"
+  if [ $(command -v rg) ]; then
+    alias fzfpreview="rg --files | fzf --preview 'less {}'"
+  else
+    alias fzfpreview="fzf --preview 'less {}'"
+  fi
 
   _fzf_complete_ssh_notrigger() {
     FZF_COMPLETION_TRIGGER='' _fzf_complete_ssh
@@ -189,6 +193,11 @@ if [ $(command -v fzf) ]; then
   if [ -f $HOME/.fzf.bash ]; then
     . $HOME/.fzf.bash
   fi
+
+  # based on https://medium.com/@GroundControl/better-git-diffs-with-fzf-89083739a9cb
+  fzfdiff() {
+    git diff $@ --name-only | fzf -m --ansi --preview "git diff $@ --color=always -- {-1}"
+  }
 fi
 
 # add direnv https://github.com/direnv/direnv/
