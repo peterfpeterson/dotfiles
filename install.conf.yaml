@@ -9,6 +9,7 @@
     - [mkdir -p ~/.config/i3]
     - [mkdir -p ~/.config/i3status]
     - [mkdir -p ~/.config/sway]
+    - [mkdir -p ~/.config/wofi]
     - [mkdir -p ~/etc]
     - [mkdir -p ~/.fonts]
     - [mkdir -p ~/.gdb/python]
@@ -69,6 +70,8 @@
     ~/.config/i3status/config: i3statusconf
     ~/.config/i3status/config2: i3statusconf-2
     ~/.config/sway/config: sway-config
+    ~/.config/wofi/config: wofi-config
+    ~/.config/wofi/style.css: wofi-style.css
     ~/.conkyrc: conkyrc
     ~/.dir_colors: dircolors-solarized/dircolors.ansi-universal
     ~/.direnvrc: direnvrc

@@ -13,13 +13,16 @@ set $left h
 set $down j
 set $up k
 set $right l
+
 # Your preferred terminal emulator
 #set $term urxvt256c-ml
 set $term gnome-terminal
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu dmenu_path | dmenu | xargs swaymsg exec --
+#set $menu dmenu_path | dmenu | xargs swaymsg exec --
+set $menu wofi --allow-images
+
 
 ### Output configuration
 #
@@ -43,8 +46,8 @@ output DP-3 pos 3840 0 res 3440x1440 mode 2560x1080@60Hz
 # Example configuration:
 #
  exec swayidle -w \
-          timeout 300 'swaylock -f -c 000000' \
-          timeout 600 'swaymsg "output * dpms off"' \
+          timeout 600 'swaylock -f -c 000000' \
+          timeout 900 'swaymsg "output * dpms off"' \
                resume 'swaymsg "output * dpms on"' \
           before-sleep 'swaylock -f -c 000000'
 # This will lock your screen after 300 seconds of inactivity, then turn off
