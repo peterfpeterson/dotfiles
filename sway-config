@@ -215,6 +215,7 @@ bindsym $mod+r mode "resize"
 # Status Bar:
 #
 # Read `man 5 sway-bar` for more information about this section.
+# and `man swaybar-protocol` for the json
 bar {
     position top
 
