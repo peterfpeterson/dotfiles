@@ -209,7 +209,8 @@ fi
 function table_flip() {
   local result=$?
   if [ $result -eq 148 ]; then  # SIGTSTP
-    printf "¯\(°_o)/¯\n"        # should be "utf8 katakana tu" for the face
+    #printf "¯\(°_o)/¯\n"        # on systems with crappy fonts
+    printf "¯\(ッ)/¯\n"         # on "modern" systems use "utf8 katakana tu" for the face
   elif [ $result -ne 0 ]; then  # all other non-zero
     printf "(╯°□°)╯⏜ ┻━┻ ⏜ $result\n"
   fi
