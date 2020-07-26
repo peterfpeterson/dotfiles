@@ -218,16 +218,9 @@ bindsym $mod+r mode "resize"
 # and `man swaybar-protocol` for the json
 bar {
     position top
-
-    # When the status_command prints a new line to stdout, swaybar updates.
-    # The default just shows the current date and time.
-    status_command while date +'%Y-%m-%d %l:%M:%S %p'; do sleep 1; done
-
-    colors {
-        statusline #ffffff
-        background #323232
-        inactive_workspace #32323200 #32323200 #5c5c5c
-    }
+    # use waybar instead because I can find the documentation
+    # https://github.com/Alexays/Waybar/wiki/Configuration
+    swaybar_command waybar
 }
 
 include /etc/sway/config.d/*

@@ -49,6 +49,7 @@ add_package ripgrep
 add_package slock
 add_package sway
 add_package terminology
+add_package waybar
 add_package wofi
 add_package hidapi-devel
 add_package source-highlight
