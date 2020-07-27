@@ -46,7 +46,7 @@ output DP-3 pos 3840 0 res 3440x1440 mode 2560x1080@60Hz
 # Example configuration:
 #
  exec swayidle -w \
-          timeout 600 'swaylock -f -c 000000' \
+          timeout 600 'swaylock -f -c 000000 --indicator-radius 150 --indicator-thickness 15' \
           timeout 900 'swaymsg "output * dpms off"' \
                resume 'swaymsg "output * dpms on"' \
           before-sleep 'swaylock -f -c 000000'
