@@ -146,13 +146,17 @@ if [ -d ${HOME}/.rvm ]; then
 fi
 
 # source-highlighting with less
-if [ $(command -v highlight) ]; then
-  export LESSOPEN="| $(command -v highlight) %s --out-format xterm256 --line-numbers --quiet --force --style solarized-dark"
-elif [ $(command -v src-hilite-lesspipe.sh) ]; then
-  export LESSOPEN="| $(command -v src-hilite-lesspipe.sh) %s"
+if [ $(command -v bat) ]; then
+   alias less=bat
+else
+    if [ $(command -v highlight) ]; then
+      export LESSOPEN="| $(command -v highlight) %s --out-format xterm256 --line-numbers --quiet --force --style solarized-dark"
+    elif [ $(command -v src-hilite-lesspipe.sh) ]; then
+      export LESSOPEN="| $(command -v src-hilite-lesspipe.sh) %s"
+    fi
+    alias less='less -m -N -g -i -J --line-numbers --underline-special'
+    export LESS=' -R '
 fi
-alias less='less -m -N -g -i -J --line-numbers --underline-special'
-export LESS=' -R '
 
 # colorized diffs from colordiff
 if [ $(command -v colordiff) ]; then
