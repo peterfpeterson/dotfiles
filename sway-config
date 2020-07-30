@@ -69,8 +69,14 @@ output DP-3 pos 3840 0 res 3440x1440 mode 2560x1080@60Hz
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
 input * xkb_numlock enable
+input "Peterson, Peter F.’s Mouse" {
+       natural_scroll enabled
+       middle_emulation enabled
+}
 
 ### Key bindings
+#
+# find out keypresses from xev
 #
 # Basics:
 #
@@ -210,6 +216,20 @@ mode "resize" {
     bindsym Escape mode "default"
 }
 bindsym $mod+r mode "resize"
+
+#
+# Pulse Audio controls
+# run pactl list sinks
+#
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume $(pacmd list-sinks |awk '/* index:/{print $3}') +5% # Raise
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume $(pacmd list-sinks |awk '/* index:/{print $3}') -5% # Lower
+bindsym XF86AudioMute exec pactl set-sink-mute  $(pacmd list-sinks |awk '/* index:/{print $3}') toggle # Mute
+
+#
+# Sreen brightness controls -- # https://github.com/haikarainen/light
+#
+bindsym XF86MonBrightnessUp exec light -A 5    # increase screen brightness
+bindsym XF86MonBrightnessDown exec light -U 5  # decrease screen brightness
 
 #
 # Status Bar:

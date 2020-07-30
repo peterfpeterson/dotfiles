@@ -34,6 +34,7 @@ add_package python2-argcomplete
 add_package python3-argcomplete
 add_package cmake-gui
 add_package rpm-build
+add_package light  # screen brightness control
 add_package mantid-developer
 add_package morebin
 add_package the_silver_searcher
@@ -47,10 +48,10 @@ add_package ruby-devel
 add_package ncdu
 add_package ripgrep
 add_package slock
-add_package sway
+add_package sway  # tile based window manager
 add_package terminology
-add_package waybar
-add_package wofi
+add_package waybar  # status bar for sway
+add_package wofi  # menu launcher for sway
 add_package hidapi-devel
 add_package source-highlight
 # things for awesome window manager
