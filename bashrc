@@ -21,6 +21,7 @@ fi
 
 if [ $(command -v vim) ]; then
   alias vi=vim
+  export EDITOR=vim
 fi
 
 # https://github.com/defunkt/gist
@@ -74,6 +75,11 @@ fi
 
 # do this in the ~/.ipython/ipythonrc file
 #alias ipython="ipython --colors LightBG"
+
+# User specific aliases and functions
+if [ -f ${HOME}/.pythonrc ]; then
+  export PYTHONSTARTUP=${HOME}/.pythonrc
+fi
 
 if [ -n "$SSH_CONNECTION" ]; then
   unset SSH_ASKPASS
@@ -225,4 +231,8 @@ elif [ $PROMPT_COMMAND != "${PROMPT_COMMAND/_direnv_hook/}" ]; then
     PROMPT_COMMAND="${PROMPT_COMMAND/_direnv_hook/_direnv_hook||table_flip}"
 else
     PROMPT_COMMAND="table_flip;$PROMPT_COMMAND"
+fi
+
+if [ $(command -v fortune) ]; then
+    fortune -a
 fi
