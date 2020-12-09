@@ -8,7 +8,11 @@ fi
 # Git prompt stuff
 if [ -f ${HOME}/.gitprompt/gitprompt.sh ]; then
   GIT_PROMPT_SHOW_UNTRACKED_FILES=no
-  source ${HOME}/.gitprompt/gitprompt.sh
+  if [[ $(hostname) == "analysis"* ]]; then
+    # do not load gitprompt
+  else
+    source ${HOME}/.gitprompt/gitprompt.sh
+  fi
 fi
 
 # https://github.com/github/hub/
