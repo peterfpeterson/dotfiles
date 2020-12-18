@@ -2,5 +2,9 @@
 {
   "files.exclude": {
     "**/*.pyc": true
-  }
+  },
+  "workbench.startupEditor": "newUntitledFile",
+  "python.showStartPage": false,
+  "editor.fontFamily": "'Fira Code Medium', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
+  "editor.fontLigatures": true
 }
