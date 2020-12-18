@@ -213,6 +213,12 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
+##### screenshots using https://bytee.net/blog/screenshots-with-sway-and-grim
+# Take a Screenshot with the region select
+bindsym Print exec grim -t jpeg -g "$(slurp)" ~/screenshots/$(date +%Y-%m-%d_%H-%m-%s).jpg
+# Take a screenshot with all output and save it into screenshots
+bindsym $mod+Print exec grim -t jpeg ~/screenshots/$(date +%Y-%m-%d_%H-%m-%s).jpg
+
 #
 # Pulse Audio controls
 # run pactl list sinks
