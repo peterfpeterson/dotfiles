@@ -18,3 +18,4 @@ Makefile
 build
 worktree
 fontconfig
+.mypy_cache
