@@ -1,0 +1,5 @@
+# this file is auto-generated.
+[annotate]
+	disassembler_style = intel
+[report]
+	percent-limit = 0.2
