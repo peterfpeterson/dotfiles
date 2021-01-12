@@ -9,6 +9,7 @@
     - [mkdir -p ~/.config/i3]
     - [mkdir -p ~/.config/i3status]
     - [mkdir -p ~/.config/sway]
+    - [mkdir -p ~/.config/waybar]
     - [mkdir -p ~/.config/wofi]
     - [mkdir -p ~/etc]
     - [mkdir -p ~/.fonts]
@@ -72,6 +73,7 @@
     ~/.config/sway/config: sway-config
     ~/.config/wofi/config: wofi-config
     ~/.config/wofi/style.css: wofi-style.css
+    ~/.config/waybar/config: waybar-config
     ~/.conkyrc: conkyrc
     ~/.dir_colors: dircolors-solarized/dircolors.ansi-universal
     ~/.direnvrc: direnvrc
