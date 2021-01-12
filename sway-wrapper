@@ -1,0 +1,10 @@
+#!/bin/sh
+# /usr/share/wayland-sessions/sway.desktop should call this
+# and the file should be copied to /usr/bin
+
+# prefer wayland and fall back on x11
+export GDK_BACKEND=wayland,x11
+# tell firefox to use wayland
+export MOZ_ENABLE_WAYLAND=1
+
+sway

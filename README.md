@@ -25,6 +25,7 @@ Things not covered:
 -------------------
 
 * Things in `tools` are not run
+* `sway-wrapper` which sets up environment variables for applications to use wayland
 * [gnome-terminal-colors-solarized](https://github.com/Anthony25/gnome-terminal-colors-solarized) - run `./gnome-terminal-colors-solarized/set_dark.sh` and go through the process
 * `./configure-gnome-terminal` is not automatically run
 * Split [vpn tunneling](https://code.ornl.gov/rwp/ornl-openconnect)
