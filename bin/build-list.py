@@ -24,11 +24,10 @@ COLORS = {
     'disabled': 'grey',
     'aborted': 'grey',
     '': 'black',
-
-    'SUCCESS':  'black',
-    'FAILURE':  'red',
+    'SUCCESS': 'black',
+    'FAILURE': 'red',
     'UNSTABLE': 'yellow',
-    'ABORTED':  'grey',
+    'ABORTED': 'grey',
     'DISABLED': 'grey',
     'NEVER': 'grey'
 }
@@ -108,9 +107,7 @@ class BuildJob:
         return True
 
     def __str__(self):
-        return '%35s %6s %8s %6d %8s' % (self.name,
-                                         str(self.numberLast), self.resultLast,
-                                         self.number, self.result)
+        return '%35s %6s %8s %6d %8s' % (self.name, str(self.numberLast), self.resultLast, self.number, self.result)
 
     def __statusToHtml(url, number, result):
         number = '<a href=\'%s\'>%d</a>' % (url, number)
@@ -122,15 +119,12 @@ class BuildJob:
         name = '<td><a href=\'%s\'>%s</a></td>' % (self.urlJob, self.name)
 
         if len(self.resultLast) > 0 and self.number != self.numberLast:
-            jobUrl = self.urlBuild.replace(str(self.number),
-                                           str(self.numberLast))
-            previous = BuildJob.__statusToHtml(jobUrl, self.numberLast,
-                                               self.resultLast)
+            jobUrl = self.urlBuild.replace(str(self.number), str(self.numberLast))
+            previous = BuildJob.__statusToHtml(jobUrl, self.numberLast, self.resultLast)
         else:
             previous = '<td COLSPAN=\'2\'>&nbsp;</td>'
 
-        current = BuildJob.__statusToHtml(self.urlBuild, self.number,
-                                          self.result)
+        current = BuildJob.__statusToHtml(self.urlBuild, self.number, self.result)
 
         cells = [name, previous, current]
 
@@ -206,7 +200,8 @@ class JobsList:
             result[name] = {job.number: job.result}
         return result
 
-#################### read in the configuration
+
+# ################### read in the configuration
 configfile = os.path.expanduser('~/.build-list.config')
 if len(sys.argv) == 2:
     configfile = sys.argv[1]
@@ -219,10 +214,7 @@ print('Loading configuration from \'%s\'' % configfile)
 with open(configfile, 'r') as handle:
     lines = handle.readlines()
     lines = [line.strip() for line in lines]
-    (BASE_URL,
-     email_from,
-     email_to,
-     email_smtp) = lines
+    (BASE_URL, email_from, email_to, email_smtp) = lines
 
 print('  base_url =', BASE_URL)
 print('  from     =', email_from)
@@ -230,9 +222,9 @@ print('  to       =', email_to)  # can separate addresses with ';'
 print('  smtp     =', email_smtp)
 
 VIEW_URL = os.path.join(BASE_URL, 'view')
-JOB_URL  = os.path.join(BASE_URL, 'job')
+JOB_URL = os.path.join(BASE_URL, 'job')
 
-#################### load the last round of information
+# ################### load the last round of information
 last_file = os.path.expanduser('~/.build-list.json')
 if os.path.exists(last_file):
     print('Loading last known states from \'%s\'' % last_file)
@@ -241,12 +233,12 @@ if os.path.exists(last_file):
 else:
     last_dict = {}
 
-DEPLOY_JOBS = ['isis_task_copy_mantidnightly_rpm',
-               'ornl_task_copy_mantidnightly_rpm',
-               'isis_task_copy_mantidnightly_deb',
-               'master_create_conda_linux_pkgs']
+DEPLOY_JOBS = [
+    'isis_task_copy_mantidnightly_rpm', 'ornl_task_copy_mantidnightly_rpm', 'isis_task_copy_mantidnightly_deb',
+    'master_create_conda_linux_pkgs'
+]
 
-#################### generate the report
+# ################### generate the report
 print('Collecting information about jobs')
 msg_dict = {}
 msg_text = ''
@@ -257,8 +249,7 @@ for name in DEPLOY_JOBS:
     job = BuildJob(name, {})
     msg_text += '{} {} {}\n'.format(job.timestamp, job.result, job.name)
     msg_html += '<li>{} {} <a href="{}">{}</a></td></li>\n'.format(timestampToHtml(job.timestamp),
-                                                                   buildResultToHtml(job.result),
-                                                                   job.urlJob, job.name)
+                                                                   buildResultToHtml(job.result), job.urlJob, job.name)
 msg_html += '</ul>\n\n'
 
 msg_html += '<table>\n'
@@ -283,8 +274,7 @@ msg_text += str(jobsList)
 msg_html += jobsList.toHtml()
 msg_dict[jobsList.name] = jobsList.toDict()
 
-jobs = [
-]
+jobs = []
 if len(jobs) > 0:
     jobsList = JobsList('Builds of Interest', last_dict, jobs)
     msg_text += str(jobsList)
@@ -296,19 +286,19 @@ msg_html += '<p>Jobs that succeeded the last two times they were ' \
             'run are not displayed</p>\n'
 msg_html += '</body></html>'
 
-#################### save the last round of information
+# ################### save the last round of information
 print('Saving last known states to \'%s\'' % last_file)
 with open(last_file, 'w') as handle:
     json.dump(msg_dict, handle)
 
-#################### debug print message
+# ################### debug print message
 print('********************')
-print(msg_text,)
+print(msg_text, )
 print('********************')
 # print(msg_html)
 # print('********************')
 
-#################### send the email
+# ################### send the email
 print('Sending email')
 msg = MIMEMultipart('alternative')
 msg['Subject'] = 'Summary of build status'

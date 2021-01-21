@@ -17,21 +17,27 @@ DESCRIPTION = 'Show results from python profiling'
 EPILOG = 'For more information on the sorting methods or restrictions see ' \
          'https://docs.python.org/3/library/profile.html#the-stats-class'
 
-
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser(description=DESCRIPTION, epilog=EPILOG)
-    parser.add_argument('--filename', default='prof/combined.prof',
-                        help='File to parse (default="%(default)s")')
-    parser.add_argument('--sortby', default=SORT_OPTIONS[0],
-                        choices=SORT_OPTIONS, help=SORT_HELP)
-    parser.add_argument('--restrict', '-r', nargs='+', default=list(),
+    parser.add_argument('--filename', default='prof/combined.prof', help='File to parse (default="%(default)s")')
+    parser.add_argument('--sortby', default=SORT_OPTIONS[0], choices=SORT_OPTIONS, help=SORT_HELP)
+    parser.add_argument('--restrict',
+                        '-r',
+                        nargs='+',
+                        default=list(),
                         metavar='RESTRICTION',
                         help='Add restrictions - TODO add docs')
-    parser.add_argument('--callers', nargs='+', default=list(), type=str,
+    parser.add_argument('--callers',
+                        nargs='+',
+                        default=list(),
+                        type=str,
                         metavar='RESTRICTION',
                         help='Print the callers of the selected file/function')
-    parser.add_argument('--callees', nargs='+', default=list(), type=str,
+    parser.add_argument('--callees',
+                        nargs='+',
+                        default=list(),
+                        type=str,
                         metavar='RESTRICTION',
                         help='Print the callees of the selected file/function')
 

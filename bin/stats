@@ -51,13 +51,10 @@ def print_stats(info):
 if __name__ == "__main__":
     # set up the command line parser
     import argparse
-    parser = argparse.ArgumentParser(description='Calculate statistics on a'
-                                     ' list of values')
-    parser.add_argument('values', metavar='N', nargs='+',
-                        help='values to get statistics of')
+    parser = argparse.ArgumentParser(description='Calculate statistics on a' ' list of values')
+    parser.add_argument('values', metavar='N', nargs='+', help='values to get statistics of')
     if pylab:
-        parser.add_argument('--plot', action='store_true',
-                            help='Generate a box and whisker plot')
+        parser.add_argument('--plot', action='store_true', help='Generate a box and whisker plot')
     args = parser.parse_args()
 
     # convert the data into something useful (like a list of floats)

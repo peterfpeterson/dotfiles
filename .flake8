@@ -1,0 +1,7 @@
+[flake8]
+max-line-length = 119
+exclude =
+    .git
+    bin/dropbox.py
+    bin/git-clang-format
+    bin/iwyu_tool.py

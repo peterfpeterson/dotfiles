@@ -6,6 +6,11 @@ import sys
 
 BASE_URL = 'http://builds.mantidproject.org/'
 
+
+def cmp(a, b):
+    return (a > b) - (a < b)
+
+
 class ParametersAction(dict):
     def __init__(self, partial):
         for parameter in partial['parameters']:
@@ -15,21 +20,22 @@ class ParametersAction(dict):
                 value = int(value)
             self.__setitem__(name, value)
 
+
 class QueueItem(object):
     def __init__(self, partial):
         self.name = partial['task']['name']
         self.why = partial['why']
         self.inQueueSince = partial['inQueueSince']
         self.id = partial['id']
-        #print('>>>>>>>>>>>>>>>>>>>>')
-        #print(json.dumps(partial, indent=2))
-        #print('<<<<<<<<<<<<<<<<<<<<')
+        # print('>>>>>>>>>>>>>>>>>>>>')
+        # print(json.dumps(partial, indent=2))
+        # print('<<<<<<<<<<<<<<<<<<<<')
 
         self.url = partial['url']
 
         actions = partial['actions']
 
-        #print(json.dumps(actions, indent=2))
+        # print(json.dumps(actions, indent=2))
 
         self.actions = []
         for action in actions:
@@ -37,15 +43,15 @@ class QueueItem(object):
                 continue
             if action['_class'] == 'hudson.model.ParametersAction':
                 self.actions.append(ParametersAction(action))
-                #print(self.actions[-1])
+                # print(self.actions[-1])
             elif action['_class'] == 'hudson.model.CauseAction':
-                #print('CA', json.dumps(action, indent=2))
+                # print('CA', json.dumps(action, indent=2))
                 continue
             elif action['_class'] == 'hudson.matrix.MatrixChildParametersAction':
-                #print('MCPA', json.dumps(action, indent=2))
+                # print('MCPA', json.dumps(action, indent=2))
                 continue
             else:
-                #print('---', json.dumps(action, indent=2))
+                # print('---', json.dumps(action, indent=2))
                 continue
 
     def __getattr__(self, name):
@@ -66,6 +72,7 @@ class QueueItem(object):
         else:
             return cmp(self.name, other.name)
 
+
 if len(sys.argv) == 2:  # read from the command line
     with open(sys.argv[1]) as handle:
         doc = json.loads(handle.read())
@@ -75,19 +82,18 @@ else:
 
 queue = []
 for item in doc['items']:
-    #print('##############################')
+    # print('##############################')
     if 'actions' in item:
-        #print('num actions:', len(item['actions']))
+        # print('num actions:', len(item['actions']))
         queue.append(QueueItem(item))
-        #print('num actions:', len(queue[-1].actions))
+        # print('num actions:', len(queue[-1].actions))
         if len(queue[-1].actions) == 0:
-            del(queue[-1])
-    #else:
-    #    print('NO ACTIONS:', item)
-    #print('>>>>>', queue[-1])
+            del (queue[-1])
+    # else:
+    #     print('NO ACTIONS:', item)
+    # print('>>>>>', queue[-1])
 
-
-#print('##############################')
+# print('##############################')
 name_length = 0
 why_length = 0
 for item in queue:
@@ -98,19 +104,18 @@ for item in queue:
     if length > why_length:
         why_length = length
 
-fmt = '{:<' + str(name_length+1) + '} {:<6}  {:<' + str(why_length+1) + '}'
+fmt = '{:<' + str(name_length + 1) + '} {:<6}  {:<' + str(why_length + 1) + '}'
 
 queue.sort()
 
 print(fmt.format('job', 'PR', 'why'), 'jobid')
 for item in queue:
-    print(fmt.format(item.name, str(item.PR), item.why), item.id, item.url)#inQueueSince)
+    print(fmt.format(item.name, str(item.PR), item.why), item.id, item.url)  # inQueueSince)
 
-######################################################################
+# #####################################################################
 # An example of deleting the (queued) jobs is found in
 # https://github.com/docker/leeroy/blob/master/jenkins/jenkins.go#L197
 # https://github.com/docker/leeroy/blob/master/jenkins/jenkins.go#L238-L242
-######################################################################
+# #####################################################################
 
-
-#doc['items'][2]['actions'][0]['parameters'].keys()
+# doc['items'][2]['actions'][0]['parameters'].keys()

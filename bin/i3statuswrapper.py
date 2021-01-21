@@ -27,13 +27,14 @@
 import json
 import os
 import sys
-sys.path.insert(0, os.path.join(os.environ['HOME'],'bin'))
-from beamstatus import getPower
-from monitorautoreduction import getRunList
+sys.path.insert(0, os.path.join(os.environ['HOME'], 'bin'))
+from beamstatus import getPower  # noqa: E402
+from monitorautoreduction import getRunList  # noqa: E402
 
-GREEN  = '#00CC00'
+GREEN = '#00CC00'
 YELLOW = '#CCCC00'
-RED    = '#CC0000'
+RED = '#CC0000'
+
 
 def getBeamstatus(facility):
     if facility == 'HFIR':
@@ -46,7 +47,7 @@ def getBeamstatus(facility):
         if text.lower().strip() == 'off':
             color = RED
         text = formatstr.format(facility, text)
-    except: # any error
+    except Exception:  # any error
         return createRecord(facility, facility + '_ERROR', RED)
 
     return createRecord(facility, text, color)
@@ -66,7 +67,7 @@ def getLastRun(instrument):
 
         text = '{}_{} {}'.format(instrument, runinfo['run'], rec_status[0])
         status = str(runinfo['status']).lower()
-    except:  # any error
+    except Exception:  # any error
         return createRecord(instrument, instrument + ' ERROR', RED)
 
     color = None
@@ -79,17 +80,19 @@ def getLastRun(instrument):
 
     return createRecord(instrument, text, color)
 
+
 def createRecord(name, fulltext, color=None):
-    result = {'full_text' : fulltext,
-              'name': name}
+    result = {'full_text': fulltext, 'name': name}
     if color is not None:
         result['color'] = color
     return result
+
 
 def print_line(message):
     """ Non-buffered printing to stdout. """
     sys.stdout.write(message + '\n')
     sys.stdout.flush()
+
 
 def read_line():
     """ Interrupted respecting reader for stdin. """
@@ -103,6 +106,7 @@ def read_line():
     # exit on ctrl-c
     except KeyboardInterrupt:
         sys.exit()
+
 
 ######################################################################
 # In principle i3 will feed back click events according to the main
@@ -133,4 +137,4 @@ if __name__ == '__main__':
             j.insert(0, getLastRun(name))
 
         # and echo back new encoded json
-        print_line(prefix+json.dumps(j))
+        print_line(prefix + json.dumps(j))
