@@ -4,7 +4,7 @@
 
 # prefer wayland and fall back on x11
 export GDK_BACKEND=wayland,x11
-# tell firefox to use wayland
-export MOZ_ENABLE_WAYLAND=1
+# tell firefox to use wayland - disable for now
+#export MOZ_ENABLE_WAYLAND=1
 
 sway
