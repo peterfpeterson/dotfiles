@@ -1,4 +1,5 @@
 # more hooks in https://pre-commit.com/hooks.html
+# temporarily disable https://pre-commit.com/#temporarily-disabling-hooks
 repos:
 - repo: https://github.com/pre-commit/mirrors-yapf
   rev: v0.30.0
