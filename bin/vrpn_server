@@ -8,16 +8,16 @@ fi
 
 if [ ! -f ${VRPN_SERVER} ]; then
     echo "Failed to find vrpn_server"
-    exit -1
+    exit 255
 fi
 
-if [ -f ${HOME}/etc/vrpn.cfg ]; then
+if [ -f "${HOME}/etc/vrpn.cfg" ]; then
     VRPN_CFG="${HOME}/etc/vrpn.cfg"
-elif [-f ${VRPN_CFG} ]; then
+elif [ -f "${VRPN_CFG}" ]; then
     VRPN_CFG="${VRPN_PREFIX}etc/vrpn.cfg"
 fi
 
-if [ -n ${VRPN_CFG} ]; then
+if [ -n "${VRPN_CFG}" ]; then
     ARGS="-v -f ${VRPN_CFG}"
 else
     ARGS="-v"

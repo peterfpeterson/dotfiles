@@ -1,7 +1,10 @@
-export WARI_ROOT=`pwd`/wari
+#!/bin/sh
+WARI_ROOT=$(pwd)/wari
+export WARI_ROOT
 
 
-. $WARI_ROOT/wari-setup.sh
+# shellcheck source=wari/wari-setup.sh
+. "$WARI_ROOT/wari-setup.sh"
 
 echo "Adding repositories"
 add_repo chrome
@@ -12,10 +15,10 @@ add_repo rpmfusion-free rpmfusion-nonfree
 #add_repo sns
 add_repo nvidia
 
-if [ ! -f ${REPO_DIR}/_copr_peterfpeterson-morebin.repo ]; then
+if [ ! -f "${REPO_DIR}/_copr_peterfpeterson-morebin.repo" ]; then
     add_copr_repo peterfpeterson/morebin
 fi
-if [ ! -f ${REPO_DIR}/_copr_carlwgeorge-ripgrep.repo ]; then
+if [ ! -f "${REPO_DIR}/_copr_carlwgeorge-ripgrep.repo" ]; then
     add_copr_repo carlwgeorge/ripgrep
 fi
 

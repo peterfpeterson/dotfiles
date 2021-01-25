@@ -1,17 +1,17 @@
-#!/bin/sh
+#!/bin/bash
 
-if [ $(command -v gnome-terminal) ]; then
+if [ "$(command -v gnome-terminal)" ]; then
     base="/org/gnome/terminal/legacy/profiles:/"
     if [[ -n "$1" ]]; then
         profile="$1"
     else
         profile=$(dconf list ${base} | grep -v list | grep -v default | sed -n '1p')
-        name=$(dconf read ${base}${profile}visible-name)
+        name=$(dconf read "${base}${profile}visible-name")
         echo "Using first profile ${name} (${profile})"
     fi
 
     echo "Setting unlimited scrollback"
-    dconf write ${base}${profile}scrollback-unlimited true
+    dconf write "${base}${profile}scrollback-unlimited" true
 else
     echo "command \"gnome-terminal\" not found - doing nothing"
 fi

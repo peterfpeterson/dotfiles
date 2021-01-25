@@ -28,13 +28,13 @@ help () {
 
 triggername () {
     CONFIGFILE=${1}
-    echo $(jq -r -M .[2].name ${CONFIGFILE})
+    jq -r -M .[2].name "${CONFIGFILE}"
 }
 
 triggerrunning() {
-    triggers=$(watchman trigger-list `pwd` | jq -r -M .triggers[].name)
-    echo $triggers
-    if [ "${1/triggers}" = "${1}" ]; then
+    triggers=$(watchman trigger-list "$(pwd)" | jq -r -M .triggers[].name)
+    echo "$triggers"
+    if [ "${1/triggers}" == "${1}" ]; then
         return 0
     else
         return 1
@@ -42,48 +42,48 @@ triggerrunning() {
 }
 
 ########## check for dependencies
-if [ ! $(command -v watchman) ]; then
+if [ ! "$(command -v watchman)" ]; then
     echo "failed to find watchman https://facebook.github.io/watchman/"
-    exit -1
+    exit 255
 fi
-if [ ! $(command -v jq) ]; then
+if [ ! "$(command -v jq)" ]; then
     echo "failed to find jq https://stedolan.github.io/jq/"
-    exit -1
+    exit 255
 fi
 
 ########## exit early on help
-if [ $# == 0 ]; then
+if [ $# -eq 0 ]; then
     help
-    exit -1
+    exit 255
 fi
-if [ $1 == "help" ]; then
+if [ "$1" = "help" ]; then
     help
-    exit
+    exit 0
 fi
 
 ########## determine configuration file
-if [ $# == 2 ]; then
+if [ $# -eq 2 ]; then
     CONFIGFILE="$2"
 else
     CONFIGFILE=watchman.json
 fi
 if [ ! -f ${CONFIGFILE} ]; then
     echo "error: Could not open file ${CONFIGFILE}: No such file or directory"
-    exit -1
+    exit 255
 fi
-jq -e . ${CONFIGFILE} &> /dev/null
-if [ $? -ne 0 ]; then
+
+if [ "$(jq -e . "${CONFIGFILE}" > /dev/null 2>&1)" ]; then
     jq -e . ${CONFIGFILE}
-    exit -1
+    exit 255
 fi
 
 ########## switch to the specified directory
-DIR=$(jq -r -M .[1] ${CONFIGFILE})
-if [ ! -d ${DIR} ]; then
+DIR=$(jq -r -M .[1] "${CONFIGFILE}")
+if [ ! -d "${DIR}" ]; then
     echo "error: invalid directory ${DIR}"
-    exit -1
+    exit 255
 fi
-cd ${DIR}
+cd "${DIR}" || exit
 DIR=$(pwd)
 
 ########## do the actual work
@@ -92,18 +92,18 @@ case "$1" in
     # "help" is dealt with above
     start)
         # startup watchman
-        if [ $(triggerrunning ${trigger}) ]; then
+        if [ "$(triggerrunning "${trigger}")" ]; then
             echo "\"${trigger}\" already running"
         else
             echo "start watching ${DIR}"
-            watchman -o ${DIR}/watchman.log -j < ${CONFIGFILE}
+            watchman -o "${DIR}/watchman.log" -j < "${CONFIGFILE}"
         fi
         ;;
     stop)
         # delete the trigger and shutdown watchman
-        if [ $(triggerrunning ${trigger}) ]; then
+        if [ "$(triggerrunning "${trigger}")" ]; then
             echo "stop watching ${DIR}"
-            watchman trigger-del ${DIR} ${trigger}
+            watchman trigger-del "${DIR}" "${trigger}"
             watchman shutdown-server
         else
             echo "\"${trigger}\" not running"
@@ -111,11 +111,11 @@ case "$1" in
         ;;
     status)
         # list all of the wacky triggers
-        watchman trigger-list ${DIR}
+        watchman trigger-list "${DIR}"
         ;;
     *)
         echo "unknown command \"$1\""
-        exit -1
+        exit 255
         ;;
 esac
 

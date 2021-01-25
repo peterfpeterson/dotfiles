@@ -1,14 +1,14 @@
 #!/bin/sh
-if [ $1 ]; then
+if [ "$1" ]; then
     # determine this year compared to the year of the event
-    current_year=`date +%Y`
-    end_year=`date -d $1 +%Y`
+    current_year=$(date +%Y)
+    end_year=$(date -d "$1" +%Y)
 
     # what is the day of the year for the event
-    result=$((`date -d $1 +%-j` - `date +%-j` - 1))
+    result=$(($(date -d "$1" +%-j) - $(date +%-j) - 1))
 
     # add number of days in various years
-    if [ $current_year -lt $end_year ]; then
+    if [ "$current_year" -lt "$end_year" ]; then
         days_in_years=0
         for ((year=$current_year;year<$end_year;year++))
         do
