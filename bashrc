@@ -198,7 +198,7 @@ if [ "$(command -v fzf)" ]; then
   fi
 
   _fzf_complete_ssh_notrigger() {
-    FZF_COMPLETION_TRIGGER='' _fzf_complete_ssh
+    FZF_COMPLETION_TRIGGER='' _fzf_host_completion
   }
   complete -o bashdefault -o default -F _fzf_complete_ssh_notrigger ssh
 
