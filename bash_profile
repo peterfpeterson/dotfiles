@@ -8,6 +8,9 @@ else
 fi
 
 # Get the aliases and functions
-if [ -f ~/.bashrc ]; then
-  . ~/.bashrc
+if [[ $- == *i* ]]; then  # interactive shell when "i" is in the "$-" variable
+  if [ -f ~/.bashrc ]; then
+    # shellcheck source=bashrc
+    source ~/.bashrc
+  fi
 fi
