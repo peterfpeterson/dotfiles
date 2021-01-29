@@ -5,7 +5,7 @@ export GOPATH=$HOME/go
 
 # interactive shell when "i" is in the "$-" variable
 if [[ ! $- == *i* ]]; then
-  exit 0
+  return  # don't execute any more of the file
 fi
 
 # Source global definitions
