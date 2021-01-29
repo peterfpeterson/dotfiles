@@ -1,5 +1,13 @@
 # This is executed by interactive shells (and sourced in .bash_profile)
 
+PATH=$HOME/bin:/usr/local/bin:$PATH
+export GOPATH=$HOME/go
+
+# interactive shell when "i" is in the "$-" variable
+if [[ ! $- == *i* ]]; then
+  exit 0
+fi
+
 # Source global definitions
 if [ -f /etc/bashrc ]; then
   source /etc/bashrc
@@ -117,8 +125,6 @@ if [ "$(command -v ninja)" ]; then
   export RIPGREP_CONFIG_PATH=${HOME}/.ripgreprc
 fi
 
-PATH=$HOME/bin:/usr/local/bin:$PATH
-
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/SNS/users/pf9/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
@@ -180,8 +186,6 @@ diffxml() {
 WHATIDIDDIR=${HOME}/Dropbox/whatidid
 alias whatidid="${EDITOR} ${WHATIDIDDIR}/$(date '+%Y-week%V.md')"
 alias whatidid_addday="echo $(date '+%F') >> ${WHATIDIDDIR}/$(date '+%Y-week%V.md')"
-
-export GOPATH=$HOME/go
 
 # gem install bundler_bash_completion
 if [ "$(command -v complete_bundle_bash_command)" ]; then
