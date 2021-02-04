@@ -34,6 +34,7 @@
     ~/bin/git-wtf: willgit/bin/git-wtf
     ~/bin/blink2-tool: blink1-toys/blink2-tool
     ~/bin/build-list.py: bin/build-list.py
+    ~/bin/fibonacci: bin/fibonacci
     ~/bin/git-clang-format: bin/git-clang-format
     ~/bin/git-list-pr: bin/git-list-pr
     ~/bin/i3statuswrapper.py: bin/i3statuswrapper.py

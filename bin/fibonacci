@@ -1,0 +1,45 @@
+#!/usr/bin/env python
+# https://en.wikipedia.org/wiki/Fibonacci_number
+import numpy as np
+
+# The golden ratio is approximately 1.61803
+golden_ratio = (1 + np.sqrt(5)) / 2
+
+
+def generate_fibonacci(size: int = 8):
+    '''Generator for creating Fibonacci numbers'''
+    yield 0  # first value is zero
+
+    count: int = 1
+    n_minus_one: int = 1  # previous value
+    n_minus_two: int = 0  # value before that
+    while count < size:
+        count += 1
+        n_minus_two, n_minus_one = n_minus_one, n_minus_one + n_minus_two
+        yield n_minus_one
+
+
+def test_fibonacci():
+    # known values copied from wikipedia
+    known = [0, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597, 2584, 4181, 6765]
+    for obs, exp in zip(generate_fibonacci(len(known)), known):
+        assert obs == exp
+
+
+# main entry point
+test_fibonacci()
+
+# print n-values
+for i in generate_fibonacci():
+    print(i, end=' ')
+print()  # end of line
+'''
+# convert to a numpy array
+fibonacci = np.fromiter(generate_fibonacci(), dtype=int)
+
+# values
+print(fibonacci[:8])
+# should trend to golden ratio
+print(fibonacci[2:] / fibonacci[1:-1])
+print(abs((fibonacci[2:] / fibonacci[1:-1]) - golden_ratio))
+'''
