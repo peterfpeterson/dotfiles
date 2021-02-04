@@ -25,14 +25,29 @@ def test_fibonacci():
     for obs, exp in zip(generate_fibonacci(len(known)), known):
         assert obs == exp
 
+    print('all tests passed')
+
 
 # main entry point
-test_fibonacci()
+if __name__ == "__main__":
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--test', action='store_true', help='run the testsuite')
+    parser.add_argument('-n',
+                        '--num',
+                        default=8,
+                        type=int,
+                        help='maximum number of values to print (default=%(default)s)')
+    args = parser.parse_args()
 
-# print n-values
-for i in generate_fibonacci():
-    print(i, end=' ')
-print()  # end of line
+    if args.test:
+        # run the testsuite
+        test_fibonacci()
+    else:
+        # print n-values
+        for i in generate_fibonacci(args.num):
+            print(i, end=' ')
+        print()  # end of line
 '''
 # convert to a numpy array
 fibonacci = np.fromiter(generate_fibonacci(), dtype=int)
