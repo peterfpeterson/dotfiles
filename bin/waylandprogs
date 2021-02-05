@@ -1,0 +1,2 @@
+#!/bin/sh
+find /usr/bin | xargs ldd 2> /dev/null | grep wayland -B 55 | grep /usr/bin --color=never
