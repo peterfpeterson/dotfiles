@@ -164,9 +164,11 @@ if [ "$(command -v bat)" ]; then
    alias less=bat
 else
     if [ "$(command -v highlight)" ]; then
-      export LESSOPEN="| $(command -v highlight) %s --out-format xterm256 --line-numbers --quiet --force --style solarized-dark"
+      LESSOPEN="| $(command -v highlight) %s --out-format xterm256 --line-numbers --quiet --force --style solarized-dark"
+      export LESSOPEN
     elif [ "$(command -v src-hilite-lesspipe.sh)" ]; then
-      export LESSOPEN="| $(command -v src-hilite-lesspipe.sh) %s"
+      LESSOPEN="| $(command -v src-hilite-lesspipe.sh) %s"
+      export LESSOPEN
     fi
     alias less='less -m -N -g -i -J --line-numbers --underline-special'
     export LESS=' -R '
@@ -181,11 +183,6 @@ fi
 diffxml() {
     diff <(xmllint --exc-c14n "$1") <(xmllint --exc-c14n "$2")
 }
-
-# whatidid
-WHATIDIDDIR=${HOME}/Dropbox/whatidid
-alias whatidid="${EDITOR} ${WHATIDIDDIR}/$(date '+%Y-week%V.md')"
-alias whatidid_addday="echo $(date '+%F') >> ${WHATIDIDDIR}/$(date '+%Y-week%V.md')"
 
 # gem install bundler_bash_completion
 if [ "$(command -v complete_bundle_bash_command)" ]; then
@@ -206,6 +203,7 @@ if [ "$(command -v fzf)" ]; then
   }
   complete -o bashdefault -o default -F _fzf_complete_ssh_notrigger ssh
 
+  # shellcheck source=fzf.bash
   if [ -f "$HOME/.fzf.bash" ]; then
     # shellcheck source=fzf.bash
     source "$HOME/.fzf.bash"
@@ -213,8 +211,15 @@ if [ "$(command -v fzf)" ]; then
 
   # based on https://medium.com/@GroundControl/better-git-diffs-with-fzf-89083739a9cb
   fzfdiff() {
-    git diff --name-only "$@" | fzf -m --ansi --preview "git diff $@ --color=always -- {-1}"
+    git diff --name-only "$@" | fzf -m --ansi --preview 'git diff "$@" --color=always -- {-1}'
   }
+
+  #determines search program for fzf
+  if [ "$(command -v rg)" ]; then
+    export FZF_DEFAULT_COMMAND='rg --files --hidden'
+  elif [ "$(command -v ag)" ]; then
+    export FZF_DEFAULT_COMMAND='ag -p ~/.gitexcludes -g ""'
+  fi
 fi
 
 # add direnv https://github.com/direnv/direnv/
