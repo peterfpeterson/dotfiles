@@ -222,6 +222,39 @@ if [ "$(command -v fzf)" ]; then
   fi
 fi
 
+
+# https://github.com/bellecp/fast-p to search pdfs for things in the first page
+if [ "$(command -v fzf && command -v fast-p)" ]; then
+  # body modified from the project's README
+  findpdf () {
+    open=xdg-open   # this will open pdf file withthe default PDF viewer on KDE, xfce, LXDE and perhaps on other desktops.
+
+    if [ "$(command -v rg)" ]; then
+      # find files with ripgrep
+      rg --files -t pdf \
+          | fast-p \
+          | fzf --read0 --reverse -e -d $'\t'  \
+                --preview-window down:80% --preview '
+                     v=$(echo {q} | tr " " "|");
+                     echo -e {1}"\n"{2} | grep -E "^|$v" -i --color=always;
+                     ' \
+          | cut -z -f 1 -d $'\t' | tr -d '\n' | xargs -r --null $open > /dev/null 2> /dev/null
+    elif  [ "$(command -v ag)" ]; then
+      # find files with silver searcher
+      ag -U -g ".pdf$" \
+          | fast-p \
+          | fzf --read0 --reverse -e -d $'\t'  \
+                --preview-window down:80% --preview '
+                     v=$(echo {q} | tr " " "|");
+                     echo -e {1}"\n"{2} | grep -E "^|$v" -i --color=always;
+                     ' \
+          | cut -z -f 1 -d $'\t' | tr -d '\n' | xargs -r --null $open > /dev/null 2> /dev/null
+    else
+      echo "Not configured to find files"
+    fi
+  }
+fi
+
 # add direnv https://github.com/direnv/direnv/
 if [ "$(command -v direnv)" ]; then
   eval "$(direnv hook bash)"
