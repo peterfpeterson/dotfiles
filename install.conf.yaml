@@ -88,7 +88,7 @@
     ~/.fonts/FiraCode-Retina.otf: font-FiraCode/distr/otf/FiraCode-Retina.otf
     ~/.fonts/FiraCode-Medium.otf: font-FiraCode/distr/otf/FiraCode-Medium.otf
     ~/.fonts/xkcd.otf: font-xkcd/xkcd/build/xkcd.otf
-    ~/.fzf.bash: fzf.bash
+    ~/.fzf.bash: fzf/shell/key-bindings.bash
     ~/.gdb/python/libcxx: libcxx-pretty-printers/src/libcxx/
     ~/.gdb/python/boost: Boost-Pretty-Printer/boost/
     ~/.gdbinit: gdbinit
