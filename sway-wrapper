@@ -7,4 +7,6 @@ export GDK_BACKEND=wayland,x11
 # tell firefox to use wayland - disable for now
 #export MOZ_ENABLE_WAYLAND=1
 
+# chrome needs flags --enable-features=UseOzonePlatform --ozone-platform=wayland
+
 sway
