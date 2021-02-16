@@ -270,12 +270,18 @@ function table_flip() {
     echo "(╯°□°)╯⏜ ┻━┻ ⏜ $result"
   fi
 }
-if [ -z "${PROMPT_COMMAND}" ]; then
+if [ -z "${PROMPT_COMMAND}" ]; then  # empty
     PROMPT_COMMAND='table_flip'
-elif [ $PROMPT_COMMAND != "${PROMPT_COMMAND/_direnv_hook/}" ]; then
-    PROMPT_COMMAND="${PROMPT_COMMAND/_direnv_hook/_direnv_hook||table_flip}"
-else
-    PROMPT_COMMAND="table_flip;$PROMPT_COMMAND"
+elif [[ ! "${PROMPT_COMMAND}" == *"table_flip"* ]]; then
+    # table flip isn't already there
+    echo "adding table flip to ${PROMPT_COMMAND}"
+    if [[ "${PROMPT_COMMAND}" == *"_direnv_hook"* ]]; then
+        # stick in table flip with direnv enabled
+        PROMPT_COMMAND="${PROMPT_COMMAND/_direnv_hook/_direnv_hook||table_flip}"
+    else
+        # normal table flip
+        PROMPT_COMMAND="table_flip;${PROMPT_COMMAND}"
+    fi
 fi
 
 if [ "$(command -v fortune)" ]; then
