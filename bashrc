@@ -76,6 +76,7 @@ fi
 
 alias grep="grep --color=auto"
 alias subdir="ls -d */"
+alias quit="exit 0"
 
 # Setup for tcmalloc
 if [ -e /usr/lib64/libtcmalloc.so ]; then
