@@ -19,3 +19,4 @@ build
 worktree
 fontconfig
 .mypy_cache
+__pycache__
