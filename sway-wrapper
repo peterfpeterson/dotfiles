@@ -2,6 +2,8 @@
 # /usr/share/wayland-sessions/sway.desktop should call this
 # and the file should be copied to /usr/bin
 
+# tell XDG that we're using sway
+export XDG_CURRENT_DESKTOP=sway
 # prefer wayland and fall back on x11
 export GDK_BACKEND=wayland,x11
 # tell firefox to use wayland - disable for now
