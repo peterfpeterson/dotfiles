@@ -1,6 +1,9 @@
 # This is executed by interactive shells (and sourced in .bash_profile)
 
 PATH=$HOME/bin:/usr/local/bin:$PATH
+if [ -d "${HOME}/.local/bin" ] ; then
+    PATH="${HOME}/.local/bin:${PATH}"
+fi
 export GOPATH=$HOME/go
 
 # interactive shell when "i" is in the "$-" variable
@@ -25,7 +28,8 @@ fi
 if [ "$(command -v hub)" ]; then
   eval "$(hub alias -s)"
   if [ -f "${HOME}/.ssh/github_oauth" ]; then
-    export GITHUB_TOKEN=$(cat ${HOME}/.ssh/github_oauth)
+    GITHUB_TOKEN=$(cat "${HOME}/.ssh/github_oauth")
+    export GITHUB_TOKEN
   fi
 fi
 
@@ -59,8 +63,8 @@ fi
 
 # things for homebrew
 if [ "$(command -v brew)" ]; then
-  if [ -f $(brew --prefix)/etc/bash_completion ]; then
-    source $(brew --prefix)/etc/bash_completion
+  if [ -f "$(brew --prefix)/etc/bash_completion" ]; then
+    source "$(brew --prefix)/etc/bash_completion"
   fi
 fi
 
@@ -121,6 +125,7 @@ fi
 if [ "$(command -v ninja-build)" ]; then
   alias ninja=ninja-build
 fi
+export NINJA_STATUS="[%u/%f/%t] "
 
 if [ "$(command -v rg)" ]; then
   export RIPGREP_CONFIG_PATH=${HOME}/.ripgreprc
