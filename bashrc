@@ -125,7 +125,7 @@ fi
 if [ "$(command -v ninja-build)" ]; then
   alias ninja=ninja-build
 fi
-export NINJA_STATUS="[%u/%f/%t] "
+export NINJA_STATUS="[%f+%r+%u=%t] "
 
 if [ "$(command -v rg)" ]; then
   export RIPGREP_CONFIG_PATH=${HOME}/.ripgreprc
