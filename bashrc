@@ -4,6 +4,10 @@ PATH=$HOME/bin:/usr/local/bin:$PATH
 if [ -d "${HOME}/.local/bin" ] ; then
     PATH="${HOME}/.local/bin:${PATH}"
 fi
+if [ -d "${HOME}/.cargo/bin" ] ; then
+    PATH="${HOME}/.cargo/bin:${PATH}"
+fi
+
 export GOPATH=$HOME/go
 
 # interactive shell when "i" is in the "$-" variable
