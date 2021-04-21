@@ -8,16 +8,15 @@ export WARI_ROOT
 
 echo "Adding repositories"
 add_repo chrome
-add_repo devtoolset-3
 add_repo elrepo epel
 add_repo mantid
 add_repo rpmfusion-free rpmfusion-nonfree
 #add_repo sns
 add_repo nvidia
 
-if [ ! -f "${REPO_DIR}/_copr_peterfpeterson-morebin.repo" ]; then
-    add_copr_repo peterfpeterson/morebin
-fi
+#if [ ! -f "${REPO_DIR}/_copr_peterfpeterson-morebin.repo" ]; then
+#    add_copr_repo peterfpeterson/morebin
+#fi
 if [ ! -f "${REPO_DIR}/_copr_carlwgeorge-ripgrep.repo" ]; then
     add_copr_repo carlwgeorge/ripgrep
 fi
@@ -33,7 +32,6 @@ add_package conky
 add_package direnv
 add_package highlight
 add_package ninja-build
-add_package python2-argcomplete
 add_package python3-argcomplete
 add_package cmake-gui
 add_package rpm-build
