@@ -53,7 +53,7 @@ add_package sway  # tile based window manager
 add_package terminology
 add_package waybar  # status bar for sway
 add_package wofi  # menu launcher for sway
-add_package hidapi-devel
+#add_package hidapi-devel
 add_package source-highlight
 # things for awesome window manager
 #add_package awesome
@@ -63,5 +63,6 @@ add_package source-highlight
 #add_package opensc
 #add_package pcsc-tools
 #add_package pcsc-lite-ccid
+add_package xclip
 
 echo "Done"
