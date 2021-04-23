@@ -31,6 +31,15 @@ Things not covered:
 * Split [vpn tunneling](https://code.ornl.gov/rwp/ornl-openconnect)
 * Copying `sys/etc/ld.so.conf.d/usr-local.conf` into `/etc/ld.so.conf.d/` and running `ldconfig`. This adds `/usr/local/lib` to your `LD_LIBRARY_PATH`. If ldconfig gives a message about `/etc/ld.so.conf` missing, copy that file over as well.
 
+Git ssh keys
+------------
+
+After running `ssh-keygen`, the key can be copied to the clipboard using
+
+```bash
+$ xclip -sel c < ~/.ssh/id_rsa.pub
+```
+
 To update the individual tools
 ------------------------------
 
