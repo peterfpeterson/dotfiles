@@ -52,7 +52,10 @@ if [ "$(command -v hub)" ]; then
   fi
 fi
 
-if [ "$(command -v vim)" ]; then
+if [ "$(command -v nvim)" ]; then
+  alias vi=nvim
+  export EDITOR=nvim
+elif [ "$(command -v vim)" ]; then
   alias vi=vim
   export EDITOR=vim
 fi
