@@ -1,7 +1,7 @@
-%_topdir %(echo $HOME)/rpmbuild
+%_topdir    %{getenv:HOME}/rpmbuild
 
 # RHEL7 sets this value to 3 - fedora correctly has it as 3
-#python3_pkgversion 36
+python3_pkgversion: 36
 
 %__arch_install_post \
     [ "%{buildarch}" = "noarch" ] || QA_CHECK_RPATHS=1 ; \
