@@ -39,7 +39,10 @@
 	insteadOf = git://vtk.org
 [branch]
 	autosetupmerge = true
+	sort = authordate
 [log]
 	follow = true
 [user]
 	name = Pete Peterson
+[column]
+	branch = auto
