@@ -60,11 +60,12 @@
     ~/.bash_completion.d/ansible-galaxy-completion.bash: ansible-bash-completion/ansible-galaxy-completion.bash
     ~/.bash_completion.d/ansible-playbook-completion.bash: ansible-bash-completion/ansible-playbook-completion.bash
     ~/.bash_completion.d/ansible-pull-completion.bash: ansible-bash-completion/ansible-pull-completion.bash
-    ~/.bash_completion.d/fzf-completion.bash: fzf/shell/completion.bash
     ~/.bash_completion.d/ansible-vault-completion.bash: ansible-bash-completion/ansible-vault-completion.bash
     ~/.bash_completion.d/ctest: ctest-completion/ctest
-    ~/.bash_completion.d/watchman_sh: bash_completions.d/watchman_sh
     ~/.bash_completion.d/dropbox_bash_completion: bash_completions.d/dropbox_bash_completion
+    ~/.bash_completion.d/fzf-completion.bash: fzf/shell/completion.bash
+    ~/.bash_completion.d/globalprotect: bash_completions.d/globalprotect
+    ~/.bash_completion.d/watchman_sh: bash_completions.d/watchman_sh
     ~/.condarc: condarc
     ~/.config/autostart/chrome.desktop: config/autostart/chrome.desktop
     ~/.config/autostart/conky.desktop: config/autostart/conky.desktop
