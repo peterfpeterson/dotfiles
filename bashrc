@@ -208,12 +208,17 @@ if [ -d "${HOME}/.rvm" ]; then
   fi
 fi
 
+# bat has a different name on ubunutu
+if  [ "$(command -v batcat)" ]; then
+    alias bat=batcat
+fi
+
 # source-highlighting with less
 if [ "$(command -v bat)" ]; then
    alias less=bat
-elif [ "$(command -v batcat)" ]; then
-   alias bat=batcat
-   alias less=batcat
+   # use less as the pager for bat
+   BAT_PAGER="less -RF"
+   export BAT_PAGER
 else
     if [ "$(command -v highlight)" ]; then
       LESSOPEN="| $(command -v highlight) %s --out-format xterm256 --line-numbers --quiet --force --style solarized-dark"
