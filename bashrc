@@ -211,6 +211,9 @@ fi
 # source-highlighting with less
 if [ "$(command -v bat)" ]; then
    alias less=bat
+elif [ "$(command -v batcat)" ]; then
+   alias bat=batcat
+   alias less=batcat
 else
     if [ "$(command -v highlight)" ]; then
       LESSOPEN="| $(command -v highlight) %s --out-format xterm256 --line-numbers --quiet --force --style solarized-dark"
