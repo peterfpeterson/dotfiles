@@ -226,6 +226,12 @@ else
     export LESS=' -R '
 fi
 
+# pretty print csv files
+# taken from https://www.stefaanlippens.net/pretty-csv.html
+function pretty_csv {
+    column -t -s, -n "$@" | less -F -S -X -K
+}
+
 # colorized diffs from colordiff
 if [ "$(command -v colordiff)" ]; then
   alias diff=colordiff
