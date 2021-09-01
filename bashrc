@@ -279,9 +279,17 @@ if [ "$(command -v fzf)" ]; then
 
   #determines search program for fzf
   if [ "$(command -v rg)" ]; then
-    export FZF_DEFAULT_COMMAND='rg --files --hidden'
+    export FZF_DEFAULT_COMMAND='rg --files'
+    # cd into a found directory
+    export FZF_ALT_C_COMMAND='rg --files | xargs -0 dirname | sort -u'
   elif [ "$(command -v ag)" ]; then
     export FZF_DEFAULT_COMMAND='ag -p ~/.gitexcludes -g ""'
+  fi
+
+  # bind the default command into other commands
+  if [ -n "${FZF_DEFAULT_COMMAND}" ]; then
+    # find files to complete command
+    export FZF_CTRL_T_COMMAND="${FZF_DEFAULT_COMMAND}"
   fi
 fi
 
