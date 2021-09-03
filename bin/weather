@@ -1,0 +1,72 @@
+#!/bin/env bash
+######################################################################
+# convenience wrapper for calling https://github.com/chubin/wttr.in
+######################################################################
+
+help () {
+    if [ -n "${1}" ]; then
+        echo "Help from website"
+        curl wttr.in/:help # help url
+        echo ""
+        echo "Help for bash script"
+        echo ""
+    fi
+
+    local name # name of the script
+    name=$(basename "${0}")
+    echo "Usage: ${name}  [OPTION] [LOCATION]"
+    echo "Show the weather using wttr.in"
+    echo ""
+    echo "Default behavior prints weather information in 3 lines"
+    echo ""
+    echo "  [LOCATION] will default to what IP lookup finds"
+    echo "  -h, --help    print help and exit"
+    echo "  -l, --long    long printing with graphs"
+    echo "  -w, --wide    takes up a ton of space"
+}
+
+# this is called single line format, but many lines can be made
+short() {
+    curl wttr.in/"${1}"?format="%c+%C+%t+%h+%w+%p+%m\n%l\n%D↗%S↑%z↓%s↘%d\n"
+}
+
+version2() {
+    curl v2.wttr.in/"${1}"
+}
+
+traditional() {
+    curl wttr.in/"${1}"
+}
+
+loc=""
+report="short"
+# parse options
+while [ -n "${1}" ]; do
+    case "${1}" in
+        -h)
+            help
+            exit 0
+            ;;
+        --help)
+            help "long"
+            exit 0
+            ;;
+        -w|--wide)
+            report="wide"
+            ;;
+        -l|--long)
+            report="long"
+            ;;
+        *)
+            loc="${1}"
+            ;;
+    esac
+    shift
+done
+
+# show the right thing
+case "${report}" in
+    short) short "${loc}";;
+    wide) traditional "${loc}" ;;
+    long) version2 "${loc}" ;;
+esac
