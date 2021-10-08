@@ -45,3 +45,5 @@
 	name = Pete Peterson
 [column]
 	branch = auto
+[rebase]
+	autosquash = true
