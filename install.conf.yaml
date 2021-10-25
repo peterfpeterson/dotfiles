@@ -85,11 +85,11 @@
     ~/.emacs: emacs
     ~/etc/vrpn.cfg: vrpn-config/vrpn.cfg
     ~/etc/spacenave_vr_state.pvvr: vrpn-config/spacenave_vr_state.pvvr
-    ~/.fonts/FiraCode.glyphs: font-FiraCode/FiraCode.glyphs
-    ~/.fonts/FiraCode-Bold.otf: font-FiraCode/distr/otf/FiraCode-Bold.otf
-    ~/.fonts/FiraCode-Regular.otf: font-FiraCode/distr/otf/FiraCode-Regular.otf
-    ~/.fonts/FiraCode-Retina.otf: font-FiraCode/distr/otf/FiraCode-Retina.otf
-    ~/.fonts/FiraCode-Medium.otf: font-FiraCode/distr/otf/FiraCode-Medium.otf
+    #~/.fonts/FiraCode.glyphs: font-FiraCode/FiraCode.glyphs
+    #~/.fonts/FiraCode-Bold.otf: font-FiraCode/distr/otf/FiraCode-Bold.otf
+    #~/.fonts/FiraCode-Regular.otf: font-FiraCode/distr/otf/FiraCode-Regular.otf
+    #~/.fonts/FiraCode-Retina.otf: font-FiraCode/distr/otf/FiraCode-Retina.otf
+    #~/.fonts/FiraCode-Medium.otf: font-FiraCode/distr/otf/FiraCode-Medium.otf
     ~/.fonts/xkcd.otf: font-xkcd/xkcd/build/xkcd.otf
     ~/.fzf.bash: fzf/shell/key-bindings.bash
     ~/.gdb/python/libcxx: libcxx-pretty-printers/src/libcxx/
