@@ -354,6 +354,12 @@ elif [[ ! "${PROMPT_COMMAND}" == *"table_flip"* ]]; then
     fi
 fi
 
+# configure starship and table flip
+if [ "$(command -v starship)" ]; then
+    eval "$(starship init bash)"
+    eval "$(starship completions)"
+fi
+
 if [ "$(command -v fortune)" ]; then
     fortune -a
 fi
