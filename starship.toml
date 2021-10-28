@@ -21,3 +21,6 @@ disabled = false
 
 [line_break]
 disabled = true
+
+[cmake]
+disabled = true
