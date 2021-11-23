@@ -14,6 +14,7 @@ CPackConfig.cmake
 CPackSourceConfig.cmake
 .DS_Store
 DS_Store
+.idea
 Makefile
 build
 worktree
