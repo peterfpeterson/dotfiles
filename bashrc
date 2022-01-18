@@ -252,6 +252,12 @@ if [ "$(command -v complete_bundle_bash_command)" ]; then
   complete_bundle_bash_command init
 fi
 
+# replacement for ls -> https://the.exa.website/
+if [ "$(command -v exa)" ]; then
+   alias exa="exa --icons --time-style=iso"
+   alias ls="exa"
+fi
+
 # extra fzf definitions https://github.com/junegunn/fzf
 if [ "$(command -v fzf)" ]; then
   complete -F _fzf_path_completion pycharm
