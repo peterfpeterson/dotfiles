@@ -267,6 +267,7 @@ if [ "$(command -v fzf)" ]; then
     alias fzfpreview="fzf --preview 'less {}'"
   fi
 
+  # known hosts
   _fzf_complete_ssh_notrigger() {
     FZF_COMPLETION_TRIGGER='' _fzf_host_completion
   }
@@ -363,7 +364,7 @@ fi
 # configure starship and table flip
 if [ "$(command -v starship)" ]; then
     eval "$(starship init bash)"
-    eval "$(starship completions)"
+    eval "$(starship completions bash)"
 fi
 
 if [ "$(command -v fortune)" ]; then
