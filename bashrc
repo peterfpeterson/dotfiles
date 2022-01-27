@@ -195,9 +195,11 @@ if [ "$(command -v todo.sh)" ]; then
   export TODOTXT_DEFAULT_ACTION=ls
 fi
 
+# Setup rvm for ruby virtual environments
 if [ -d "${HOME}/.rvm" ]; then
-  # automatically switch to ruby 2.1.1
-  source $("${HOME}/.rvm/bin/rvm" 2.1.1 do rvm env --path)
+  # automatically enable ruby
+  ${HOME}/.rvm/bin/rvm all do rvm env --path
+  #source $("${HOME}/.rvm/bin/rvm" all do rvm env --path)
   # Load RVM into a shell session *as a function*
   if [ -s "${HOME}/.rvm/scripts/rvm" ]; then
     source "${HOME}/.rvm/scripts/rvm"
