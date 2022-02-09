@@ -76,6 +76,11 @@ if ! shopt -oq posix; then
   fi
 fi
 
+# patch in hand-written host names
+if [ -f "${HOME}/.hosts" ]; then
+    export HOSTFILE="${HOME}/.hosts"
+fi
+
 # bash completion for ninja
 if [ -f /usr/share/bash-completion/completions/ninja-bash-completion ]; then
   source /usr/share/bash-completion/completions/ninja-bash-completion
@@ -269,11 +274,13 @@ if [ "$(command -v fzf)" ]; then
     alias fzfpreview="fzf --preview 'less {}'"
   fi
 
-  # known hosts
-  _fzf_complete_ssh_notrigger() {
-    FZF_COMPLETION_TRIGGER='' _fzf_host_completion
-  }
-  complete -o bashdefault -o default -F _fzf_complete_ssh_notrigger ssh
+  # override known hosts with fuzzy-find
+  if [ ! -f "${HOSTFILE}" ]; then
+      _fzf_complete_ssh_notrigger() {
+          FZF_COMPLETION_TRIGGER='' _fzf_host_completion
+      }
+      complete -o bashdefault -o default -F _fzf_complete_ssh_notrigger ssh
+  fi
 
   # shellcheck source=fzf.bash
   if [ -f "$HOME/.fzf.bash" ]; then
