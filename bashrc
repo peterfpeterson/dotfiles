@@ -175,6 +175,10 @@ if [ "$(command -v ninja-build)" ]; then
 fi
 export NINJA_STATUS="[%f+%r+%u=%t] "
 
+if [ "$(command -v btm)" ]; then
+    alias top=btm
+fi
+
 if [ "$(command -v rg)" ]; then
   export RIPGREP_CONFIG_PATH=${HOME}/.ripgreprc
 fi
@@ -201,19 +205,19 @@ if [ "$(command -v todo.sh)" ]; then
 fi
 
 # Setup rvm for ruby virtual environments
-if [ -d "${HOME}/.rvm" ]; then
-  # automatically enable ruby
-  ${HOME}/.rvm/bin/rvm all do rvm env --path
-  #source $("${HOME}/.rvm/bin/rvm" all do rvm env --path)
-  # Load RVM into a shell session *as a function*
-  if [ -s "${HOME}/.rvm/scripts/rvm" ]; then
-    source "${HOME}/.rvm/scripts/rvm"
-  fi
-  # add RVM bash completion
-  if [ -f "$HOME/.rvm/scripts/completion" ]; then
-     source "$HOME/.rvm/scripts/completion"
-  fi
-fi
+#if [ -d "${HOME}/.rvm" ]; then
+#  # automatically enable ruby
+#  ${HOME}/.rvm/bin/rvm all do rvm env --path
+#  #source $("${HOME}/.rvm/bin/rvm" all do rvm env --path)
+#  # Load RVM into a shell session *as a function*
+#  if [ -s "${HOME}/.rvm/scripts/rvm" ]; then
+#    source "${HOME}/.rvm/scripts/rvm"
+#  fi
+#  # add RVM bash completion
+#  if [ -f "$HOME/.rvm/scripts/completion" ]; then
+#     source "$HOME/.rvm/scripts/completion"
+#  fi
+#fi
 
 # bat has a different name on ubunutu
 if  [ "$(command -v batcat)" ]; then
