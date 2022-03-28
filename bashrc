@@ -265,7 +265,7 @@ fi
 
 # replacement for ls -> https://the.exa.website/
 if [ "$(command -v exa)" ]; then
-   alias exa="exa --icons --time-style=iso"
+   alias exa="exa --icons --time-style=iso --git"
    alias ls="exa"
 fi
 
