@@ -68,7 +68,6 @@
     ~/.bash_completion.d/globalprotect: bash_completions.d/globalprotect
     ~/.bash_completion.d/watchman_sh: bash_completions.d/watchman_sh
     ~/.condarc: condarc
-    ~/.config/autostart/chrome.desktop: config/autostart/chrome.desktop
     ~/.config/autostart/conky.desktop: config/autostart/conky.desktop
     ~/.config/awesome/rc.lua: awesomerc.lua
     ~/.config/Code/User/settings.json: ms-code-settings.json

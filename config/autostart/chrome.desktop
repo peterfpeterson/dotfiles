@@ -1,7 +1,0 @@
-[Desktop Entry]
-Name=chrome
-TryExec=google-chrome
-Exec=google-chrome
-Terminal=false
-Type=Application
-StartupNotify=false
