@@ -25,8 +25,8 @@
     - [./dropbox-link.sh]
 
 - link:
-    ~/.bash_profile: bash_profile
-    ~/.bashrc: bashrc
+    ~/.bash_profile:
+    ~/.bashrc:
     ~/bin/beamstatus.py: bin/beamstatus
     ~/bin/daysuntil: bin/daysuntil
     ~/bin/git-publish-branch: willgit/bin/git-publish-branch
@@ -67,7 +67,7 @@
     ~/.bash_completion.d/fzf-completion.bash: fzf/shell/completion.bash
     ~/.bash_completion.d/globalprotect: bash_completions.d/globalprotect
     ~/.bash_completion.d/watchman_sh: bash_completions.d/watchman_sh
-    ~/.condarc: condarc
+    ~/.condarc:
     ~/.config/autostart/conky.desktop: config/autostart/conky.desktop
     ~/.config/awesome/rc.lua: awesomerc.lua
     ~/.config/Code/User/settings.json: ms-code-settings.json
@@ -79,10 +79,10 @@
     ~/.config/wofi/config: wofi-config
     ~/.config/wofi/style.css: wofi-style.css
     ~/.config/waybar/config: waybar-config
-    ~/.conkyrc: conkyrc
+    ~/.conkyrc:
     ~/.dir_colors: dircolors-solarized/dircolors.ansi-universal
-    ~/.direnvrc: direnvrc
-    ~/.emacs: emacs
+    ~/.direnvrc:
+    ~/.emacs:
     ~/etc/vrpn.cfg: vrpn-config/vrpn.cfg
     ~/etc/spacenave_vr_state.pvvr: vrpn-config/spacenave_vr_state.pvvr
     #~/.fonts/FiraCode.glyphs: font-FiraCode/FiraCode.glyphs
@@ -94,18 +94,18 @@
     ~/.fzf.bash: fzf/shell/key-bindings.bash
     ~/.gdb/python/libcxx: libcxx-pretty-printers/src/libcxx/
     ~/.gdb/python/boost: Boost-Pretty-Printer/boost/
-    ~/.gdbinit: gdbinit
-    ~/.gitconfig: gitconfig
-    ~/.gitexcludes: gitexcludes
+    ~/.gdbinit:
+    ~/.gitconfig:
+    ~/.gitexcludes:
     ~/.gitprompt: bash-git-prompt
-    ~/.git-prompt-colors.sh: git-prompt-colors.sh
-    ~/.perfconfig: perfconfig
-    ~/.ripgreprc: ripgreprc
-    ~/.rpmmacros: rpmmacros
-    ~/.toprc: toprc
+    ~/.git-prompt-colors.sh:
+    ~/.perfconfig:
+    ~/.ripgreprc:
+    ~/.rpmmacros:
+    ~/.toprc:
     ~/.topydo: topydo.conf
     ~/.todo/config: todo.config
-    ~/.vimrc: vimrc
+    ~/.vimrc:
 
 - link:
     ~/bin/todo.sh: todo.txt-cli/todo.sh
