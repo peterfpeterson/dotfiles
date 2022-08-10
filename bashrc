@@ -115,6 +115,15 @@ if [ "$(command -v rhc)" ]; then
   fi
 fi
 
+if [ "$(command -v docker)" ]; then
+    docker-killall() {
+        if [ "$(docker container ls -q)" ]; then
+            docker kill $(docker container ls -q)
+        else
+            echo "there are no containers currently running"
+        fi
+    }
+fi
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
