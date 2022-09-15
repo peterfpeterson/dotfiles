@@ -383,6 +383,21 @@ elif [[ ! "${PROMPT_COMMAND}" == *"table_flip"* ]]; then
     fi
 fi
 
+# special config for kitty terminal
+if [ "${TERM}" = "xterm-kitty" ]; then
+    # use kitty's ssh stuff
+    alias ssh="kitty +kitten ssh"
+
+    # set the tab title to be current directory
+    if [ "$(command -v starship)" ]; then
+        function set_tab_title {
+            kitty @set-tab-title $(basename $(pwd))
+        }
+        starship_precmd_user_func="set_tab_title"
+    fi
+fi
+
+
 # configure starship and table flip
 if [ "$(command -v starship)" ]; then
     eval "$(starship init bash)"
