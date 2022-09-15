@@ -74,6 +74,7 @@
     ~/.config/i3/config: i3config
     ~/.config/i3status/config: i3statusconf
     ~/.config/i3status/config2: i3statusconf-2
+    ~/.config/kitty/kitty.conf: kitty.conf
     ~/.config/starship.toml: starship.toml
     ~/.config/sway/config: sway-config
     ~/.config/wofi/config: wofi-config
