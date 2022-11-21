@@ -35,7 +35,7 @@ version2() {
 }
 
 traditional() {
-    curl wttr.in/"${1}"
+    curl wttr.in/"${1}?F_2"
 }
 
 loc=""
