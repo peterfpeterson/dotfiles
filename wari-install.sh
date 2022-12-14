@@ -26,6 +26,7 @@ add_packages_from_distro_file
 
 echo "Adding individual packages"
 add_package autofs
+add_package bat
 add_package ccache
 add_package colordiff
 add_package conky
