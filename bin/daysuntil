@@ -1,25 +1,31 @@
-#!/bin/sh
-if [ "$1" ]; then
-    # determine this year compared to the year of the event
-    current_year=$(date +%Y)
-    end_year=$(date -d "$1" +%Y)
+#!/usr/bin/env python3
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
 
-    # what is the day of the year for the event
-    result=$(($(date -d "$1" +%-j) - $(date +%-j) - 1))
+# when 32-bit time counters are exhausted
+TIME_32BIT_EPOCH = datetime(year=2038, month=1, day=19)
+EARLY_RETIRE = datetime(year=2031, month=6, day=2)
 
-    # add number of days in various years
-    if [ "$current_year" -lt "$end_year" ]; then
-        days_in_years=0
-        for ((year=$current_year;year<$end_year;year++))
-        do
-            days_in_year=$(date -d  $year-12-31 +%j)
-            days_in_years=$(($days_in_years+$days_in_year))
-        done
-        result=$(($result + $days_in_years))
-    fi
+def time_until(epoch: datetime) -> str:
+    '''returns the difference in time down to the number of days'''
+    delta = relativedelta(epoch, datetime.now())
 
-    result=$(printf %3d $result)
-    echo "$result"
-else
-    echo Must supply a date
-fi
+    def unit(value: int, noun: str) -> str:
+        result = f'{value} {noun}'
+        if value == 1:
+            result += 's'
+
+        return result + ' '
+
+    result = f'{delta.days} days'
+    if delta.months or delta.years:
+        result = unit(delta.months, 'month') + result
+
+    if delta.years:
+        result = unit(delta.years, 'year') + result
+
+    return result
+
+
+print(time_until(TIME_32BIT_EPOCH), 'until int32 time fails')
+print(time_until(EARLY_RETIRE), 'until early retirement')
