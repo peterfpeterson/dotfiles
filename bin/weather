@@ -31,7 +31,7 @@ short() {
 }
 
 version2() {
-    curl v2.wttr.in/"${1}"
+    curl wttr.in/"${1}"?format=v2d
 }
 
 traditional() {
