@@ -282,7 +282,7 @@ fi
 if [ "$(command -v fzf)" ]; then
   complete -F _fzf_path_completion pycharm
   if [ "$(command -v rg)" ]; then
-    alias fzfpreview="rg --files | fzf --preview 'batcat --color=always --style=numbers --line-range=:500 {}'"
+    alias fzfpreview="rg --files | fzf --preview 'batcat --color=always --style=numbers --line-range=:500 {}' --preview-window=up"
   else
     alias fzfpreview="fzf --preview 'less {}'"
   fi
