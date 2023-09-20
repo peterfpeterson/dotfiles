@@ -3,3 +3,4 @@ channels:
   - conda-forge
   - defaults
 solver: libmamba
+default_threads: 2
