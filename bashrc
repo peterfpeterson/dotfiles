@@ -5,6 +5,14 @@ if [[ ! $- == *i* ]]; then
   return  # don't execute any more of the file
 fi
 
+# don't put duplicate lines or lines starting with space in the history.
+# See bash(1) for more options
+HISTCONTROL=ignoreboth
+
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+
 # Source global definitions
 if [ -f /etc/bashrc ]; then
   source /etc/bashrc
