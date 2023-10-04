@@ -187,11 +187,17 @@ if [ -f /System/Library/Frameworks/JavaScriptCore.framework/Versions/A/Resources
   alias jsc="/System/Library/Frameworks/JavaScriptCore.framework/Versions/A/Resources/jsc"
 fi
 
+# set up variables for vtune
+if [ -f /opt/intel/oneapi/vtune/latest/vtune-vars.sh ]; then
+  source /opt/intel/oneapi/vtune/latest/vtune-vars.sh
+fi
+
 if [ "$(command -v ninja-build)" ]; then
   alias ninja=ninja-build
 fi
 export NINJA_STATUS="[%f+%r+%u=%t] "
 
+# https://github.com/ClementTsang/bottom
 if [ "$(command -v btm)" ]; then
     alias top=btm
 fi
