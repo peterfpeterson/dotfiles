@@ -27,9 +27,8 @@
 [push]
 	default = tracking
 [alias]
-        pullup = !"git fetch origin -v; git rebase origin/master;git fetch upstream -v; git rebase upstream/master"
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
-        branchclean = "!f() { git branch --merged | grep -v "^\\*" | grep -v "^\\+" | xargs -r git branch -d; }; f"
+	branchclean = "!f() { git branch --merged | grep -v "^\\*" | grep -v "^\\+" | xargs -r git branch -d; }; f"
 [url "http://paraview.org"]
 	insteadOf = git://paraview.org
 [url "http://public.kitware.com"]
