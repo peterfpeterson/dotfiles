@@ -25,14 +25,17 @@ help () {
     echo "  -w, --wide    takes up a ton of space"
 }
 
+SHORT_WEATHER="%l+%c+feels+like+%f+(%C+%t+%h+%w+%p)"
+SHORT_SUNMOON="%m+%D↗%S↑%z↓%s↘%d"
+
 # this is called single line format, but many lines can be made
 standard() {
-    curl -s 'wttr.in/{Knoxville,Oak%20Ridge}?format=%l+%c+feels+like+%f+(%C+%t+%h+%w+%p)\n'
-    curl -s 'wttr.in/Knoxville?format=%m+%D↗%S↑%z↓%s↘%d\n'
+    curl -s wttr.in/{Knoxville,Oak%20Ridge}?format="${SHORT_WEATHER}\n"
+    curl -s wttr.in/Knoxville?format="${SHORT_SUNMOON}\n"
 }
 
 short() {
-    curl -s wttr.in/"${1}"?format="%l+%c+feels+like+%f+(%C+%t+%h+%w+%p)\n%m+%D↗%S↑%z↓%s↘%d\n"
+    curl -s wttr.in/"${1}"?format="${SHORT_WEATHER}\n${SHORT_SUNMOON}\n"
 }
 
 version2() {
