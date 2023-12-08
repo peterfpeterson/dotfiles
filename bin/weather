@@ -26,8 +26,13 @@ help () {
 }
 
 # this is called single line format, but many lines can be made
+standard() {
+    curl -s 'wttr.in/{Knoxville,Oak%20Ridge}?format=%l+%c+feels+like+%f+(%C+%t+%h+%w+%p)\n'
+    curl -s 'wttr.in/Knoxville?format=%m+%D↗%S↑%z↓%s↘%d\n'
+}
+
 short() {
-    curl wttr.in/"${1}"?format="%c+%C+%t+%h+%w+%p+%m\n%l\n%D↗%S↑%z↓%s↘%d\n"
+    curl -s wttr.in/"${1}"?format="%l+%c+feels+like+%f+(%C+%t+%h+%w+%p)\n%m+%D↗%S↑%z↓%s↘%d\n"
 }
 
 version2() {
@@ -38,9 +43,9 @@ traditional() {
     curl wttr.in/"${1}?F_2"
 }
 
-loc=""
-report="short"
+report="standard"
 # parse options
+loc=""
 while [ -n "${1}" ]; do
     case "${1}" in
         -h)
@@ -51,6 +56,9 @@ while [ -n "${1}" ]; do
             help "long"
             exit 0
             ;;
+	-s|--short)
+	    report="short"
+	    ;;
         -w|--wide)
             report="wide"
             ;;
@@ -59,6 +67,9 @@ while [ -n "${1}" ]; do
             ;;
         *)
             loc="${1}"
+	    if [ "${report}" = "standard" ]; then
+	       report=short
+	    fi
             ;;
     esac
     shift
@@ -66,7 +77,8 @@ done
 
 # show the right thing
 case "${report}" in
-    short) short "${loc}";;
-    wide) traditional "${loc}" ;;
     long) version2 "${loc}" ;;
+    short) short "${loc}";;
+    standard) standard ;;
+    wide) traditional "${loc}" ;;
 esac
