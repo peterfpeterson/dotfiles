@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
+import urllib3
 import requests  # python-requests
 
-URL = 'http://status.sns.ornl.gov/getRoundBox.jsp'
+URL = 'https://status.sns.ornl.gov/'
 CLASS_ON = 'beam_status_on'
 CLASS_OFF = 'beam_status_off'
 ALLOWED_FACILITY = ['HFIR', 'SNS']
@@ -29,28 +30,32 @@ def getPower(facility, percentage):
     if facility not in ALLOWED_FACILITY:
         raise ValueError('Facility \'%s\' is not an allowed value' % facility)
 
-    params = {'which': facility + 'Status'}
+    # not verifying SSL certs normally causes a warning
+    urllib3.disable_warnings()
+
+    # get the result
+    url = f'{URL}get{facility}Status.jsp'
     try:
-        req = requests.get(URL, params=params, timeout=1)  # seconds
-    except Exception:
+        req = requests.get(url, verify=False, timeout=1)  # seconds
+    except Exception as e:
         if percentage:
             return 0
         else:
-            return "error"
+            return "ERROR: " + str(e)
 
+    # verify the return code
     status_code = req.status_code
-    if status_code != 200:
-        print('for', URL)
-        print('status:', status_code)
-        return 'ERROR'
+    if status_code != requests.codes.OK:
+        return f'ERROR for {url} status={status_code}'
 
+    # parse the document that was returned
     for line in req.text.split('\n'):
         line = line.strip()
         if len(line) <= 0:
             continue
 
         if CLASS_ON in str(line):
-            # magic numbers are awesome
+            # magic numbers are awesome!
             start = line.find(CLASS_ON) + len(CLASS_ON) + 2
             stop = line.find('span', start) - 2
             line = line[start:stop].strip()
