@@ -286,8 +286,12 @@ if [ "$(command -v complete_bundle_bash_command)" ]; then
   complete_bundle_bash_command init
 fi
 
-# replacement for ls -> https://the.exa.website/
-if [ "$(command -v exa)" ]; then
+if [ "$(command -v eza)" ]; then
+   # maintained replacement for ls -> https://eza.rocks/
+   alias eza="eza --icons --time-style=iso --git --group-directories-first"
+   alias ls="eza"
+elif [ "$(command -v exa)" ]; then
+   # abandoned replacement for ls -> https://the.exa.website/
    alias exa="exa --icons --time-style=iso --git"
    alias ls="exa"
 fi
