@@ -25,25 +25,28 @@ help () {
     echo "  -w, --wide    takes up a ton of space"
 }
 
+CONKY_WEATHER="%l+%c+%f+(%t+%h+%w)"
 SHORT_WEATHER="%l+%c+feels+like+%f+(%C+%t+%h+%w+%p)"
 SHORT_SUNMOON="%m+%D↗%S↑%z↓%s↘%d"
+TIMEOUT="5"
 
 # this is called single line format, but many lines can be made
 standard() {
-    curl -s wttr.in/{Knoxville,Oak%20Ridge}?format="${SHORT_WEATHER}\n"
-    curl -s wttr.in/Knoxville?format="${SHORT_SUNMOON}\n"
+    FORMAT=${1}
+    curl --connect-timeout "${TIMEOUT}" -s wttr.in/{Knoxville,Oak%20Ridge}?format="${FORMAT}\n"
+    curl --connect-timeout "${TIMEOUT}" -s wttr.in/Knoxville?format="${SHORT_SUNMOON}\n"
 }
 
 short() {
-    curl -s wttr.in/"${1}"?format="${SHORT_WEATHER}\n${SHORT_SUNMOON}\n"
+    curl --connect-timeout "${TIMEOUT}" -s wttr.in/"${1}"?format="${SHORT_WEATHER}\n${SHORT_SUNMOON}\n"
 }
 
 version2() {
-    curl wttr.in/"${1}"?format=v2d
+    curl --connect-timeout "${TIMEOUT}" -s wttr.in/"${1}"?format=v2d
 }
 
 traditional() {
-    curl wttr.in/"${1}?F_2"
+    curl --connect-timeout "${TIMEOUT}" -s wttr.in/"${1}?F_2"
 }
 
 report="standard"
@@ -59,6 +62,9 @@ while [ -n "${1}" ]; do
             help "long"
             exit 0
             ;;
+	-c|--conky)
+	    report="conky"
+	    ;;
 	-s|--short)
 	    report="short"
 	    ;;
@@ -80,8 +86,12 @@ done
 
 # show the right thing
 case "${report}" in
+    conky)
+	traditional "${loc}" | head -n 7
+	standard "${CONKY_WEATHER}"
+	;;
     long) version2 "${loc}" ;;
     short) short "${loc}";;
-    standard) standard ;;
+    standard) standard "${SHORT_WEATHER}";;
     wide) traditional "${loc}" ;;
 esac
