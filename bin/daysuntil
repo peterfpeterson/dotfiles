@@ -1,31 +1,52 @@
 #!/usr/bin/env python3
-from datetime import datetime
+from datetime import datetime, date
 from dateutil.relativedelta import relativedelta
+import sys
 
 # when 32-bit time counters are exhausted
-TIME_32BIT_EPOCH = datetime(year=2038, month=1, day=19)
-EARLY_RETIRE = datetime(year=2031, month=6, day=2)
+TIME_32BIT_EPOCH = date(year=2038, month=1, day=19)
+EARLY_RETIRE = date(year=2031, month=6, day=2)
 
-def time_until(epoch: datetime) -> str:
+events = [('2024-02-19', 'Mantid 6.9'),
+          ('2024-04-07', 'Knoxville Marathon'),
+          ('2024-05-29', 'Ireland'),
+          ('2024-06-17', 'Mantid 6.10'),
+          ('2024-06-23', 'ACNS'),
+          (TIME_32BIT_EPOCH, 'int32 time fails'),
+          (EARLY_RETIRE, 'early retirement')]
+
+
+def time_until(epoch: date, shrink: bool=True) -> str:
     '''returns the difference in time down to the number of days'''
+    if isinstance(epoch, str):
+        epoch = [int(item) for item in epoch.split('-')]
+        epoch = date(*epoch)
+
+    # calculate the difference
     delta = relativedelta(epoch, datetime.now())
 
-    def unit(value: int, noun: str) -> str:
-        result = f'{value} {noun}'
-        if value == 1:
-            result += 's'
+    def unit(value: int, noun: str, shrink: bool) -> str:
+        if shrink:
+            result = f'{value}{noun[0]}'
+        else:
+            result = f'{value} {noun}'
+            if value != 1:
+                result += 's'
 
         return result + ' '
 
-    result = f'{delta.days} days'
+    result = unit(delta.days, 'day', shrink)
     if delta.months or delta.years:
-        result = unit(delta.months, 'month') + result
+        result = unit(delta.months, 'month', shrink) + result
 
     if delta.years:
-        result = unit(delta.years, 'year') + result
+        result = unit(delta.years, 'year', shrink) + result
 
     return result
 
-
-print(time_until(TIME_32BIT_EPOCH), 'until int32 time fails')
-print(time_until(EARLY_RETIRE), 'until early retirement')
+conky = True
+for datestamp, label in events:
+    if conky:
+        print(time_until(datestamp), r'${alignr}'+label)
+    else:
+        print(time_until(datestamp), '-', label)
