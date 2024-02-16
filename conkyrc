@@ -17,6 +17,7 @@ conky.config = {
     border_width = 1,
     cpu_avg_samples = 2,
     double_buffer = true,
+    default_bar_height=15,
     default_graph_height=15,
     -- default_graph_width=200,
     draw_borders = false,
@@ -63,8 +64,8 @@ conky.config = {
     color2 = 'grey',
 
     -- network interface
-    -- template1 = 'enxac1a3d04d224',
-    template1 = 'enxb07b25a25b4e',
+    template1 = 'enxac1a3d04d224',
+    template2 = 'enxb07b25a25b4e',
 }
 
 conky.text = [[
@@ -113,11 +114,14 @@ ${color lightgrey} ${top_io name 3} ${top_io pid 3} ${top_io cpu 3} ${top_io mem
 ${color lightgrey} ${top_io name 4} ${top_io pid 4} ${top_io cpu 4} ${top_io mem 4}
 ##### Network
 ${color2}${font DejaVu Sans Mono:bold:size=12}Networking: ${hr 3}${color}${font}
+# one
 ${color2}Up:$color ${alignr}${offset -10}${upspeed ${template1}}${upspeedgraph  ${template1} 15,200}
 ${color2}Down:$color ${alignr}${offset -10}${downspeed ${template1}}${downspeedgraph  ${template1} 15,200}
-${color2}Down:$color ${alignr}${offset -10}${downspeed enxac1a3d04d224}${downspeedgraph  enxac1a3d04d224 15,200}
-${color2}Down:$color ${alignr}${offset -10}${downspeed enxb07b25a25b4e}${downspeedgraph  enxb07b25a25b4e 15,200}
+# two
+${color2}Up:$color ${alignr}${offset -10}${upspeed ${template2}}${upspeedgraph  ${template2} 15,200}
+${color2}Down:$color ${alignr}${offset -10}${downspeed ${template2}}${downspeedgraph  ${template2} 15,200}
 ##### Other
+#${hr 3}
 #${color2}SNS: $color ${execibar 15 ~/bin/beamstatus sns -p}
 #${color2}HFIR:$color ${execibar 60 ~/bin/beamstatus hfir -p}
 ##### Weather
@@ -125,7 +129,7 @@ ${hr 3}
 ## get all the weather information every 10 minutes via crontab
 #${textci 600 weather --conky > ~/.conky/weather.cache}
 ## show the weather every minute
-${font FiraCode Nerd Font Mono:size=12}${texecpi 60 ~/code/dotfiles/weatherthing}${font}
+${font FiraCode Nerd Font Mono:size=12}${cat /home/pf9/.weather.cache}${font}
 ##### Countdowns
 ${hr 3}
 ${catp /home/pf9/.daysuntil.deadlines}

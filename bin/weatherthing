@@ -39,8 +39,8 @@ def replace_weather(line):
      return replace_emoji(line, symbols)
 
 def replace_special(line):
-     #line = line.replace(' ', '') # heart
-     return line
+     symbols = {'❤': ''}
+     return replace_emoji(line, symbols)
 
 def shorten_time(line):
      if not ':' in line:
@@ -58,6 +58,28 @@ def remove_color(line):
 
 filename = os.path.expanduser('~/.weather.cache')
 
+from subprocess import Popen, PIPE
+
+with Popen(["weather", "--conky"], stdout=PIPE) as proc:
+     lines = proc.stdout.read().decode()
+with open(filename, 'w') as handle:
+     for line in lines.split('\n'):
+          # remove whitespace
+          line=line.rstrip()
+          # skip empty lines
+          if not line.strip():
+               continue
+
+          line = replace_moon_phase(line)
+          line = replace_weather(line)
+          line = replace_special(line)
+          line = shorten_time(line)
+          line = remove_color(line)
+
+          #print('${color red}'+line+'${color}')
+          handle.write(line + '\n')
+'''
+print('====')
 with open(filename) as handle:
      for line in handle:
           # remove whitespace
@@ -74,3 +96,4 @@ with open(filename) as handle:
 
           #print('${color red}'+line+'${color}')
           print(line)
+'''
