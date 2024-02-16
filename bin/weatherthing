@@ -1,82 +1,10 @@
-#!/usr/bin/env python3
-# this maps the many emoji of https://github.com/chubin/wttr.in/tree/master/share/emoji to
-# colorless nerdfont equivalents
-import os
-import re
+#!/usr/bin/bash
+txt_file=~/.cache/weather.txt
+png_file=~/.cache/weather.png
 
-def replace_emoji(line, mapping):
-     for emoji, uni in mapping.items():
-          line = line.replace(emoji, uni)
-     return line
+# fetch the weather
+# the sed command changes hh:mm:ss to hh:mm
+weather --conky | sed -r 's/([0-9]{2}:[0-9]{2}):[0-9]{2}/\1/g' > "${txt_file}" || exit 1
 
-def replace_moon_phase(line):
-     moon_phases = {'🌑': '', # new
-                '🌒': '', # alt-waning-gibbous
-                '🌔': '', # alt-waning-crescent
-                '🌓': '', #  alt-third-quarter
-                '🌕': '', # full
-                '🌖': '', # alt-waxing-crescent
-                '🌗': '', # alt-first-quarter
-                '🌘': ''} # alt-waxing-gibbous
-     #  moonrise
-     #  moonset
-     return replace_emoji(line, moon_phases)
-
-def replace_weather(line):
-     # nerdfonts.com nf-md-weather
-     symbols = { '☀': '󰖙', # sunny
-                 '☁': '󰖐', # cloudy
-                 '⛅️': '󰖕', # partly cloudy
-                 '⛈': '󰙾', # lightning raining
-                 '✨': '󰓎', # star
-                 '❄': '󰜗', # snowflake
-                 '🌦': '󰼳', # partly rainy
-                 '🌧': '󰖗', # rainy
-                 '🌨': '󰖘', # snow
-                 '🌩': '󰖓', #lighting
-                 '🌫': '󰖑', # fog - may actually be overcast
-                }
-     return replace_emoji(line, symbols)
-
-def replace_special(line):
-     symbols = {'❤': ''}
-     return replace_emoji(line, symbols)
-
-def shorten_time(line):
-     if not ':' in line:
-          return line
-     matcher = re.compile(r'(\d{2}:\d{2})(:\d{2})')
-     line = matcher.sub(r'\1', line)
-     return line
-
-def remove_color(line):
-     line = line.replace('Weather report: ', '')
-     line = line.replace(', United States', '').rstrip()
-
-     ansi_escape =re.compile(r'(\x9B|\x1B\[)[0-?]*[ -\/]*[@-~]')
-     return ansi_escape.sub('', line)
-
-filename = os.path.expanduser('~/.weather.cache')
-
-from subprocess import Popen, PIPE
-
-with Popen(["weather", "--conky"], stdout=PIPE) as proc:
-     lines = proc.stdout.read().decode()
-
-if lines.strip(): # only if the command returned text
-     with open(filename, 'w') as handle:
-          for line in lines.split('\n'):
-               # remove whitespace
-               line=line.rstrip()
-               # skip empty lines
-               if not line.strip():
-                    continue
-
-               line = replace_moon_phase(line)
-               line = replace_weather(line)
-               line = replace_special(line)
-               line = shorten_time(line)
-               line = remove_color(line)
-
-               #print('${color red}'+line+'${color}')
-               handle.write(line + '\n')
+# convert to an image
+pango-view --background=transparent --foreground="#888888" --font "FiraCode Nerd Font Mono Bold" -qo "${png_file}" "${txt_file}" || exit 2

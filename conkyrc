@@ -69,6 +69,8 @@ conky.config = {
 }
 
 conky.text = [[
+# have the imbedded image first to make things look less wacky
+${image ~/.cache/weather.png -p 0,1050 -s 400x220 -f 15}
 ${color2}$nodename $alignr${color2}Uptime:$color $uptime
 ${color2}$machine ${alignr}$color$kernel
 ##### CPU
@@ -124,13 +126,21 @@ ${color2}Down:$color ${alignr}${offset -10}${downspeed ${template2}}${downspeedg
 #${hr 3}
 #${color2}SNS: $color ${execibar 15 ~/bin/beamstatus sns -p}
 #${color2}HFIR:$color ${execibar 60 ~/bin/beamstatus hfir -p}
-##### Weather
-${hr 3}
-## get all the weather information every 10 minutes via crontab
-#${textci 600 weather --conky > ~/.conky/weather.cache}
-## show the weather every minute
-${font FiraCode Nerd Font Mono:size=12}${cat /home/pf9/.weather.cache}${font}
 ##### Countdowns
 ${hr 3}
 ${catp /home/pf9/.daysuntil.deadlines}
+##### Weather
+${hr 3}
+# blank space here to hold weather information
+
+
+
+
+
+
+
+
+
+
+
 ]]
