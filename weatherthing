@@ -1,0 +1,76 @@
+#!/usr/bin/env python3
+# this maps the many emoji of https://github.com/chubin/wttr.in/tree/master/share/emoji to
+# colorless nerdfont equivalents
+import os
+import re
+
+def replace_emoji(line, mapping):
+     for emoji, uni in mapping.items():
+          line = line.replace(emoji, uni)
+     return line
+
+def replace_moon_phase(line):
+     moon_phases = {'🌑': '', # new
+                '🌒': '', # alt-waning-gibbous
+                '🌔': '', # alt-waning-crescent
+                '🌓': '', #  alt-third-quarter
+                '🌕': '', # full
+                '🌖': '', # alt-waxing-crescent
+                '🌗': '', # alt-first-quarter
+                '🌘': ''} # alt-waxing-gibbous
+     #  moonrise
+     #  moonset
+     return replace_emoji(line, moon_phases)
+
+def replace_weather(line):
+     # nerdfonts.com nf-md-weather
+     symbols = { '☀': '󰖙', # sunny
+                 '☁': '󰖐', # cloudy
+                 '⛅️': '󰖕', # partly cloudy
+                 '⛈': '󰙾', # lightning raining
+                 '✨': '󰓎', # star
+                 '❄': '󰜗', # snowflake
+                 '🌦': '󰼳', # partly rainy
+                 '🌧': '󰖗', # rainy
+                 '🌨': '󰖘', # snow
+                 '🌩': '󰖓', #lighting
+                 '🌫': '󰖑', # fog - may actually be overcast
+                }
+     return replace_emoji(line, symbols)
+
+def replace_special(line):
+     #line = line.replace(' ', '') # heart
+     return line
+
+def shorten_time(line):
+     if not ':' in line:
+          return line
+     matcher = re.compile(r'(\d{2}:\d{2})(:\d{2})')
+     line = matcher.sub(r'\1', line)
+     return line
+
+def remove_color(line):
+     line = line.replace('Weather report: ', '')
+     line = line.replace(', United States', '').rstrip()
+
+     ansi_escape =re.compile(r'(\x9B|\x1B\[)[0-?]*[ -\/]*[@-~]')
+     return ansi_escape.sub('', line)
+
+filename = os.path.expanduser('~/.weather.cache')
+
+with open(filename) as handle:
+     for line in handle:
+          # remove whitespace
+          line=line.rstrip()
+          # skip empty lines
+          if not line.strip():
+               continue
+
+          line = replace_moon_phase(line)
+          line = replace_weather(line)
+          line = replace_special(line)
+          line = shorten_time(line)
+          line = remove_color(line)
+
+          #print('${color red}'+line+'${color}')
+          print(line)

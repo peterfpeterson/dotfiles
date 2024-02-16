@@ -26,7 +26,8 @@ conky.config = {
     extra_newline = false,
     -- list available fonts with fc-list
     -- rebuild font cache with fc-cache -f -v
-    font = 'DejaVu Sans Mono:size=12',
+    -- font = 'DejaVu Sans Mono:size=12',
+    font = 'FiraCode Nerd Font Mono:size=12',
     gap_x = 5,
     gap_y = 5,
     minimum_height = 5,
@@ -64,23 +65,6 @@ conky.config = {
     -- network interface
     -- template1 = 'enxac1a3d04d224',
     template1 = 'enxb07b25a25b4e',
-
-    -------------------------------------
-    --  API Key
-    -------------------------------------
-    template6="6970b6f2f52d08a85e50f4cbaebecb85",
-
-
-    -------------------------------------
-    --  City ID
-    -------------------------------------
-    template7="4634946",
-
-
-    -------------------------------------
-    --  Temp Unit (default, metric, imperial)
-    -------------------------------------
-    template8="imperial",
 }
 
 conky.text = [[
@@ -131,32 +115,18 @@ ${color lightgrey} ${top_io name 4} ${top_io pid 4} ${top_io cpu 4} ${top_io mem
 ${color2}${font DejaVu Sans Mono:bold:size=12}Networking: ${hr 3}${color}${font}
 ${color2}Up:$color ${alignr}${offset -10}${upspeed ${template1}}${upspeedgraph  ${template1} 15,200}
 ${color2}Down:$color ${alignr}${offset -10}${downspeed ${template1}}${downspeedgraph  ${template1} 15,200}
+${color2}Down:$color ${alignr}${offset -10}${downspeed enxac1a3d04d224}${downspeedgraph  enxac1a3d04d224 15,200}
+${color2}Down:$color ${alignr}${offset -10}${downspeed enxb07b25a25b4e}${downspeedgraph  enxb07b25a25b4e 15,200}
 ##### Other
 #${color2}SNS: $color ${execibar 15 ~/bin/beamstatus sns -p}
 #${color2}HFIR:$color ${execibar 60 ~/bin/beamstatus hfir -p}
 ##### Weather
-#${font FiraCodeNerdFontMono:size=12}${execi 600 ~/bin/weather}${font}
-#${font FiraCodeNerdFontMono:size=12}${texeci 60 cat /home/pf9/code/dotfiles/weather.cache}${font}
-${font FiraCode Nerd Font Mono:size=12}${texeci 60_file /home/pf9/code/dotfiles/weather.cache}${font}
-#${font Dejavu Sans Mono:size=12}${texeci 60 cat /home/pf9/code/dotfiles/weather.cache}${font}
-${hr}
-${texeci 60 cat /home/pf9/code/dotfiles/weather.cache}
-#####wttr.in
-#${texeci 1800 curl wttr.in/kyiv_0pq_lang=uk.png
-#  | convert - -transparent black $HOME/.config/conky/out.png}
-#${image $HOME/.config/conky/out.png -p 0,0}
-#
-# taken from https://github.com/rpungartnik/MyConkyConfig
-#${execi 1800 ~/.conky/get_weather ${template6} ${template7} ${template8} ${template9}}
-#${font Open Sans Light:size=15}${execi 900 jq -r .name ~/.cache/weather.json}, ${execi 900 jq -r .sys.country ~/.cache/weather.json}${font}${font Open Sans Light:size=70}${alignr}${execi 900 jq -r .main.temp ~/.cache/weather.json | awk '{print int($1+0.5)}' # round num}°${font}${voffset -35}
-#${font Open Sans Light:size=10}${execi 900 cp -f ~/.conky/icons/64/$(jq .weather[0].id ~/.cache/weather.json).png ~/.cache/weather.png}${image ~/.cache/weather.png -p 0,45 -s 60x60 -n}
-#
-#${execi 900 jq -r .weather[0].description ~/.cache/weather.json | sed "s|\<.|\U&|g"}${image ~/.conky/icons/wind.png -p 0,130 -s 15x15}
-#${goto 35}${execi 900 jq -r .wind.speed ~/.cache/weather.json} m/s${goto 195}Nascer do Sol: ${execi 900 date -d "@$(jq -r .sys.sunrise ~/.cache/weather.json)" +%-0H:%M}${image ~/.conky/icons/humidity.png -p 0,150 -s 15x15}
-#${goto 35}${execi 900 jq -r .main.humidity ~/.cache/weather.json | awk '{print int($1+0.5)}' # round num}%${goto 195}Por do Sol:       ${execi 900 date -d "@$(jq -r .sys.sunset ~/.cache/weather.json)" +%-0H:%M}${voffset 15}
-#${goto 18}${execi 900 date -d +1day +%^a}${goto 88}${execi 900 date -d +2day +%^a}${goto 158}${execi 900 date -d +3day +%^a}${goto 228}${execi 900 date -d +4day +%^a}${goto 298}${execi 900 date -d +5day +%^a}
-#
-#${execi 900 cp -f ~/.conky/icons/32/$(~/.conky/parse_weather 'ico' '.weather[0].icon' '1').png ~/.cache/weather-1.png}${image ~/.cache/weather-1.png -p 0,200 -s 30x30 -n}${execi 900 cp -f ~/.conky/icons/32/$(~/.conky/parse_weather 'ico' '.weather[0].icon' '2').png ~/.cache/weather-2.png}${image ~/.cache/weather-2.png -p 70,200 -s 30x30 -n}${execi 900 cp -f ~/.conky/icons/32/$(~/.conky/parse_weather 'ico' '.weather[0].icon' '3').png ~/.cache/weather-3.png}${image ~/.cache/weather-3.png -p 140,200 -s 30x30 -n}${execi 900 cp -f ~/.conky/icons/32/$(~/.conky/parse_weather 'ico' '.weather[0].icon' '4').png ~/.cache/weather-4.png}${image ~/.cache/weather-4.png -p 210,200 -s 30x30 -n}${execi 900 cp -f ~/.conky/icons/32/$(~/.conky/parse_weather 'ico' '.weather[0].icon' '5').png ~/.cache/weather-5.png}${image ~/.cache/weather-5.png -p 280,200 -s 30x30 -n}${voffset 20}${goto 20}${execi 900 ~/.conky/parse_weather 'max' '.main.temp_max' '1'}°${goto 90}${execi 900 ~/.conky/parse_weather 'max' '.main.temp_max' '2'}°${goto 160}${execi 900 ~/.conky/parse_weather 'max' '.main.temp_max' '3'}°${goto 230}${execi 900 ~/.conky/parse_weather 'max' '.main.temp_max' '4'}°${goto 300}${execi 900 ~/.conky/parse_weather 'max' '.main.temp_max' '5'}°
-#${goto 20}${execi 900 ~/.conky/parse_weather 'min' '.main.temp_min' '1'}°${goto 90}${execi 900 ~/.conky/parse_weather 'min' '.main.temp_min' '2'}°${goto 160}${execi 900 ~/.conky/parse_weather 'min' '.main.temp_min' '3'}°${goto 230}${execi 900 ~/.conky/parse_weather 'min' '.main.temp_min' '4'}°${goto 300}${execi 900 ~/.conky/parse_weather 'min' '.main.temp_min' '5'}°
-#${font Open Sans Light:size=6}${execi 900 date -d "@$(jq -r .dt ~/.cache/weather.json)" +%c}${font}
+${hr 3}
+## get all the weather information every 10 minutes via crontab
+#${textci 600 weather --conky > ~/.conky/weather.cache}
+## show the weather every minute
+${font FiraCode Nerd Font Mono:size=12}${texecpi 60 ~/code/dotfiles/weatherthing}${font}
+##### Countdowns
+${hr 3}
+${catp /home/pf9/.daysuntil.deadlines}
 ]]
