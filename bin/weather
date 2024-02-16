@@ -87,7 +87,10 @@ done
 # show the right thing
 case "${report}" in
     conky)
-	traditional "${loc}" | head -n 7
+	# traditional mode trimmed down without color
+	traditional "${loc}" | head -n 7 | sed 's/\x1B\[[0-9;]\{1,\}[A-Za-z]//g' \
+			     | sed 's/Weather report: //g'
+	# three line version
 	standard "${CONKY_WEATHER}"
 	;;
     long) version2 "${loc}" ;;
