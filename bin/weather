@@ -25,9 +25,14 @@ help () {
     echo "  -w, --wide    takes up a ton of space"
 }
 
-CONKY_WEATHER="%l+%c+%f+(%t+%h+%w)"
+# c - emoji
+# C - text name
+# x - plain-text symbol
+# m - moon phase
+# M - moon day
+CONKY_WEATHER="%l+%C+%f+(%t+%h+%w)"
 SHORT_WEATHER="%l+%c+feels+like+%f+(%C+%t+%h+%w+%p)"
-SHORT_SUNMOON="%m+%D↗%S↑%z↓%s↘%d"
+SHORT_SUNMOON="☉+%D↗%S↑%z↓%s↘%d\n%m+%M/28"
 TIMEOUT="5"
 
 # this is called single line format, but many lines can be made
@@ -87,9 +92,6 @@ done
 # show the right thing
 case "${report}" in
     conky)
-	# traditional mode trimmed down without color
-	traditional "${loc}" | head -n 7 | sed 's/\x1B\[[0-9;]\{1,\}[A-Za-z]//g' \
-			     | sed 's/Weather report: //g'
 	# three line version
 	standard "${CONKY_WEATHER}"
 	;;
