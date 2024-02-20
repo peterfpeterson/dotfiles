@@ -5,6 +5,11 @@ This my configuration files as managed by [dotbot](https://github.com/anishathal
 Before doing anything initialize/update the submodules
 
 ```bash
+git submodule update --init  --recursive
+```
+
+or with older git
+```bash
 git submodule init
 git submodule update
 cd todo.actions.d
