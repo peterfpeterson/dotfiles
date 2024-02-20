@@ -2,13 +2,13 @@
 from datetime import datetime, date
 from dateutil.relativedelta import relativedelta
 import sys
+from typing import Union
 
 # when 32-bit time counters are exhausted
 TIME_32BIT_EPOCH = date(year=2038, month=1, day=19)
 EARLY_RETIRE = date(year=2031, month=6, day=2)
 
-events = [('2024-02-19', 'Mantid 6.9'),
-          ('2024-04-07', 'Knoxville Marathon'),
+events = [('2024-04-07', 'Knoxville Marathon'),
           ('2024-05-29', 'Ireland'),
           ('2024-06-17', 'Mantid 6.10'),
           ('2024-06-23', 'ACNS'),
@@ -16,12 +16,18 @@ events = [('2024-02-19', 'Mantid 6.9'),
           (EARLY_RETIRE, 'early retirement')]
 
 
+def standardize_date(epoch: Union[date, str]):
+    if isinstance(epoch, str):
+        # assume string is YYYY-MM-DD
+        epoch = [int(item) for item in epoch.split('-')]
+        return date(*epoch)
+    else:
+        # assume it is a date or datetime already
+        return epoch
+
+
 def time_until(epoch: date, shrink: bool=True) -> str:
     '''returns the difference in time down to the number of days'''
-    if isinstance(epoch, str):
-        epoch = [int(item) for item in epoch.split('-')]
-        epoch = date(*epoch)
-
     # calculate the difference
     delta = relativedelta(epoch, datetime.now())
 
@@ -43,6 +49,16 @@ def time_until(epoch: date, shrink: bool=True) -> str:
         result = unit(delta.years, 'year', shrink) + result
 
     return result
+
+# convert all dates to date objects
+events = [(standardize_date(item[0]), item[1]) for item in events]
+
+# filter out everything in the past
+events = [item for item in events
+          if item[0] > datetime.now().date()]
+
+# sort the events based on date
+events.sort(key=lambda item: item[0])
 
 conky = True
 for datestamp, label in events:

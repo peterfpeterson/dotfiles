@@ -99,8 +99,8 @@ ${cpubar cpu19 10,200}${alignr}${cpubar cpu20 10,200}
 ##### Memory
 ${color2}${font DejaVu Sans Mono:bold:size=12}Memory ${hr 3}${color}${font}
 ${color2}RAM Usage:$color ${alignr}$mem/$memmax - $memperc%
-${color2}Swap Usage:$color ${alignr}$swap/$swapmax - $swapperc%
 ${memgraph} ${alignr}
+${color2}Swap Usage:$color ${alignr}$swap/$swapmax - $swapperc%
 ${color2}Top Mem             PID     CPU%   MEM%
 ${color lightgrey} ${top_mem name 1} ${top_mem pid 1} ${top_mem cpu 1} ${top_mem mem 1}
 ${color lightgrey} ${top_mem name 2} ${top_mem pid 2} ${top_mem cpu 2} ${top_mem mem 2}
@@ -139,5 +139,5 @@ ${alignr}${cat /home/pf9/.cache/weather.txt.tail}
 ☉︎🌑🌒🌓🌔🌕🌖🌗🌘︎
 ##### Countdowns
 ${hr 3}
-${catp /home/pf9/.daysuntil.deadlines}
+${catp /home/pf9/.cache/daysuntil.deadlines}
 ]]
