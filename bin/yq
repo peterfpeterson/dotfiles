@@ -1,0 +1,30 @@
+#!/usr/bin/env python3
+######################################################################
+# started from https://www.automate.nyc/ansible/parse-yaml-file-with-jq/
+######################################################################
+import sys, yaml, json
+
+def error(exit_code):
+    print("give filename or redirect from a string then pipe into jq")
+    print()
+    print("Examples:")
+    print("yq filename.yml | jq .")
+    print("yq < filename.yml | jq .")
+    sys.exit(exit_code)
+
+NUM_ARG = len(sys.argv) - 1 # first is how code was started
+if NUM_ARG == 0: # read from stdin
+    if sys.stdin.isatty():
+        # nothing to read in
+        error(1)
+    else:
+        yml_txt = yaml.safe_load(sys.stdin.read())
+elif NUM_ARG == 1: # read from file
+    with open(sys.argv[1], 'r') as file:
+        yml_txt = yaml.safe_load(file)
+else:
+    # nothing to read in
+    error(1)
+
+# have an object to dump as json
+print(json.dumps(yml_txt))
