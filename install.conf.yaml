@@ -55,6 +55,7 @@
     ~/bin/watchman.sh: bin/watchman.sh
     ~/bin/waylandprogs: bin/waylandprogs
     ~/bin/weather: bin/weather
+    ~/bin/weatherthing: bin/weatherthing
     ~/.bash_completion.d/ansible-completion.bash: ansible-bash-completion/ansible-completion.bash
     ~/.bash_completion.d/ansible-doc-completion.bash: ansible-bash-completion/ansible-doc-completion.bash
     ~/.bash_completion.d/ansible-galaxy-completion.bash: ansible-bash-completion/ansible-galaxy-completion.bash
