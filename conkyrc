@@ -71,7 +71,7 @@ conky.config = {
 
 conky.text = [[
 # have the imbedded image first to make things look less wacky
-${image ~/.cache/weather.png -p 0,890 -s 400x100 -f 15}
+${image ~/.cache/weather.png -p 0,950 -s 354x60 -f 15}
 ${color2}$nodename $alignr${color2}Uptime:$color $uptime
 ${color2}$machine ${alignr}$color$kernel
 ##### CPU
@@ -123,6 +123,7 @@ ${color2}Down:$color ${alignr}${offset -10}${downspeed ${template1}}${downspeedg
 # two
 ${color2}Up:$color ${alignr}${offset -10}${upspeed ${template2}}${upspeedgraph  ${template2} 15,200}
 ${color2}Down:$color ${alignr}${offset -10}${downspeed ${template2}}${downspeedgraph  ${template2} 15,200}
+${execi 60 ~/bin/vpnstatus}
 ##### Other
 #${hr 3}
 #${color2}SNS: $color ${execibar 15 ~/bin/beamstatus sns -p}
@@ -131,12 +132,11 @@ ${color2}Down:$color ${alignr}${offset -10}${downspeed ${template2}}${downspeedg
 ${hr 3}$font
 # blank space here to hold weather information image
 #${cat /home/pf9/.cache/weather.txt}
-
-
+${catp /home/pf9/.cache/weather.txt.head}
 
 ${alignr}${cat /home/pf9/.cache/weather.txt.tail}
 #${font NotoColorEmoji:size=12}
-☉︎🌑🌒🌓🌔🌕🌖🌗🌘︎
+☉☼︎🌑🌒🌓🌔🌕🌖🌗🌘︎
 ##### Countdowns
 ${hr 3}
 ${catp /home/pf9/.cache/daysuntil.deadlines}
