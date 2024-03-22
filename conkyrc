@@ -1,5 +1,7 @@
 -- Conky, a system monitor https://github.com/brndnmtthws/conky
 --
+-- docs at https://conky.cc/variables
+--
 -- This configuration file is Lua code. You can write code in here, and it will
 -- execute when Conky loads. You can use it to generate your own advanced
 -- configurations.
@@ -13,6 +15,11 @@
 
 conky.config = {
     alignment = 'top_right',
+    xinerama_head = 3,
+    gap_x = 5,
+    gap_x = 3010,
+    -- gap_y = 5,
+
     background = false,
     border_width = 1,
     cpu_avg_samples = 2,
@@ -30,8 +37,6 @@ conky.config = {
     -- rebuild font cache with fc-cache -f -v
     -- font = 'DejaVu Sans Mono:size=12',
     font = 'FiraCode Nerd Font Mono:size=12',
-    gap_x = 5,
-    gap_y = 5,
     minimum_height = 5,
     minimum_width = 5,
     net_avg_samples = 2,
@@ -56,7 +61,6 @@ conky.config = {
     uppercase = false,
     use_spacer = 'none',
     use_xft = true,
-    xinerama_head = 2,
 
     -- colors
     default_color = 'white',
@@ -71,7 +75,7 @@ conky.config = {
 
 conky.text = [[
 # have the imbedded image first to make things look less wacky
-${image ~/.cache/weather.png -p 0,950 -s 354x60 -f 15}
+${image ~/.cache/weather.png -p 0,970 -s 100x40 -f 15}
 ${color2}$nodename $alignr${color2}Uptime:$color $uptime
 ${color2}$machine ${alignr}$color$kernel
 ##### CPU
@@ -131,12 +135,11 @@ ${execi 60 ~/bin/vpnstatus}
 ##### Weather
 ${hr 3}$font
 # blank space here to hold weather information image
-#${cat /home/pf9/.cache/weather.txt}
+#${catp /home/pf9/.cache/weather.txt}
 ${catp /home/pf9/.cache/weather.txt.head}
-
 ${alignr}${cat /home/pf9/.cache/weather.txt.tail}
 #${font NotoColorEmoji:size=12}
-☉☼︎🌑🌒🌓🌔🌕🌖🌗🌘︎
+☉☼︎🌑🌒🌓🌔🌕🌖🌗🌘︎○●◐◑ ♀
 ##### Countdowns
 ${hr 3}
 ${catp /home/pf9/.cache/daysuntil.deadlines}
