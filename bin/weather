@@ -32,7 +32,8 @@ help () {
 # M - moon day
 CONKY_WEATHER="%l+%C+%f+(%t+%h+%w)"
 SHORT_WEATHER="%l+%c+feels+like+%f+(%C+%t+%h+%w+%p)"
-SHORT_SUNMOON="☉+%D↗%S↑%z↓%s↘%d\n%m+%M/28"
+# alt sun ☉
+SHORT_SUNMOON="☼+%D↗%S↑%z↓%s↘%d\n%m+%M/28"
 TIMEOUT="5"
 
 # this is called single line format, but many lines can be made

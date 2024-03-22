@@ -14,7 +14,7 @@ sed -i 's/-04:00//' "${txt_file}.tail"
 sed -i 's/-05:00//' "${txt_file}.tail"
 
 # copy first two lines into a "HEAD" file
-head -n 2 "${txt_file}" > "${txt_file}.head"
+head -n 3 "${txt_file}" > "${txt_file}.head"
 # trim down the word "Partly" to reduce width
 sed -i 's/Partly/P/' "${txt_file}.head"
 # add in an alignr
@@ -22,6 +22,6 @@ sed -i 's/(/\$\{alignr\}(/' "${txt_file}.head"
 
 # convert the bottom of the file to an image if the file isn't empty
 if [ -s "${txt_file}" ]; then
-    tail -n 2 "${txt_file}" > "${txt_file}.image"
+    tail -n 1 "${txt_file}" > "${txt_file}.image"
     pango-view --background=transparent --foreground="#eeeeee" --font "FiraCode Nerd Font Mono" -qo "${png_file}" "${txt_file}.image" || exit 2
 fi
