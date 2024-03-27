@@ -17,6 +17,8 @@ sed -i 's/-05:00//' "${txt_file}.tail"
 head -n 3 "${txt_file}" > "${txt_file}.head"
 # trim down the word "Partly" to reduce width
 sed -i 's/Partly/P/' "${txt_file}.head"
+sed -i 's/Light drizzle/Drizzle/' "${txt_file}.head"
+sed -i 's/, fog//' "${txt_file}.head"
 # add in an alignr
 sed -i 's/(/\$\{alignr\}(/' "${txt_file}.head"
 

@@ -30,7 +30,7 @@ help () {
 # x - plain-text symbol
 # m - moon phase
 # M - moon day
-CONKY_WEATHER="%l+%C+%f+(%t+%h+%w)"
+CONKY_WEATHER="%l+%C+%f(%t+%h+%w)"
 SHORT_WEATHER="%l+%c+feels+like+%f+(%C+%t+%h+%w+%p)"
 # alt sun ☉
 SHORT_SUNMOON="☼+%D↗%S↑%z↓%s↘%d\n%m+%M/28"
