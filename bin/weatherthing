@@ -15,10 +15,14 @@ sed -i 's/-05:00//' "${txt_file}.tail"
 
 # copy first two lines into a "HEAD" file
 head -n 3 "${txt_file}" > "${txt_file}.head"
-# trim down the word "Partly" to reduce width
+# shorten the locations
+sed -i 's/Knoxville/K  -/' "${txt_file}.head"
+sed -i 's/Oak Ridge/OR -/' "${txt_file}.head"
+# trim down the weather descriptions
 sed -i 's/Partly/P/' "${txt_file}.head"
 sed -i 's/Light drizzle/Drizzle/' "${txt_file}.head"
 sed -i 's/, fog//' "${txt_file}.head"
+sed -i 's/, mist//' "${txt_file}.head"
 # add in an alignr
 sed -i 's/(/\$\{alignr\}(/' "${txt_file}.head"
 
