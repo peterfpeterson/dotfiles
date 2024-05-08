@@ -23,6 +23,8 @@ sed -i 's/Partly/P/' "${txt_file}.head"
 sed -i 's/Light drizzle/Drizzle/' "${txt_file}.head"
 sed -i 's/, fog//' "${txt_file}.head"
 sed -i 's/, mist//' "${txt_file}.head"
+sed -i 's/hunderstorm/-storm/' "${txt_file}.head"
+sed -i 's|with |w/|' "${txt_file}.head"
 # add in an alignr
 sed -i 's/(/\$\{alignr\}(/' "${txt_file}.head"
 
