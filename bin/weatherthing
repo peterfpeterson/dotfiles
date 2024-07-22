@@ -20,6 +20,7 @@ sed -i 's/Knoxville/K  -/' "${txt_file}.head"
 sed -i 's/Oak Ridge/OR -/' "${txt_file}.head"
 # trim down the weather descriptions
 sed -i 's/Partly/P/' "${txt_file}.head"
+sed -i 's/Patchy/P/' "${txt_file}.head"
 sed -i 's/Light drizzle/Drizzle/' "${txt_file}.head"
 sed -i 's/, fog//' "${txt_file}.head"
 sed -i 's/, mist//' "${txt_file}.head"
