@@ -39,7 +39,15 @@ TIMEOUT="5"
 # this is called single line format, but many lines can be made
 standard() {
     FORMAT=${1}
+
+    ### single curl
     curl --connect-timeout "${TIMEOUT}" -s wttr.in/{Knoxville,Oak%20Ridge}?format="${FORMAT}\n"
+    ### two curl for debugging
+    #curl --connect-timeout "${TIMEOUT}" -s wttr.in/Knoxville?format="${FORMAT}\n"
+    #echo ""
+    #curl --connect-timeout "${TIMEOUT}" -s wttr.in/Oak%20Ridge?format="${FORMAT}\n"
+    #echo ""
+
     curl --connect-timeout "${TIMEOUT}" -s wttr.in/Knoxville?format="${SHORT_SUNMOON}\n"
 }
 
