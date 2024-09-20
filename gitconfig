@@ -42,6 +42,7 @@
 	follow = true
 [user]
 	name = Pete Peterson
+	signingkey = 7B30286B
 [column]
 	branch = auto
 [rebase]
@@ -49,3 +50,7 @@
 [fetch]
 	prune = true
 	all = true
+[commit]
+	gpgSign = true
+[tag]
+	gpgSign = true

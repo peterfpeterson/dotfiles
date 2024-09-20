@@ -43,6 +43,13 @@ HISTFILESIZE=2000
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
+# set up gpg-agent for signing git commits
+# https://withblue.ink/2020/05/17/how-and-why-to-sign-git-commits.html
+if [ "$(command -v gpgconf)" ]; then
+  export GPG_TTY=$(tty)
+  gpgconf --launch gpg-agent
+fi
+
 # Git prompt stuff
 if [ -f "${HOME}/.gitprompt/gitprompt.sh" ]; then
   export GIT_PROMPT_SHOW_UNTRACKED_FILES=no
