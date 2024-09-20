@@ -223,7 +223,6 @@ fi
 
 # todo.txt
 if [ "$(command -v todo.sh)" ]; then
-#  alias todo="todo.sh -d ${HOME}/Dropbox/todo/todo.cfg -n"
   export TODOTXT_DEFAULT_ACTION=ls
 fi
 
