@@ -47,6 +47,7 @@
 	branch = auto
 [rebase]
 	autosquash = true
+	autostash = true
 [fetch]
 	prune = true
 	all = true
