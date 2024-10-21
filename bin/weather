@@ -41,14 +41,28 @@ standard() {
     FORMAT=${1}
 
     ### single curl
-    curl --connect-timeout "${TIMEOUT}" -s wttr.in/{Knoxville,Oak%20Ridge}?format="${FORMAT}\n"
+    WEATHER=$(curl --connect-timeout "${TIMEOUT}" -s wttr.in/{Knoxville,Oak%20Ridge}?format="${FORMAT}\n")
+    #if [ "${WEATHER}" == "Unknown"* ]; then
+    if grep -q "Unknown location" <<< "${WEATHER}"; then
+	echo "Unknown location"
+	echo "" # second line because 2 locations were requested
+    else
+	echo "${WEATHER}"
+    fi
+
     ### two curl for debugging
     #curl --connect-timeout "${TIMEOUT}" -s wttr.in/Knoxville?format="${FORMAT}\n"
     #echo ""
     #curl --connect-timeout "${TIMEOUT}" -s wttr.in/Oak%20Ridge?format="${FORMAT}\n"
     #echo ""
 
-    curl --connect-timeout "${TIMEOUT}" -s wttr.in/Knoxville?format="${SHORT_SUNMOON}\n"
+    TIMES=$(curl --connect-timeout "${TIMEOUT}" -s wttr.in/Knoxville?format="${SHORT_SUNMOON}\n")
+    if grep -q "Unknown location" <<< "${WEATHER}"; then
+	echo "Unknown location"
+    else
+	echo "${TIMES}"
+    fi
+
 }
 
 short() {
