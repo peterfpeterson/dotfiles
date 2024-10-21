@@ -15,13 +15,13 @@ sed -i 's/-05:00//' "${txt_file}.tail"
 
 # copy first two lines into a "HEAD" file
 head -n 3 "${txt_file}" > "${txt_file}.head"
+# change error messages
+sed -i 's/; please/ -/g' "${txt_file}.head"
+sed -i 's/~//g' "${txt_file}.head"
+sed -i -re 's/([0-9]+\.[0-9]{2})[0-9]+/\1/g' "${txt_file}.head"
 # shorten the locations
 sed -i 's/Knoxville/K  -/' "${txt_file}.head"
 sed -i 's/Oak Ridge/OR -/' "${txt_file}.head"
-# change error messages
-sed -i 's/; please/ -/' "${txt_file}.head"
-sed -i 's/~//' "${txt_file}.head"
-sed -i -re 's/([0-9]+\.[0-9]{2})[0-9]+/\1/g' "${txt_file}.head"
 # trim down the weather descriptions
 sed -i 's/ain shower/ain/' "${txt_file}.head"
 sed -i 's/Partly/P/' "${txt_file}.head"
