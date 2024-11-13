@@ -29,6 +29,7 @@
 [alias]
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
 	branchclean = "!f() { git branch --merged | grep -v "^\\*" | grep -v "^\\+" | xargs -r git branch -d; }; f"
+	committers="shortlog -nse --no-merges"
 [url "http://paraview.org"]
 	insteadOf = git://paraview.org
 [url "http://public.kitware.com"]
