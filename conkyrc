@@ -74,8 +74,6 @@ conky.config = {
 }
 
 conky.text = [[
-# have the imbedded image first to make things look less wacky
-${image ~/.cache/weather.png -p 0,970 -s 100x40 -f 15}
 ${color2}$nodename $alignr${color2}Uptime:$color $uptime
 ${color2}$machine ${alignr}$color$kernel
 ##### CPU
@@ -134,12 +132,12 @@ ${execi 60 ~/bin/vpnstatus}
 #${color2}HFIR:$color ${execibar 60 ~/bin/beamstatus hfir -p}
 ##### Weather
 ${hr 3}$font
-# blank space here to hold weather information image
-#${catp /home/pf9/.cache/weather.txt}
 ${catp /home/pf9/.cache/weather.txt.head}
-${alignr}${cat /home/pf9/.cache/weather.txt.tail}
-#${font NotoColorEmoji:size=12}
-☉☼︎🌑🌒🌓🌔🌕🌖🌗🌘︎○●◐◑ ♀
+${catp /home/pf9/.cache/weather.txt.tail}
+#weather alt labels are backwards from what we want to use
+${font FiraCode Nerd Font Mono:size=16}${alignr}󰇧
+  ${alignr}${font}
+#rise/set   󰖜󰖛
 ##### Countdowns
 ${hr 3}
 ${catp /home/pf9/.cache/daysuntil.deadlines}

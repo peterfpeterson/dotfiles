@@ -1,6 +1,5 @@
 #!/usr/bin/bash
 txt_file=~/.cache/weather.txt
-png_file=~/.cache/weather.png
 
 # fetch the weather
 # the sed command changes hh:mm:ss to hh:mm
@@ -8,13 +7,29 @@ png_file=~/.cache/weather.png
 # remove empty lines
 sed -i '/^\s*$/d' "${txt_file}"
 
+########## tail
 # add update timestamp to a separate file
-echo "      Updated $(date --iso-8601=minutes)" > "${txt_file}.tail"
+tail -n 2 "${txt_file}" > "${txt_file}.tail"
+updated_text=" \${alignr} Updated $(date --iso-8601=minutes)\${font}"
+#echo " \${alignr}Updated $(date --iso-8601=minutes)\${font}" >> "${txt_file}.tail"
+# remove timezones
 sed -i 's/-04:00//' "${txt_file}.tail"
 sed -i 's/-05:00//' "${txt_file}.tail"
+# convert moon images
+sed -i 's/🌑︎//' "${txt_file}.tail"  # nf-weather-moon_alt_full
+sed -i 's/🌒︎//' "${txt_file}.tail" # nf-weather-moon_alt_waning_gibbous_3
+sed -i 's/🌓︎//' "${txt_file}.tail" # nf-weather-moon_alt_third_quarter
+sed -i 's/🌔//' "${txt_file}.tail" # nf-weather-moon_alt_waning_crescent_3
+sed -i 's/🌕//' "${txt_file}.tail" # nf-weather-moon_alt_new
+sed -i 's/🌖//' "${txt_file}.tail" # nf-weather-moon_alt_waxing_crescent_4
+sed -i 's/🌗//' "${txt_file}.tail" #  nf-weather-moon_alt_first_quarter
+sed -i 's/🌘︎//' "${txt_file}.tail" #  nf-weather-moon_alt_waxing_gibbous_4
+# add updated text
+sed -i "s|/28|/28${updated_text}|" "${txt_file}.tail"
 
-# copy first two lines into a "HEAD" file
-head -n 3 "${txt_file}" > "${txt_file}.head"
+########## head
+# copy first few lines into a "HEAD" file
+head -n 2 "${txt_file}" > "${txt_file}.head"
 # change error messages
 sed -i 's/; please/ -/g' "${txt_file}.head"
 sed -i 's/~//g' "${txt_file}.head"
@@ -34,11 +49,6 @@ sed -i 's/, mist//' "${txt_file}.head"
 sed -i 's/hunderstorm/-storm/' "${txt_file}.head"
 sed -i 's/ nearby//' "${txt_file}.head"
 sed -i 's|with |w/|' "${txt_file}.head"
+
 # add in an alignr
 sed -i 's/(/\$\{alignr\}(/' "${txt_file}.head"
-
-# convert the bottom of the file to an image if the file isn't empty
-if [ -s "${txt_file}" ]; then
-    tail -n 1 "${txt_file}" > "${txt_file}.image"
-    pango-view --background=transparent --foreground="#eeeeee" --font "FiraCode Nerd Font Mono" -qo "${png_file}" "${txt_file}.image" || exit 2
-fi
