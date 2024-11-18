@@ -10,11 +10,7 @@ sed -i '/^\s*$/d' "${txt_file}"
 ########## tail
 # add update timestamp to a separate file
 tail -n 2 "${txt_file}" > "${txt_file}.tail"
-updated_text=" \${alignr} Updated $(date --iso-8601=minutes)\${font}"
-#echo " \${alignr}Updated $(date --iso-8601=minutes)\${font}" >> "${txt_file}.tail"
-# remove timezones
-sed -i 's/-04:00//' "${txt_file}.tail"
-sed -i 's/-05:00//' "${txt_file}.tail"
+updated_text=" \${alignr} Updated $(date "+%Y-%m-%dT%H:%m")\${font}"
 # convert moon images
 sed -i 's/🌑︎//' "${txt_file}.tail"  # nf-weather-moon_alt_full
 sed -i 's/🌒︎//' "${txt_file}.tail" # nf-weather-moon_alt_waning_gibbous_3
