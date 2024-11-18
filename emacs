@@ -9,6 +9,7 @@
 ;	     '("marmalade" . "http://marmalade-repo.org/packages/") t)
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
 
+(require 'cl-lib) ;;gives unless command
 (unless (package-installed-p 'use-package)
     (progn
       (package-refresh-contents)
@@ -27,10 +28,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   '("4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" default))
  '(package-selected-packages
-   '(lua-mode yaml-mode markdown-mode color-theme-sanityinc-solarized use-package)))
+   '(lua-mode yaml-mode markdown-mode solarized-theme use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -38,10 +37,10 @@
  ;; If there is more than one, they won't work right.
  )
 
-(use-package color-theme-sanityinc-solarized
-  :ensure color-theme-sanityinc-solarized)
+(use-package solarized-theme
+  :ensure solarized-theme)
 ;; Load dark solarized theme
-(load-theme 'sanityinc-solarized-dark)
+(load-theme 'solarized-dark t)
 
 (use-package markdown-mode
   :ensure t
@@ -105,7 +104,6 @@
 (setq grep-find-command
   "find . -path '*/.svn' -prune -o -type f -print | xargs -e grep -I -n -e ")
 
-(require 'cl) ;;gives unless command
 ;; Needed to get bash ctrl-left/ctrl-right working
 (unless window-system
   (global-set-key "\e[;5D" 'backward-word)
