@@ -7,6 +7,12 @@ txt_file=~/.cache/weather.txt
 # remove empty lines
 sed -i '/^\s*$/d' "${txt_file}"
 
+########## check number of lines
+num_lines=$(wc -l "${txt_file}" | cut -c1) # number of lines
+if [ "${num_lines}" != 4 ]; then
+    exit 1 # don't update the weather
+fi
+
 ########## tail
 # add update timestamp to a separate file
 tail -n 2 "${txt_file}" > "${txt_file}.tail"
