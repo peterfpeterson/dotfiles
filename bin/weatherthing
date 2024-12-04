@@ -20,7 +20,7 @@ updated_text=" \${alignr} Updated $(date "+%Y-%m-%dT%H:%m")\${font}"
 # convert moon images
 sed -i 's/🌑︎//' "${txt_file}.tail"  # nf-weather-moon_alt_full
 sed -i 's/🌑//' "${txt_file}.tail"  # nf-weather-moon_alt_full again
-sed -i 's/🌒︎//' "${txt_file}.tail" # nf-weather-moon_alt_waning_gibbous_3
+sed -i 's/🌒//' "${txt_file}.tail" # nf-weather-moon_alt_waning_gibbous_3
 sed -i 's/🌓︎//' "${txt_file}.tail" # nf-weather-moon_alt_third_quarter
 sed -i 's/🌔//' "${txt_file}.tail" # nf-weather-moon_alt_waning_crescent_3
 sed -i 's/🌕//' "${txt_file}.tail" # nf-weather-moon_alt_new
