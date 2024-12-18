@@ -50,6 +50,7 @@ sed -i 's/Light rain/L rain/' "${txt_file}.head"
 sed -i 's/, fog//' "${txt_file}.head"
 sed -i 's/, mist//' "${txt_file}.head"
 sed -i 's/hunderstorm/-storm/' "${txt_file}.head"
+sed -i 's/Thundery outbreaks in nearby/Thunderstorms/' "${txt_file}.head"
 sed -i 's/ nearby//' "${txt_file}.head"
 sed -i 's|with |w/|' "${txt_file}.head"
 
