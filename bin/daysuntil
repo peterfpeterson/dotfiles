@@ -8,7 +8,8 @@ from typing import Union
 TIME_32BIT_EPOCH = date(year=2038, month=1, day=19)
 EARLY_RETIRE = date(year=2031, month=6, day=2)
 
-events = [('2025-05-25', 'QT5 EOL'),
+events = [('2025-02-01', 'Birthday Party'),
+          ('2025-05-25', 'QT5 EOL'),
           ('2025-05-11', 'Mother\'s Day'),
           ('2024-02-21', 'Mantid 6.12'),
           (TIME_32BIT_EPOCH, 'int32 time fails'),
