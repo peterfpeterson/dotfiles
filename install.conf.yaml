@@ -23,6 +23,7 @@
     - [cp Mantid.user.properties ~/.mantid/Mantid.user.properties]
     - [./crontab-install.sh]
     - [./dropbox-link.sh]
+    - [./xdg-set-editors.sh]
 
 - link:
     ~/.bash_profile:
