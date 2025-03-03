@@ -11,9 +11,10 @@ EARLY_RETIRE = date(year=2031, month=6, day=2)
 events = [('2025-02-01', 'Birthday Party'),
           ('2025-05-25', 'QT5 EOL'),
           ('2025-05-11', 'Mother\'s Day'),
-          ('2024-02-21', 'Mantid 6.12'),
+          ('2025-06-27', 'Mantid 6.13'),
           (TIME_32BIT_EPOCH, 'int32 time fails'),
-          (EARLY_RETIRE, 'early retirement')]
+          (EARLY_RETIRE, 'full retirement'),
+          ('2049-04-26', 'life expectancy')]
 
 
 def standardize_date(epoch: Union[date, str]):
