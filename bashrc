@@ -384,6 +384,15 @@ if [ "$(command -v fzf && command -v fast-p)" ]; then
   }
 fi
 
+# add pixi https://pixi.sh/
+if [ -f "${HOME}/.pixi/bin/pixi" ]; then
+   export PATH="/home/pf9/.pixi/bin:$PATH"
+   if [ "$(command -v pixi)" ]; then
+     # add https://pixi.sh/ completions
+     eval "$(pixi completion --shell bash)"
+   fi
+fi
+
 # add direnv https://github.com/direnv/direnv/
 if [ "$(command -v direnv)" ]; then
   eval "$(direnv hook bash)"
