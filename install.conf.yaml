@@ -15,7 +15,7 @@
     - [mkdir -p ~/etc]
     - [mkdir -p ~/.fonts]
     - [mkdir -p ~/.gdb/python]
-    - [mkdir -p ~/.gnupg]
+    #- [mkdir -p ~/.gnupg]
     - [mkdir -p ~/.mantid]
     - [mkdir -p ~/tmp]
     - [mkdir -p ~/.todo.actions.d]
@@ -104,7 +104,7 @@
     ~/.gitexcludes:
     ~/.gitprompt: bash-git-prompt
     ~/.git-prompt-colors.sh:
-    ~/.gnupg/gpg.conf: gnupg.conf
+    #~/.gnupg/gpg.conf: gnupg.conf
     ~/.perfconfig:
     ~/.ripgreprc:
     ~/.rpmmacros:
