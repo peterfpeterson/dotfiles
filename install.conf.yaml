@@ -118,7 +118,7 @@
     ~/.bash_completion.d/todo_completion: todo.txt-cli/todo_completion
     ~/.todo.actions.d/againHelpers.sh: todo.actions.d/todo.txt-cli-again-addon/againHelpers.sh
     ~/.todo.actions.d/again: todo.actions.d/todo.txt-cli-again-addon/again
-    ~/.todo.actions.d/edit: todo.actions.d/todo.txt-edit-addon/todo.actions.d/edit
+    ~/.todo.actions.d/edit: todo.actions.d/edit
     ~/.todo.actions.d/futureTasks: todo.actions.d/futureTasks
     ~/.todo.actions.d/nav: todo.actions.d/nav
     ~/.todo.actions.d/pri: todo.actions.d/pri
