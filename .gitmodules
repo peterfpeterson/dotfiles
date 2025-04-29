@@ -49,9 +49,3 @@
 [submodule "fzf"]
 	path = fzf
 	url = https://github.com/junegunn/fzf.git
-[submodule "libcxx-pretty-printers"]
-	path = libcxx-pretty-printers
-	url = https://github.com/koutheir/libcxx-pretty-printers.git
-[submodule "Boost-Pretty-Printer"]
-	path = Boost-Pretty-Printer
-	url = https://github.com/ruediger/Boost-Pretty-Printer.git

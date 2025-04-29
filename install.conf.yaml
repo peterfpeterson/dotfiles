@@ -14,7 +14,6 @@
     - [mkdir -p ~/.config/wofi]
     - [mkdir -p ~/etc]
     - [mkdir -p ~/.fonts]
-    - [mkdir -p ~/.gdb/python]
     #- [mkdir -p ~/.gnupg]
     - [mkdir -p ~/.mantid]
     - [mkdir -p ~/tmp]
@@ -97,8 +96,6 @@
     #~/.fonts/FiraCode-Medium.otf: font-FiraCode/distr/otf/FiraCode-Medium.otf
     ~/.fonts/xkcd.otf: font-xkcd/xkcd/build/xkcd.otf
     ~/.fzf.bash: fzf/shell/key-bindings.bash
-    ~/.gdb/python/libcxx: libcxx-pretty-printers/src/libcxx/
-    ~/.gdb/python/boost: Boost-Pretty-Printer/boost/
     ~/.gdbinit:
     ~/.gitconfig:
     ~/.gitexcludes:
