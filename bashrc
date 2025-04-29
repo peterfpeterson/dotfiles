@@ -22,8 +22,10 @@ PATH=$HOME/bin:/usr/local/bin:$PATH
 if [ -d "${HOME}/.local/bin" ] ; then
     PATH="${HOME}/.local/bin:${PATH}"
 fi
-if [ -d "${HOME}/.cargo/bin" ] ; then
-    PATH="${HOME}/.cargo/bin:${PATH}"
+
+# things for rust
+if [ -f "$HOME/.cargo/env" ]; then
+   . "$HOME/.cargo/env"
 fi
 
 export GOPATH=$HOME/go
@@ -445,3 +447,4 @@ fi
 if [ "$(command -v fortune)" ]; then
     fortune -a
 fi
+. "$HOME/.cargo/env"
