@@ -18,7 +18,7 @@ if [ -f /etc/bashrc ]; then
   source /etc/bashrc
 fi
 
-PATH=$HOME/bin:/usr/local/bin:$PATH
+PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 if [ -d "${HOME}/.local/bin" ] ; then
     PATH="${HOME}/.local/bin:${PATH}"
 fi
@@ -26,6 +26,9 @@ fi
 # things for rust
 if [ -f "$HOME/.cargo/env" ]; then
    . "$HOME/.cargo/env"
+fi
+if [ "$(command -v rustup)" ]; then
+   source <( rustup completions bash cargo )
 fi
 
 export GOPATH=$HOME/go
