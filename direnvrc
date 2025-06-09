@@ -3,89 +3,23 @@ direnv_layout_dir() {
   echo "${direnv_layout_dir:-$PWD/.direnv}"
 }
 
-########## https://github.com/direnv/direnv/pull/376
+########## https://github.com/direnv/direnv/issues/1072
 
-# Usage: layout virtualenv [options] [-- [virtualenv-options]]
-# opts]
-#
-# Creates and loads a virtualenv environment under
-# "$direnv_layout_dir/python-$python_version".
-# This forces the installation of any egg into the project's sub-folder.
-#
-# Options:
-# -v <virtualenv-bin>: specifies the name of the virtualenv executable (default: virtualenv)
-# -p <python-bin>: specifies the name of the python executable (default: python)
+layout_mamba() {
+  # initialize micromamba
+  eval "$(micromamba shell hook --shell=bash)"
 
-layout_virtualenv() {
-  local opt
-  local python_bin=python
-  local python_version
-  local virtualenv_bin=virtualenv
-
-  while getopts ":p:v:" opt; do
-    case "${opt}" in
-      p)
-        python_bin=${OPTARG}
-        ;;
-      v)
-        virtualenv_bin=${OPTARG}
-        ;;
-      *)
-        log_error "unknown option ${opt}"
-        echo
-        echo "Usage: layout virtualenv [-p PYTHON_BIN] [-v VIRTUALENV_BIN]"
-        return 1
-        ;;
-    esac
-  done
-  shift $((OPTIND - 1))
-
-  ##
-
-  unset PYTHONHOME # why?
-
-  python_version=$("$python_bin" -c "import platform as p;print(p.python_version())")
-  if [[ -z $python_version ]]; then
-    log_error "Could not find python's version"
-    return 1
-  fi
-
-  export VIRTUAL_ENV=$(direnv_layout_dir)/python-$python_version
-  PATH_add "$VIRTUAL_ENV/bin"
-
-  # auto-create
-  if [[ ! -d $VIRTUAL_ENV ]]; then
-    "$virtualenv_bin" "--python=$python_bin" "$@" "$VIRTUAL_ENV"
-  fi
-}
-
-# Usage: layout python <python_exe>
-#
-# Creates and loads a virtualenv environment under
-# "$direnv_layout_dir/python-$python_version".
-# This forces the installation of any egg into the project's sub-folder.
-#
-# It's possible to specify the python executable if you want to use different
-# versions of python.
-#
-layout_python() {
-  local python=${1:-python}
-  [[ $# -gt 0 ]] && shift
-  layout_virtualenv -p $python "$@"
-}
-
-# Usage: layout python2
-#
-# A shortcut for $(layout virtualenv -p python2)
-#
-layout_python2() {
-  layout_virtualenv -p python2 "$@"
-}
-
-# Usage: layout python3
-#
-# A shortcut for $(layout virtualenv -p python3)
-#
-layout_python3() {
-  layout_virtualenv -p python3 "$@"
+  # check if environment name is specified
+  if [ -n "$1" ]; then
+    # Explicit environment name from layout command.
+    local env_name="$1"
+    # activate environment
+    micromamba activate ${env_name}
+  elif (grep -q name: environment.yml 2> /dev/null); then
+    # Detect environment name from `environment.yml` file in `.envrc` directory
+    micromamba activate `grep name: environment.yml | sed -e 's/name: //'`
+  else
+    # activate base environment
+    micromamba activate base;
+  fi;
 }
