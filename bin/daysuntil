@@ -9,9 +9,12 @@ TIME_32BIT_EPOCH = date(year=2038, month=1, day=19)
 EARLY_RETIRE = date(year=2031, month=6, day=2)
 
 events = [('2025-11-03', 'Mantid dev meeting'),
-          ('2025-05-25', 'QT5 EOL'),
-          ('2025-05-11', 'Mother\'s Day'),
           ('2025-06-27', 'Mantid 6.13'),
+          ('2025-06-21', 'Summer solstace'),
+          ('2025-07-21', 'Conda costs money'),
+          ('2025-09-22', 'Fall equinox'),
+          ('2025-12-21', 'Winter solstace'),
+          ('2026-03-20', 'Fall equinox'),
           (TIME_32BIT_EPOCH, 'int32 time fails'),
           (EARLY_RETIRE, 'full retirement'),
           ('2049-04-26', 'life expectancy')]
