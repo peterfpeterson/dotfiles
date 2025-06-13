@@ -447,10 +447,22 @@ fi
 
 # always end with a fortune
 if [ "$(command -v fortune)" ]; then
+   # get a fortune
+   FORTUNE=$(fortune -a)
+   # have a cow tell it
+   if [ "$(command -v cowsay)" ]; then
+       # cowsay or cowthink - switching is harder
+       # decide how the cow appears - first option is default
+       declare -a APPEARANCE_OPTS=(" " -b -d -g -p -s -t -w -y)
+       APPEARANCE=${APPEARANCE_OPTS[$(($RANDOM % ${#APPEARANCE_OPTS[*]}))]}
+       # have the cow say the fortune
+       FORTUNE=$(cowsay "${APPEARANCE}" -W 60 "${FORTUNE}")
+   fi
+   # rainbow colors where available
    if [ "$(command -v lolcat)" ]; then
        # adding in figlet makes it too hard to read
-       fortune -a | lolcat
+       echo "${FORTUNE}" | lolcat
    else
-       fortune -a
+       echo "${FORTUNE}"
    fi
 fi
