@@ -445,7 +445,12 @@ if [ "$(command -v starship)" ]; then
     eval "$(starship completions bash)"
 fi
 
+# always end with a fortune
 if [ "$(command -v fortune)" ]; then
-    fortune -a
+   if [ "$(command -v lolcat)" ]; then
+       # adding in figlet makes it too hard to read
+       fortune -a | lolcat
+   else
+       fortune -a
+   fi
 fi
-. "$HOME/.cargo/env"
