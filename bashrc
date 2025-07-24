@@ -48,6 +48,11 @@ HISTFILESIZE=2000
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
+# add an alias for cleaning out mock chroots
+if [ "$(command -v mock)" ]; then
+  alias mock_clean_chroots="mock --clean && mock --scrub=cache && mock --scrub=all"
+fi
+
 # set up gpg-agent for signing git commits
 # https://withblue.ink/2020/05/17/how-and-why-to-sign-git-commits.html
 #if [ "$(command -v gpgconf)" ]; then
