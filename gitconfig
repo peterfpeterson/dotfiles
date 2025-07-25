@@ -55,5 +55,6 @@
 	all = true
 [commit]
 	gpgSign = true
-[tag]
-	gpgSign = true
+# signing tags requires annotated tags
+#[tag]
+#	gpgSign = true
