@@ -221,11 +221,11 @@ fi
 
 if [ "$(command -v rg)" ]; then
   export RIPGREP_CONFIG_PATH=${HOME}/.ripgreprc
-  if [ "xterm-kitty"="${TERM}" ]; then
-    alias rg="rg --hyperlink-format=kitty"
-  else
+  #if [ "xterm-kitty"="${TERM}" ]; then
+  #  alias rg="rg --hyperlink-format=kitty"
+  #else
     alias rg="rg --hyperlink-format=file"
-  fi
+  #fi
 fi
 
 # >>> mamba initialize >>>
@@ -283,6 +283,9 @@ else
     alias less='less -m -N -g -i -J --line-numbers --underline-special'
     export LESS=' -R '
 fi
+
+# snap install glow
+# glow completion bash > ~/.bash_completion.d/glow.bash
 
 # pretty print csv files
 # taken from https://www.stefaanlippens.net/pretty-csv.html
@@ -430,18 +433,18 @@ elif [[ ! "${PROMPT_COMMAND}" == *"table_flip"* ]]; then
 fi
 
 # special config for kitty terminal
-if [ "${TERM}" = "xterm-kitty" ]; then
-    # use kitty's ssh stuff
-    alias ssh="kitty +kitten ssh"
-
-    # set the tab title to be current directory
-    if [ "$(command -v starship)" ]; then
-        function set_tab_title {
-            kitty @set-tab-title $(basename $(pwd))
-        }
-        starship_precmd_user_func="set_tab_title"
-    fi
-fi
+#if [ "${TERM}" = "xterm-kitty" ]; then
+#    # use kitty's ssh stuff
+#    alias ssh="kitty +kitten ssh"
+#
+#    # set the tab title to be current directory
+#    if [ "$(command -v starship)" ]; then
+#        function set_tab_title {
+#            kitty @set-tab-title $(basename $(pwd))
+#        }
+#        starship_precmd_user_func="set_tab_title"
+#    fi
+#fi
 
 
 # configure starship and table flip
