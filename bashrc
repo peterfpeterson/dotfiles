@@ -284,7 +284,7 @@ else
     export LESS=' -R '
 fi
 
-# snap install glow
+# snap install glow - markdown rendering
 # glow completion bash > ~/.bash_completion.d/glow.bash
 
 # pretty print csv files
