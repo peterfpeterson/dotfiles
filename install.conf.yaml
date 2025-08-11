@@ -24,6 +24,10 @@
     - [./dropbox-link.sh]
     - [./xdg-set-editors.sh]
 
+- shell:
+    - [xdg-mime default firefox_firefox.desktop application/pdf]
+    - [xdg-mime default firefox_firefox.desktop text/html]
+
 - link:
     ~/.bash_profile:
     ~/.bashrc:
