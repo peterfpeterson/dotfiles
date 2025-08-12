@@ -27,6 +27,8 @@
 - shell:
     - [xdg-mime default firefox_firefox.desktop application/pdf]
     - [xdg-mime default firefox_firefox.desktop text/html]
+    - [xdg-mime default firefox_firefox.desktop x-scheme-handler/https]
+    - [xdg-mime default firefox_firefox.desktop x-scheme-handler/http]
 
 - link:
     ~/.bash_profile:
