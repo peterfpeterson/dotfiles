@@ -320,45 +320,29 @@ fi
 
 # extra fzf definitions https://github.com/junegunn/fzf
 if [ "$(command -v fzf)" ]; then
-  complete -F _fzf_path_completion pycharm
-  if [ "$(command -v rg)" ]; then
-    alias fzfpreview="rg --files | fzf --preview 'batcat --color=always --style=numbers --line-range=:500 {}' --preview-window=up"
-  else
-    alias fzfpreview="fzf --preview 'less {}'"
-  fi
+   # add fzf's default bash hooks
+   eval "$(fzf --bash)"
 
-  # override known hosts with fuzzy-find
-  if [ ! -f "${HOSTFILE}" ]; then
-      _fzf_complete_ssh_notrigger() {
-          FZF_COMPLETION_TRIGGER='' _fzf_host_completion
-      }
-      complete -o bashdefault -o default -F _fzf_complete_ssh_notrigger ssh
-  fi
-
-  # shellcheck source=fzf.bash
-  if [ -f "$HOME/.fzf.bash" ]; then
-    # shellcheck source=fzf.bash
-    source "$HOME/.fzf.bash"
-  fi
-
-  # based on https://medium.com/@GroundControl/better-git-diffs-with-fzf-89083739a9cb
-  fzfdiff() {
-    git diff --name-only "$@" | fzf -m --ansi --preview 'git diff "$@" --color=always -- {-1}'
-  }
-
-  #determines search program for fzf
+  #determines search program for fzf - prefer rg, then ag, then built-in
   if [ "$(command -v rg)" ]; then
     export FZF_DEFAULT_COMMAND='rg --files'
     # cd into a found directory
-    export FZF_ALT_C_COMMAND='rg --files | xargs -0 dirname | sort -u'
+    #export FZF_ALT_C_COMMAND='rg --files | xargs -0 dirname | sort -u'
   elif [ "$(command -v ag)" ]; then
     export FZF_DEFAULT_COMMAND='ag -p ~/.gitexcludes -g ""'
   fi
 
-  # bind the default command into other commands
-  if [ -n "${FZF_DEFAULT_COMMAND}" ]; then
-    # find files to complete command
-    export FZF_CTRL_T_COMMAND="${FZF_DEFAULT_COMMAND}"
+  # Preview file content using bat
+  if [ "$(command -v bat)" ]; then
+    export FZF_CTRL_T_OPTS="--preview 'bat -n --color=always {}'
+                            --bind 'ctrl-/:change-preview-window(down|hidden|)'"
+  else
+    export FZF_CTRL_T_OPTS="--bind 'ctrl-/:change-preview-window(down|hidden|)'"
+  fi
+
+  # Print tree structure in the preview window
+  if [ "$(command -v eza)" ]; then
+    export FZF_ALT_C_OPTS="--preview 'eza --tree --git-ignore --group-directories-first -L 2 {}'"
   fi
 fi
 
