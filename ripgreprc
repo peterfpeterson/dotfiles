@@ -1,4 +1,7 @@
 # ignore virtual environments
+--glob=!.cache/*
 --glob=!.direnv/*
 --glob=!*.egg-info/*
+--glob=!.pixi/*
 --glob=!__pycache__/*
+--glob=!.ruff_cache/*
