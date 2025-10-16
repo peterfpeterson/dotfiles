@@ -140,6 +140,13 @@ if [ "$(command -v rhc)" ]; then
   fi
 fi
 
+# configure nvm which installs/manages node.js
+if [ -d "$HOME"/.nvm ]; then
+  export NVM_DIR="$HOME/.nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+fi
+
 if [ "$(command -v docker)" ]; then
     docker-killall() {
         if [ "$(docker container ls -q)" ]; then
