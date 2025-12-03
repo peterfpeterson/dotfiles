@@ -76,6 +76,10 @@ conky.config = {
 conky.text = [[
 ${color2}$nodename $alignr${color2}Uptime:$color $uptime
 ${color2}$machine ${alignr}$color$kernel
+##### beam status
+${color2}${font DejaVu Sans Mono:bold:size=12}${hr 3}${color}${font}
+SNS  ${alignr}${execi 60 ~/bin/beamstatus.py SNS} ${execibar 60 15,200 ~/bin/beamstatus.py SNS -p}
+HFIR ${alignr}${execi 60 ~/bin/beamstatus.py HFIR} ${execibar 60 15,200 ~/bin/beamstatus.py HFIR -p}
 ##### CPU
 ${color2}${font DejaVu Sans Mono:bold:size=12}CPU ${hr 3}${color}${font}
 ${color2}Frequency:$color ${freq}MHz
