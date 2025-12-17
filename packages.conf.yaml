@@ -1,0 +1,8 @@
+# install using install -p dotbot-apt/apt.py -c packages.conf.yaml --verbose
+- apt:
+  - bat
+  - cowsay # cow says the fortune
+  - fortunes
+  - jq
+  - lolcat # colors
+  - neovim

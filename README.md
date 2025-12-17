@@ -22,6 +22,7 @@ Then run
 
 ```bash
 $ ./install
+$ sudo ./install -p dotbot-apt/apt.py -c packages.conf.yaml --verbose
 ```
 
 Re-running should not do anything.
