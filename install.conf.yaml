@@ -1,30 +1,33 @@
 - clean: ['~', '~/.config', '~/.bash_completion.d', '~/.todo.actions.d', '~/.todo']
 
+- create:
+    - ~/bin
+    - ~/.bash_completion.d
+    - ~/.config/autostart
+    - ~/.config/awesome
+    - ~/.config/Code/User
+    - ~/.config/i3
+    - ~/.config/i3status
+    - ~/.config/kitty
+    - ~/.config/sway
+    - ~/.config/waybar
+    - ~/.config/wofi
+    - ~/etc
+    - ~/.fonts
+    #- ~/.gnupg
+    - ~/.mantid
+    - ~/tmp
+    - ~/.todo.actions.d
+    - ~/.todo
+
 - shell:
-    - [mkdir -p ~/bin]
-    - [mkdir -p ~/.bash_completion.d]
-    - [mkdir -p ~/.config/autostart]
-    - [mkdir -p ~/.config/awesome]
-    - [mkdir -p ~/.config/Code/User]
-    - [mkdir -p ~/.config/i3]
-    - [mkdir -p ~/.config/i3status]
-    - [mkdir -p ~/.config/kitty]
-    - [mkdir -p ~/.config/sway]
-    - [mkdir -p ~/.config/waybar]
-    - [mkdir -p ~/.config/wofi]
-    - [mkdir -p ~/etc]
-    - [mkdir -p ~/.fonts]
-    #- [mkdir -p ~/.gnupg]
-    - [mkdir -p ~/.mantid]
-    - [mkdir -p ~/tmp]
-    - [mkdir -p ~/.todo.actions.d]
-    - [mkdir -p ~/.todo]
     - [cp Mantid.user.properties ~/.mantid/Mantid.user.properties]
     - [./crontab-install.sh]
     - [./dropbox-link.sh]
     - [./xdg-set-editors.sh]
 
 - shell:
+    # set default handlers
     - [xdg-mime default firefox_firefox.desktop application/pdf]
     - [xdg-mime default firefox_firefox.desktop text/html]
     - [xdg-mime default firefox_firefox.desktop x-scheme-handler/https]
