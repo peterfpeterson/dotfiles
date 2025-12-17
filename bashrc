@@ -331,13 +331,17 @@ if [ "$(command -v fzf)" ]; then
    eval "$(fzf --bash)"
 
   #determines search program for fzf - prefer rg, then ag, then built-in
-  if [ "$(command -v rg)" ]; then
+  if [ "$(command -v fd)" ]; then # https://github.com/sharkdp/fd
+    export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix'
+  elif [ "$(command -v rg)" ]; then
     export FZF_DEFAULT_COMMAND='rg --files'
     # cd into a found directory
     #export FZF_ALT_C_COMMAND='rg --files | xargs -0 dirname | sort -u'
   elif [ "$(command -v ag)" ]; then
     export FZF_DEFAULT_COMMAND='ag -p ~/.gitexcludes -g ""'
   fi
+  # apply default command to CTRL-T as well
+  export FZF_CTRL_T_COMMAND="${FZF_DEFAULT_COMMAND}"
 
   # Preview file content using bat
   if [ "$(command -v bat)" ]; then
