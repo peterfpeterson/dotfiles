@@ -1,6 +1,4 @@
 #!/usr/bin/env python3
-import urllib3
-import requests  # python-requests
 
 URL = 'https://status.sns.ornl.gov/'
 CLASS_ON = 'beam_status_on'
@@ -31,11 +29,19 @@ def getPower(facility, percentage):
         raise ValueError('Facility \'%s\' is not an allowed value' % facility)
 
     # not verifying SSL certs normally causes a warning
-    urllib3.disable_warnings()
+    try:
+        import urllib3
+        urllib3.disable_warnings()
+    except ImportError as e:
+        if percentage:
+            return 0
+        else:
+            return "ERROR: " + str(e)
 
     # get the result
     url = f'{URL}get{facility}Status.jsp'
     try:
+        import requests  # python-requests
         req = requests.get(url, verify=False, timeout=1)  # seconds
     except Exception as e:
         if percentage:
