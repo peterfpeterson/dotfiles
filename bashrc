@@ -131,6 +131,10 @@ if [ "$(command -v brew)" ]; then
   fi
 fi
 
+if [ -f /snap/bin/emacs ]; then
+    alias emacs="/snap/bin/emacs"
+fi
+
 # things for rhc
 if [ "$(command -v rhc)" ]; then
   if [ -f "${HOME}/.gem/ruby/gems/rhc-*/autocomplete/rhc_bash" ]; then
