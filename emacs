@@ -1,13 +1,15 @@
 ;; ---------------------------------------------------------------------
+;; This is written against emacs-major-version=30
+;; ---------------------------------------------------------------------
 ;; Allow automated package installation
+;;
+;; To clean out the package cache:
+;; M-x package-refresh-contents
 ;; ---------------------------------------------------------------------
 (require 'package)
-(package-initialize)
-(add-to-list 'package-archives
-             '("melpa-stable" . "http://stable.melpa.org/packages/") t)
-;(add-to-list 'package-archives
-;	     '("marmalade" . "http://marmalade-repo.org/packages/") t)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
+(package-initialize)
 
 (require 'cl-lib) ;;gives unless command
 (unless (package-installed-p 'use-package)
@@ -29,7 +31,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(lua-mode yaml-mode markdown-mode solarized-theme use-package)))
+   '(yaml-mode solarized-theme orderless lua-mode lsp-mode corfu)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -99,21 +101,6 @@
 (global-set-key "\C-xl" 'goto-line)
 (global-set-key "\C-cu" 'uncomment-region)
 (global-set-key "\C-ci" 'indent-region)
-(global-set-key [f3] 'grep-find)
-;; Tell grep-find to ignore svn directories
-(setq grep-find-command
-  "find . -path '*/.svn' -prune -o -type f -print | xargs -e grep -I -n -e ")
-
-;; Needed to get bash ctrl-left/ctrl-right working
-(unless window-system
-  (global-set-key "\e[;5D" 'backward-word)
-  (global-set-key "\e[5C" 'forward-word)
-  (global-set-key "\e[1;5F" 'end-of-buffer)
-  (global-set-key "\e[1;5H" 'beginning-of-buffer))
-
-;;turn on mouse wheel
-(if (load "mwheel" t)
-	(mwheel-install))
 
 ;;ask about newline at end of text files
 (setq require-final-newline 'query)
@@ -133,56 +120,94 @@
 (setq auto-mode-alist (cons '("\\.cpp$" . c++-mode) auto-mode-alist))
 (setq auto-mode-alist (cons '("\\.cxx$" . c++-mode) auto-mode-alist))
 
-;; Set BSD style indent with a default of 2 spaces per tab for global things
-(setq c-default-style "bsd"
-      c-basic-offset 2)
-
 ;; Turn off use of tabs for indentation in many modes
 (setq indent-tabs-mode nil)
 
-;; If indent-tabs-mode is off, untabify before saving
-;; (add-hook 'write-file-hooks
-;;           (lambda ()
-;; 	    (if (not indent-tabs-mode)
-;; 		(untabify (point-min) (point-max)))))
+;; -------------------------------------------------------------------
+(if (> emacs-major-version 29) ;; does not exist in emacs 29
+  (package-install 'orderless)
+  (use-package orderless
+    :ensure t
+    :custom
+    (completion-styles '(orderless basic))
+    (completion-category-overrides '((file (styles partial-completion))))
+    (completion-pcm-leading-wildcard t)
+  )
+)
 
-;; LaTeX mode
-(add-hook 'latex-mode-hook
-	  '(lambda()
-	     (setq indent-tabs-mode nil)
-	     ))
-;; C mode
-(add-hook 'c-mode-hook
-	  '(lambda()
-	     (setq indent-tabs-mode nil)
-	     ))
-;; C++ mode
-(add-hook 'c++-mode-hook
-	  '(lambda()
-	     (setq indent-tabs-mode nil)
-	     ))
-;; CMake mode
-(add-hook 'cmake-mode-hook
-	  '(lambda()
-	     (setq indent-tabs-mode nil)
-	     ))
-;; Python mode
-(add-hook 'python-mode-hook
-	  '(lambda()
-	     (setq indent-tabs-mode nil)
-	     ))
-;; Fortran mode
-(add-hook 'fortran-mode-hook
-	  '(lambda()
-	     (setq indent-tabs-mode nil)
-	     ))
-;; perl mode
-(add-hook 'perl-mode-hook
-	  '(lambda()
-	     (setq indent-tabs-mode nil)
-	     ))
-;; Lisp mode
-(add-hook 'lisp-mode-hook
-	  '(lambda()
-	     (setq indent-tabs-mode nil)
-	     ))
+;; -------------------------------------------------------------------
+(package-install 'lsp-mode)
+(use-package lsp-mode
+  :custom
+  (lsp-completion-provider :none) ;; we use Corfu!
+)
+
+;; add hooks for lsp - requires the lsp-server setup
+;;(add-hook 'python-mode-hook #'lsp)
+;;(add-hook 'c++-mode-hook #'lsp)
+
+;; -------------------------------------------------------------------
+;; set up corfu https://github.com/minad/corfu
+;; much taken from https://andrewfavia.dev/posts/emacs-as-python-ide-again/
+(package-install 'corfu)
+(use-package corfu
+;;  :after orderless
+  ;; Optional customizations
+  :custom
+  (corfu-auto t) ;; turn on corfu
+;;  (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
+;;  (corfu-preselect-first t)
+;;  (corfu-separator ?\s)          ;; Orderless field separator
+;;  (corfu-quit-at-boundary nil)   ;; Never quit at completion boundary
+;;  (corfu-quit-no-match nil)      ;; Never quit, even if there is no match
+;;  (corfu-preview-current nil)    ;; Disable current candidate preview
+;;  ;; (corfu-preselect-first nil)    ;; Disable candidate preselection
+;;  ;; (corfu-on-exact-match nil)     ;; Configure handling of exact matches
+;;  ;; (corfu-echo-documentation nil) ;; Disable documentation in the echo area
+;;  (corfu-scroll-margin 5)        ;; Use scroll margin
+  ;; Enable Corfu only for certain modes.
+;;  :hook ((python-mode . corfu-mode)
+;;         (c++-mode-hook . corfu-mode)
+;;         (cmake-mode-hook . corfu-mode)
+;;         (lisp-mode-hook . corfu-mode)
+;;        )
+
+ :init
+ (global-corfu-mode)
+ :config
+ (corfu-popupinfo-mode t)
+ )
+
+ ;;(global-corfu-mode)
+
+;;(if (> emacs-major-version 29) ;; does not exist in emacs 29
+;;(orderless-define-completion-style orderless-literal-only
+;;  (orderless-style-dispatchers nil)
+;;  (orderless-matching-styles '(orderless-literal)))
+;;
+;;  (add-hook 'corfu-mode-hook
+;;          (lambda ()
+;;            (setq-local completion-styles '(orderless-literal-only basic)
+;;                        completion-category-overrides nil
+;;                        completion-category-defaults nil)))
+;;)
+
+;; A few more useful configurations...
+(use-package emacs
+  :custom
+  ;; TAB cycle if there are only few candidates
+  ;; (completion-cycle-threshold 3)
+
+  ;; Enable indentation+completion using the TAB key.
+  ;; `completion-at-point' is often bound to M-TAB.
+  ;;(tab-always-indent 'complete)
+
+  ;; Emacs 30 and newer: Disable Ispell completion function.
+  ;; Try `cape-dict' as an alternative.
+  (text-mode-ispell-word-completion nil)
+
+  ;; Hide commands in M-x which do not apply to the current mode.  Corfu
+  ;; commands are hidden, since they are not used via M-x. This setting is
+  ;; useful beyond Corfu.
+  (read-extended-command-predicate #'command-completion-default-include-p)
+)
