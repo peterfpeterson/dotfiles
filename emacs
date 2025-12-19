@@ -105,6 +105,8 @@
 (setq transient-mark-mode t)
 ;; Enable column number mode
 (setq column-number-mode t)
+;; turn on line numbers
+(add-hook 'prog-mode-hook 'display-line-numbers-mode)
 
 ;; Set-up some keys globally
 (global-set-key "\C-xl" 'goto-line)
@@ -131,6 +133,15 @@
 
 ;; Turn off use of tabs for indentation in many modes
 (setq indent-tabs-mode nil)
+
+;; -------------------------------------------------------------------
+;; tree-sitter does more accurate tokenization for better highlighting
+(package-install 'tree-sitter)
+(require 'tree-sitter)
+(package-install 'tree-sitter-langs)
+(require 'tree-sitter-langs)
+(global-tree-sitter-mode)
+(add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
 
 ;; -------------------------------------------------------------------
 (if (> emacs-major-version 29) ;; does not exist in emacs 29
