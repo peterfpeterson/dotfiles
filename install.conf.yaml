@@ -19,6 +19,7 @@
     - ~/tmp
     - ~/.todo.actions.d
     - ~/.todo
+    - ~/.vim
 
 - shell:
     - [cp Mantid.user.properties ~/.mantid/Mantid.user.properties]
