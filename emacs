@@ -134,26 +134,74 @@
 ;; Turn off use of tabs for indentation in many modes
 (setq indent-tabs-mode nil)
 
-;; -------------------------------------------------------------------
-;; tree-sitter does more accurate tokenization for better highlighting
-(package-install 'tree-sitter)
-(require 'tree-sitter)
-(package-install 'tree-sitter-langs)
-(require 'tree-sitter-langs)
-(global-tree-sitter-mode)
-(add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
+;; ---------------------------------------------------------------------
+;; on-the-fly syntax checking
+;; ---------------------------------------------------------------------
+(use-package flycheck
+  :ensure t
+  :config
+  (add-hook 'after-init-hook #'global-flycheck-mode))
+
+;; ---------------------------------------------------------------------
+;; ripgrep for finding
+;; ---------------------------------------------------------------------
+(use-package rg
+  :ensure t
+)
+(rg-enable-default-bindings)
 
 ;; -------------------------------------------------------------------
-(if (> emacs-major-version 29) ;; does not exist in emacs 29
-  (package-install 'orderless)
-  (use-package orderless
+;; tree-sitter does more accurate tokenization for better highlighting
+(use-package tree-sitter
     :ensure t
-    :custom
-    (completion-styles '(orderless basic))
-    (completion-category-overrides '((file (styles partial-completion))))
-    (completion-pcm-leading-wildcard t)
-  )
-)
+      :custom
+  ;; Some stuff taken from here: https://robbmann.io/posts/emacs-treesit-auto/
+  (treesit-extra-load-path '("/usr/lib64/"))
+  (treesit-language-source-alist
+   '((bash .       ("https://github.com/tree-sitter/tree-sitter-bash"))
+     (c .          ("https://github.com/tree-sitter/tree-sitter-c"))
+     (c++ .        ("https://github.com/tree-sitter/tree-sitter-cpp"))
+     (css .        ("https://github.com/tree-sitter/tree-sitter-css"))
+     (html .       ("https://github.com/tree-sitter/tree-sitter-html"))
+     (java .       ("https://github.com/tree-sitter/tree-sitter-java"))
+     (javascript . ("https://github.com/tree-sitter/tree-sitter-javascript"))
+     (json .       ("https://github.com/tree-sitter/tree-sitter-json"))
+     (lua .        ("https://github.com/Azganoth/tree-sitter-lua"))
+     (makefile .   ("https://github.com/alemuller/tree-sitter-make"))
+     (python .     ("https://github.com/tree-sitter/tree-sitter-python"))
+     (typescript . ("https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src"))
+     (ruby .       ("https://github.com/tree-sitter/tree-sitter-ruby"))
+     (rust .       ("https://github.com/tree-sitter/tree-sitter-rust"))
+     (sql .        ("https://github.com/m-novikov/tree-sitter-sql"))
+     (toml .       ("https://github.com/tree-sitter/tree-sitter-toml"))
+     (yaml .       ("https://github.com/ikatyang/tree-sitter-yaml"))))
+  (major-mode-remap-alist
+   '((c-mode . c-ts-mode)
+     (c++-mode . c++-ts-mode)
+     (css-mode . css-ts-mode)
+     (html-mode . html-ts-mode)
+     (java-mode . java-ts-mode)
+     (js-mode . js-ts-mode)
+     (json-mode . json-ts-mode)
+     (makefile-mode . makefile-ts-mode)
+     (python-mode . python-ts-mode)
+     (typescript-mode . typescript-ts-mode)
+     (ruby-mode . ruby-ts-mode)
+     (rust-mode . rust-ts-mode)
+     (toml-mode . toml-ts-mode)
+     (yaml-mode . yaml-ts-mode)))
+  (treesit-auto-fallback-alist
+   '((toml-ts-mode . conf-toml-mode)
+     (typescript-ts-mode . nil)
+     (tsx-ts-mode . nil)))
+  (treesit-font-lock-settings t)
+  (treesit-simple-indent t)
+  (treesit-defun-type-regexp t)
+    )
+(use-package tree-sitter-langs
+    :ensure t)
+(global-tree-sitter-mode)
+(add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
 
 ;; -------------------------------------------------------------------
 (package-install 'lsp-mode)
@@ -167,11 +215,36 @@
 ;;(add-hook 'c++-mode-hook #'lsp)
 
 ;; -------------------------------------------------------------------
+(if (> emacs-major-version 29) ;; does not exist in emacs 29
+  (package-install 'orderless)
+  (use-package orderless
+    :ensure t
+    :init
+    (completion-styles '(orderless literal-only))
+    (completion-category-overrides '((file (styles partial-completion))))
+    ;;(completion-category-defaults nil) ;; Disable defaults, use our settings
+    ;;(completion-pcm-leading-wildcard t)
+  )
+
+  (orderless-define-completion-style orderless-literal-only
+				     (orderless-style-dispatchers nil)
+				     (orderless-matching-styles '(orderless-literal)))
+
+  (add-hook 'corfu-mode-hook
+            (lambda ()
+              (setq-local completion-styles '(orderless-literal-only basic)
+                          completion-category-overrides nil
+                          completion-category-defaults nil)))
+
+  (setq orderless-matching-styles '(orderless-literal orderless-regexp orderless-flex))
+)
+
+;; -------------------------------------------------------------------
 ;; set up corfu https://github.com/minad/corfu
 ;; much taken from https://andrewfavia.dev/posts/emacs-as-python-ide-again/
 (package-install 'corfu)
 (use-package corfu
-;;  :after orderless
+  ;; :after orderless
   ;; Optional customizations
   :custom
   (corfu-auto t) ;; turn on corfu
@@ -197,20 +270,6 @@
  :config
  (corfu-popupinfo-mode t)
  )
-
- ;;(global-corfu-mode)
-
-;;(if (> emacs-major-version 29) ;; does not exist in emacs 29
-;;(orderless-define-completion-style orderless-literal-only
-;;  (orderless-style-dispatchers nil)
-;;  (orderless-matching-styles '(orderless-literal)))
-;;
-;;  (add-hook 'corfu-mode-hook
-;;          (lambda ()
-;;            (setq-local completion-styles '(orderless-literal-only basic)
-;;                        completion-category-overrides nil
-;;                        completion-category-defaults nil)))
-;;)
 
 ;; A few more useful configurations...
 (use-package emacs
