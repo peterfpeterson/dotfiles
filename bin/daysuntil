@@ -9,20 +9,23 @@ TIME_32BIT_EPOCH = date(year=2038, month=1, day=19)
 EARLY_RETIRE = date(year=2031, month=6, day=2)
 
 events = [# solar events
-          ('2025-06-21', 'Summer solstice'),
-          ('2025-09-22', 'Fall equinox'),
-          ('2025-12-21', 'Winter solstice'),
           ('2026-03-20', 'Spring equinox'),
+          ('2026-06-21', 'Summer solstice'),
+          # ('2026-09-23', 'Fall equinox'),
+          # ('2026-12-21', 'Winter solstice'),
           # meetings and work
-          ('2025-11-03', 'Mantid dev meeting'),
-          ('2026-01-22', 'Mantid 6.15'),
+          ('2026-02-23', 'Mantid 6.15 release'),
+          ('2026-06-22', 'Mantid 6.16 freeze'),
           ('2026-09-21', 'NOBUGS'),
           # humor
+          ('2026-02-17', 'death day'),
           ('2026-05-13', 'Done with SJNS'),
           ('2030-05-17', 'Done with KCHS'),
           (TIME_32BIT_EPOCH, 'int32 time fails'),
           (EARLY_RETIRE, 'full retirement'),
           ('2049-04-26', 'life expectancy')]
+
+
 
 
 def standardize_date(epoch: Union[date, str]):
