@@ -15,11 +15,12 @@ events = [# solar events
           # ('2026-12-21', 'Winter solstice'),
           # meetings and work
           ('2026-02-23', 'Mantid 6.15 release'),
+          ('2026-05-10', 'Mother\'s day'),
           ('2026-06-22', 'Mantid 6.16 freeze'),
+          ('2026-07-19', 'ID expires'),
           ('2026-09-21', 'NOBUGS'),
           # humor
-          ('2026-02-17', 'death day'),
-          ('2026-05-13', 'Done with SJNS'),
+          ('2026-05-13', 'Done with SJNCS'),
           ('2030-05-17', 'Done with KCHS'),
           (TIME_32BIT_EPOCH, 'int32 time fails'),
           (EARLY_RETIRE, 'full retirement'),
