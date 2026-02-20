@@ -13,5 +13,6 @@ set print demangle on
 set demangle-style gnu-v3
 set print sevenbit-strings off
 set breakpoint pending on
+set auto-load safe-path /home/pf9/build/
 
 end
