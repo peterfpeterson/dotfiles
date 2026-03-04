@@ -174,7 +174,8 @@
      (rust .       ("https://github.com/tree-sitter/tree-sitter-rust"))
      (sql .        ("https://github.com/m-novikov/tree-sitter-sql"))
      (toml .       ("https://github.com/tree-sitter/tree-sitter-toml"))
-     (yaml .       ("https://github.com/ikatyang/tree-sitter-yaml"))))
+     ;(yaml .       ("https://github.com/ikatyang/tree-sitter-yaml"))
+     ))
   (major-mode-remap-alist
    '((c-mode . c-ts-mode)
      (c++-mode . c++-ts-mode)
@@ -189,7 +190,8 @@
      (ruby-mode . ruby-ts-mode)
      (rust-mode . rust-ts-mode)
      (toml-mode . toml-ts-mode)
-     (yaml-mode . yaml-ts-mode)))
+     ;(yaml-mode . yaml-ts-mode)
+     ))
   (treesit-auto-fallback-alist
    '((toml-ts-mode . conf-toml-mode)
      (typescript-ts-mode . nil)
