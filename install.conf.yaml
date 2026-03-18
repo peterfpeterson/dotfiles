@@ -55,6 +55,7 @@
     ~/bin/mantidpythonfromtemplate: mantid-tools/mantidpythonfromtemplate
     ~/bin/mantidreductionlogs: mantid-tools/mantidreductionlogs
     ~/bin/monitorautoreduction: bin/monitorautoreduction.py
+    ~/bin/nvidia.sh: bin/nvidia.sh
     ~/bin/perf_permissions.sh: bin/perf_permissions.sh
     ~/bin/purge: purge/purge
     ~/bin/profstats.py: bin/profstats.py
