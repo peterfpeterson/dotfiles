@@ -9,6 +9,7 @@
     - ~/.config/i3
     - ~/.config/i3status
     - ~/.config/kitty
+    - ~/.config/opencode/
     - ~/.config/sway
     - ~/.config/waybar
     - ~/.config/wofi
@@ -89,6 +90,7 @@
     ~/.config/i3status/config2: i3statusconf-2
     ~/.config/kitty/kitty.conf: kitty.conf
     ~/.config/kitty/open-actions.conf: kitty-open-actions.conf
+    ~/.config/opencode/opencode.json: opencode.json
     ~/.config/starship.toml: starship.toml
     ~/.config/sway/config: sway-config
     ~/.config/wofi/config: wofi-config
