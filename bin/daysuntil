@@ -7,12 +7,13 @@ from typing import Union
 # when 32-bit time counters are exhausted
 TIME_32BIT_EPOCH = date(year=2038, month=1, day=19)
 EARLY_RETIRE = date(year=2031, month=6, day=2)
+PLAN_RETIRE = date(year=2035, month=6, day=2)
 
 events = [# solar events
-          ('2026-03-20', 'Spring equinox'),
           ('2026-06-21', 'Summer solstice'),
           # ('2026-09-23', 'Fall equinox'),
           # ('2026-12-21', 'Winter solstice'),
+          #('2027-03-20', 'Spring equinox'),
           # meetings and work
           ('2026-02-23', 'Mantid 6.15 release'),
           ('2026-05-10', 'Mother\'s day'),
@@ -24,6 +25,7 @@ events = [# solar events
           ('2030-05-17', 'Done with KCHS'),
           (TIME_32BIT_EPOCH, 'int32 time fails'),
           (EARLY_RETIRE, 'full retirement'),
+          (PLAN_RETIRE, 'plan retirement'),
           ('2049-04-26', 'life expectancy')]
 
 
