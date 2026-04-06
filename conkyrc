@@ -16,7 +16,7 @@
 conky.config = {
     alignment = 'top_right',
     xinerama_head = 3,
-    gap_x = 5,
+    -- gap_x = 5,
     gap_x = 3010,
     -- gap_y = 5,
 

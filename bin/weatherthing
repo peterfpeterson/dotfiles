@@ -1,48 +1,33 @@
 #!/usr/bin/bash
 txt_file=~/.cache/weather.txt
 
-# fetch the weather
-# the sed command changes hh:mm:ss to hh:mm
-~/bin/weather --conky | sed -r 's/([0-9]{2}:[0-9]{2}):[0-9]{2}/\1/g' > "${txt_file}" || exit 1
-# remove empty lines
-sed -i '/^\s*$/d' "${txt_file}"
-
-########## check number of lines
-num_lines=$(wc -l "${txt_file}" | cut -c1) # number of lines
-if [ "${num_lines}" != 4 ]; then
-    exit 1 # don't update the weather
+########## sunmoon goes to tail file
+# only update if file is older than 5h
+if [[ $(date +%s -r "${txt_file}.tail") -lt $(date +%s --date "5 hour ago") ]]; then
+    ~/bin/weather --sunmoon | sed -r 's/([0-9]{2}:[0-9]{2}):[0-9]{2}/\1/g' > "${txt_file}.tail"
+    updated_text=" \${alignr} Updated $(date "+%Y-%m-%dT%H:%m")\${font}"
+    # convert moon images
+    sed -i 's/🌑︎//' "${txt_file}.tail"  # nf-weather-moon_alt_full
+    sed -i 's/🌑//' "${txt_file}.tail"  # nf-weather-moon_alt_full again
+    sed -i 's/🌒//' "${txt_file}.tail" # nf-weather-moon_alt_waning_gibbous_3
+    sed -i 's/🌓//' "${txt_file}.tail" # nf-weather-moon_alt_third_quarter
+    sed -i 's/🌔//' "${txt_file}.tail" # nf-weather-moon_alt_waning_crescent_3
+    sed -i 's/🌕//' "${txt_file}.tail" # nf-weather-moon_alt_new
+    sed -i 's/🌖//' "${txt_file}.tail" # nf-weather-moon_alt_waxing_crescent_4
+    sed -i 's/🌗//' "${txt_file}.tail" #  nf-weather-moon_alt_first_quarter
+    sed -i 's/🌘︎//' "${txt_file}.tail" #  nf-weather-moon_alt_waxing_gibbous_4
 fi
 
-########## tail
-# add update timestamp to a separate file
-tail -n 2 "${txt_file}" > "${txt_file}.tail"
-updated_text=" \${alignr} Updated $(date "+%Y-%m-%dT%H:%m")\${font}"
-# convert moon images
-sed -i 's/🌑︎//' "${txt_file}.tail"  # nf-weather-moon_alt_full
-sed -i 's/🌑//' "${txt_file}.tail"  # nf-weather-moon_alt_full again
-sed -i 's/🌒//' "${txt_file}.tail" # nf-weather-moon_alt_waning_gibbous_3
-sed -i 's/🌓//' "${txt_file}.tail" # nf-weather-moon_alt_third_quarter
-sed -i 's/🌔//' "${txt_file}.tail" # nf-weather-moon_alt_waning_crescent_3
-sed -i 's/🌕//' "${txt_file}.tail" # nf-weather-moon_alt_new
-sed -i 's/🌖//' "${txt_file}.tail" # nf-weather-moon_alt_waxing_crescent_4
-sed -i 's/🌗//' "${txt_file}.tail" #  nf-weather-moon_alt_first_quarter
-sed -i 's/🌘︎//' "${txt_file}.tail" #  nf-weather-moon_alt_waxing_gibbous_4
-# add updated text
-sed -i "s|/28|/28${updated_text}|" "${txt_file}.tail"
-
-########## head
+########## weather goes to head file
 # copy first few lines into a "HEAD" file
-head -n 2 "${txt_file}" > "${txt_file}.head"
-# change error messages
-sed -i 's/; please/ -/g' "${txt_file}.head"
-sed -i 's/~//g' "${txt_file}.head"
-sed -i -re 's/([0-9]+\.[0-9]{2})[0-9]+/\1/g' "${txt_file}.head"
-# shorten the locations
-sed -i 's/Knoxville/K  -/' "${txt_file}.head"
-sed -i 's/Oak Ridge/OR -/' "${txt_file}.head"
-sed -i 's/knoxville/K  -/' "${txt_file}.head"
-sed -i 's/oak ridge/OR -/' "${txt_file}.head"
+~/bin/rustormy -c Knoxville > "${txt_file}.head"
+# TODO change error messages
+# trim UV description
+sed -i 's/UV index/UV/' "${txt_file}.head"
+# trim feels like
+sed -i 's/feels like/feels/' "${txt_file}.head"
 # trim down the weather descriptions
+sed -i 's/Overcast clouds/Overcast/' "${txt_file}.head"
 sed -i 's/ain shower/ain/' "${txt_file}.head"
 sed -i 's/Partly/P/' "${txt_file}.head"
 sed -i 's/Patchy/P/' "${txt_file}.head"
@@ -57,4 +42,4 @@ sed -i 's/ nearby//' "${txt_file}.head"
 sed -i 's|with |w/|' "${txt_file}.head"
 
 # add in an alignr
-sed -i 's/(/\$\{alignr\}(/' "${txt_file}.head"
+#sed -i 's/(/\$\{alignr\}(/' "${txt_file}.head"

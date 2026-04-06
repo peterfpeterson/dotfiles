@@ -69,6 +69,10 @@ short() {
     curl --connect-timeout "${TIMEOUT}" -s wttr.in/"${1}"?format="${SHORT_WEATHER}\n${SHORT_SUNMOON}\n"
 }
 
+veryshort() {
+    curl --connect-timeout "${TIMEOUT}" -s wttr.in/"${1}"?format="${SHORT_SUNMOON}\n"
+}
+
 version2() {
     curl --connect-timeout "${TIMEOUT}" -s wttr.in/"${1}"?format=v2d
 }
@@ -96,6 +100,9 @@ while [ -n "${1}" ]; do
 	-s|--short)
 	    report="short"
 	    ;;
+	--sunmoon)
+	    report="sunmoon"
+	    ;;
         -w|--wide)
             report="wide"
             ;;
@@ -121,5 +128,6 @@ case "${report}" in
     long) version2 "${loc}" ;;
     short) short "${loc}";;
     standard) standard "${SHORT_WEATHER}";;
+    sunmoon) veryshort "${loc}";;
     wide) traditional "${loc}" ;;
 esac
