@@ -18,8 +18,7 @@ if [ $(lsmod | grep 'nvidia' -c) ]; then
     MEMORY_TOTAL="${EVERYTHING[4]}"
 
     # write everything out
-    echo "\${color2}Temperature\$color\${alignr}${TEMPERATURE}°C"
-    echo "\${color2}Utilization\$color\${alignr}${UTILIZATION}%"
+    echo "\${color2}Temperature\$color ${TEMPERATURE}°C\${alignr}\${color2}Utilization\$color \${alignr}${UTILIZATION}%"
     echo "\${color2}Memory\$color\${alignr}${MEMORY_USED} + ${MEMORY_FREE} = ${MEMORY_TOTAL}MiB"
 else
     echo OFF > "${OUTPUT_FILE}"

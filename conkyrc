@@ -99,9 +99,8 @@ ${cpubar cpu17 10,200}${alignr}${cpubar cpu18 10,200}
 ${cpubar cpu19 10,200}${alignr}${cpubar cpu20 10,200}
 ##### GPU
 # https://gist.github.com/omerfsen/8ecb620675525ac724a92bdf5a31a4b3
-${color2}${font DejaVu Sans Mono:bold:size=12}GPU ${hr 3}${color}${font}
 # result of nvidia-smi --query-gpu=name --format=csv,noheader
-NVIDIA RTX 2000 Ada Generation
+${color2}${font DejaVu Sans Mono:bold:size=12}NVIDIA RTX 2000 Ada Generation ${hr 3}${color}${font}
 ${execpi 5 ~/bin/nvidia.sh}
 ##### Memory
 ${color2}${font DejaVu Sans Mono:bold:size=12}Memory ${hr 3}${color}${font}
