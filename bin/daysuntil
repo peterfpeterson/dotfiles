@@ -15,11 +15,12 @@ events = [# solar events
           # ('2026-12-21', 'Winter solstice'),
           #('2027-03-20', 'Spring equinox'),
           # meetings and work
-          ('2026-02-23', 'Mantid 6.15 release'),
           ('2026-05-10', 'Mother\'s day'),
-          ('2026-06-22', 'Mantid 6.16 freeze'),
+          ('2026-06-21', 'Mantid 6.16 freeze'),
+          #('2026-09-17', 'Mantid 6.17 freeze'),
           ('2026-07-19', 'ID expires'),
           ('2026-09-21', 'NOBUGS'),
+          ('2026-10-19', 'USRSE'),
           # humor
           ('2026-05-13', 'Done with SJNCS'),
           ('2030-05-17', 'Done with KCHS'),
