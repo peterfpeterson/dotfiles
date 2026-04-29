@@ -124,6 +124,10 @@ elif [ -f /Applications/Xcode.app/Contents/Developer/usr/share/git-core/git-comp
     source /Applications/Xcode.app/Contents/Developer/usr/share/git-core/git-completion.bash
 fi
 
+if [ "$(command -v grype)" ]; then
+     eval "$(grype completion bash)"
+fi
+
 # things for homebrew
 if [ "$(command -v brew)" ]; then
   if [ -f "$(brew --prefix)/etc/bash_completion" ]; then
