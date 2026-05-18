@@ -21,3 +21,6 @@ worktree
 fontconfig
 .mypy_cache
 __pycache__
+.ai/
+.claude/
+.opencode/
