@@ -10,11 +10,11 @@ EARLY_RETIRE = date(year=2031, month=6, day=2)
 PLAN_RETIRE = date(year=2035, month=6, day=2)
 
 events = [# solar events
-          ('2026-06-21', 'Summer solstice'),
-          #('2026-09-23', 'Fall equinox'),
+          ('2026-09-23', 'Fall equinox'),
           # ('2026-12-21', 'Winter solstice'),
           #('2027-03-20', 'Spring equinox'),
           #('2027-06-21', 'Summer solstice'),
+          #('2027-09-23', 'Fall equinox'),
           # meetings and work
           ('2026-09-17', 'Mantid 6.17 freeze'),
           ('2026-09-21', 'NOBUGS'),
@@ -73,9 +73,17 @@ events = [item for item in events
 # sort the events based on date
 events.sort(key=lambda item: item[0])
 
-conky = True
-for datestamp, label in events:
-    if conky:
-        print(time_until(datestamp), r'${alignr}'+label)
-    else:
-        print(time_until(datestamp), '-', label)
+if __name__ == "__main__": # should be a separate function
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Be entertaining with deadlines")
+    parser.add_argument('--conky', action='store_true', help='format for conky')
+
+    options = parser.parse_args()
+
+    conky = True
+    for datestamp, label in events:
+        if options.conky:
+            print(time_until(datestamp), r'${alignr}'+label)
+        else:
+            print(time_until(datestamp), '-', label)
