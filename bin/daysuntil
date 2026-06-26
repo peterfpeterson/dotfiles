@@ -61,7 +61,7 @@ def time_until(epoch: date, shrink: bool=True) -> str:
     if delta.years:
         result = unit(delta.years, 'year', shrink) + result
 
-    return result
+    return result.strip()
 
 # convert all dates to date objects
 events = [(standardize_date(item[0]), item[1]) for item in events]
@@ -81,9 +81,7 @@ if __name__ == "__main__": # should be a separate function
 
     options = parser.parse_args()
 
-    conky = True
+    delim = r'${alignr}' if options.conky else ' - '
+
     for datestamp, label in events:
-        if options.conky:
-            print(time_until(datestamp), r'${alignr}'+label)
-        else:
-            print(time_until(datestamp), '-', label)
+        print(time_until(datestamp)+delim+label)
