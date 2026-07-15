@@ -15,10 +15,11 @@
 
 conky.config = {
     alignment = 'top_right',
+    -- work - three monitors
     xinerama_head = 3,
-    -- gap_x = 5,
     gap_x = 3010,
-    -- gap_y = 5,
+    -- home - two monitors
+    gap_x = 20,
 
     background = false,
     border_width = 1,
@@ -100,7 +101,7 @@ ${cpubar cpu19 10,200}${alignr}${cpubar cpu20 10,200}
 ##### GPU
 # https://gist.github.com/omerfsen/8ecb620675525ac724a92bdf5a31a4b3
 # result of nvidia-smi --query-gpu=name --format=csv,noheader
-${color2}${font DejaVu Sans Mono:bold:size=12}NVIDIA RTX 2000 Ada Generation ${hr 3}${color}${font}
+${color2}${font DejaVu Sans Mono:bold:size=12}NVIDIA RTX 2000 Ada Gen ${hr 3}${color}${font}
 ${execpi 5 ~/bin/nvidia.sh}
 ##### Memory
 ${color2}${font DejaVu Sans Mono:bold:size=12}Memory ${hr 3}${color}${font}
