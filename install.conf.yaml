@@ -47,7 +47,6 @@
     ~/bin/git-wtf: willgit/bin/git-wtf
     ~/bin/blink2-tool: blink1-toys/blink2-tool
     ~/bin/fibonacci: bin/fibonacci
-    ~/bin/git-clang-format: bin/git-clang-format
     ~/bin/git-list-pr: bin/git-list-pr
     ~/bin/i3statuswrapper.py: bin/i3statuswrapper.py
     ~/bin/jenkins_mantid_to_blink1.sh: blink1-toys/jenkins_mantid_to_blink1.sh
