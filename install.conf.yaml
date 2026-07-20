@@ -1,4 +1,12 @@
-- clean: ['~', '~/.config', '~/.bash_completion.d', '~/.todo.actions.d', '~/.todo']
+- clean:
+    ~/:
+    ~/.config:
+      recursive: true
+    ~/.bash_completion.d:
+    ~/.local/bin:
+    ~/.todo.actions.d:
+    ~/.todo:
+    ~/bin:
 
 - create:
     - ~/bin
