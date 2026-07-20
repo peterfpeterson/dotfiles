@@ -16,6 +16,7 @@ events = [# solar events
           #('2027-06-21', 'Summer solstice'),
           #('2027-09-23', 'Fall equinox'),
           # meetings and work
+          ('2026-08-17', 'OSDX'),
           ('2026-09-17', 'Mantid 6.17 freeze'),
           ('2026-09-21', 'NOBUGS'),
           ('2026-10-19', 'USRSE'),
