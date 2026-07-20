@@ -130,7 +130,7 @@ ${color2}Down:$color ${alignr}${offset -10}${downspeed ${template1}}${downspeedg
 # two
 ${color2}Up:$color ${alignr}${offset -10}${upspeed ${template2}}${upspeedgraph  ${template2} 15,200}
 ${color2}Down:$color ${alignr}${offset -10}${downspeed ${template2}}${downspeedgraph  ${template2} 15,200}
-${execi 60 ~/bin/vpnstatus}
+${execi 60 ~/.local/bin/vpnstatus}
 ##### beam status
 #${color2}${font DejaVu Sans Mono:bold:size=12}${hr 3}${color}${font}
 #${color2}SNS: $color ${alignr}${execi 60 python3 ~/bin/beamstatus.py SNS}${execibar 60 15,200 python3 ~/bin/beamstatus.py SNS -p}
