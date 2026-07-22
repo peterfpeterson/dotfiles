@@ -325,7 +325,7 @@ fi
 
 if [ "$(command -v eza)" ]; then
    # maintained replacement for ls -> https://eza.rocks/
-   alias eza="eza --icons --time-style=iso --git --group-directories-first --hyperlink"
+   alias eza="eza --icons --time-style=iso --git --group-directories-first --hyperlink=auto"
    alias ls="eza"
 elif [ "$(command -v exa)" ]; then
    # abandoned replacement for ls -> https://the.exa.website/
