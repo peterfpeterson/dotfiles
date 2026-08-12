@@ -301,6 +301,7 @@ fi
 
 # snap install glow - markdown rendering
 # glow completion bash > ~/.bash_completion.d/glow.bash
+alias glow="glow -w ${COLUMNS}"
 
 # pretty print csv files
 # taken from https://www.stefaanlippens.net/pretty-csv.html
