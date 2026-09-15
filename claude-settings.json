@@ -4,5 +4,19 @@
   "sandbox": {
     "enabled": true,
     "autoAllowBashIfSandboxed": true
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|clear|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "f=\"${CLAUDE_PROJECT_DIR:-$PWD}/AGENTS.md\"; if [ -f \"$f\" ] && ! [ -f \"${f%AGENTS.md}CLAUDE.md\" ]; then echo '=== AGENTS.md (project rules) ==='; cat \"$f\"; else true; fi",
+            "statusMessage": "Loading AGENTS.md..."
+          }
+        ]
+      }
+    ]
   }
 }
