@@ -1,0 +1,8 @@
+{
+  "model": "opus[1m]",
+  "theme": "dark",
+  "sandbox": {
+    "enabled": true,
+    "autoAllowBashIfSandboxed": true
+  }
+}

@@ -11,6 +11,7 @@
 - create:
     - ~/bin
     - ~/.bash_completion.d
+    - ~/.claude/
     - ~/.config/autostart
     - ~/.config/awesome
     - ~/.config/Code/User
@@ -88,6 +89,7 @@
     ~/.bash_completion.d/fzf-completion.bash: fzf/shell/completion.bash
     ~/.bash_completion.d/globalprotect: bash_completions.d/globalprotect
     ~/.bash_completion.d/watchman_sh: bash_completions.d/watchman_sh
+    ~/.claude/settings.json: claude-settings.json
     ~/.condarc:
     ~/.config/autostart/conky.desktop: config/autostart/conky.desktop
     ~/.config/awesome/rc.lua: awesomerc.lua
