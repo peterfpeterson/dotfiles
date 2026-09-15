@@ -15,10 +15,7 @@
 
 conky.config = {
     alignment = 'top_right',
-    -- work - three monitors
-    xinerama_head = 3,
-    gap_x = 3010,
-    -- home - two monitors
+    xinerama_head = 2,
     gap_x = 20,
 
     background = false,
