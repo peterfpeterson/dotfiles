@@ -22,6 +22,7 @@ events = [# solar events
           ('2026-09-24', 'Qt 6.11.3 release'),
           ('2026-10-19', 'USRSE'),
           ('2027-01-01', 'ESS first neutrons'),
+          ('2031-01-01', 'HBIRR finished'),
           ('2035-01-01', 'STS first neutrons'),
           # humor
           ('2030-05-17', 'Done with KCHS'),
