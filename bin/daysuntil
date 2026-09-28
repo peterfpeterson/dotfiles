@@ -10,18 +10,16 @@ EARLY_RETIRE = date(year=2031, month=6, day=2)
 PLAN_RETIRE = date(year=2035, month=6, day=2)
 
 events = [# solar events
-          ('2026-09-23', 'Fall equinox'),
-          # ('2026-12-21', 'Winter solstice'),
+          ('2026-12-21', 'Winter solstice'),
           #('2027-03-20', 'Spring equinox'),
           #('2027-06-21', 'Summer solstice'),
           #('2027-09-23', 'Fall equinox'),
           # meetings and work
-          ('2026-08-17', 'OSDX'),
-          ('2026-09-17', 'Mantid 6.17 freeze'),
-          ('2026-09-21', 'NOBUGS'),
-          ('2026-09-24', 'Qt 6.11.3 release'),
+          ('2026-10-09', 'Mantid 7.0 release'),
+          ('2026-09-29', 'Qt 6.11.3 release'),
           ('2026-10-19', 'USRSE'),
-          ('2027-01-01', 'ESS first neutrons'),
+          ('2026-01-14', 'Mantid 7.1 freeze'),
+          ('2027-01-18', 'ESS first neutrons'),
           ('2031-01-01', 'HBIRR finished'),
           ('2035-01-01', 'STS first neutrons'),
           # humor
