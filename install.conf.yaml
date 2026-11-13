@@ -15,6 +15,7 @@
     - ~/.config/autostart
     - ~/.config/awesome
     - ~/.config/Code/User
+    - ~/.config/glow
     - ~/.config/i3
     - ~/.config/i3status
     - ~/.config/kitty
@@ -94,6 +95,7 @@
     ~/.config/autostart/conky.desktop: config/autostart/conky.desktop
     ~/.config/awesome/rc.lua: awesomerc.lua
     ~/.config/Code/User/settings.json: ms-code-settings.json
+    ~/.config/glow/glow.yml: glow.yml
     ~/.config/i3/config: i3config
     ~/.config/i3status/config: i3statusconf
     ~/.config/i3status/config2: i3statusconf-2
