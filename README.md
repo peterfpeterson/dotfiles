@@ -37,6 +37,14 @@ Things not covered:
 * Split [vpn tunneling](https://code.ornl.gov/rwp/ornl-openconnect)
 * Copying `sys/etc/ld.so.conf.d/usr-local.conf` into `/etc/ld.so.conf.d/` and running `ldconfig`. This adds `/usr/local/lib` to your `LD_LIBRARY_PATH`. If ldconfig gives a message about `/etc/ld.so.conf` missing, copy that file over as well.
 
+AI tooling
+----------
+
+* [skills versus plugins](https://www.aioperator.com/blog/claude-skills-vs-plugins-what-they-actually-are-and-which-one-your-team-needs/) article
+* [karpathy-ponytail](https://github.com/AbdullahHameedKhan/karpathy-ponytail-skills) combines:
+  * [karpathy-skills](https://github.com/duolahypercho/andrej-karpathy-skills)
+  * [ponytail](https://ponytail.dev/)
+
 Git ssh keys
 ------------
 
